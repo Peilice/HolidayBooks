@@ -1,0 +1,985 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>重[ㄔㄨㄥˊ]陽節登高去</title>
+<style>
+@font-face {
+  font-family: "ZhuyinKai";
+  src: url(data:font/woff;base64,/*FONT_DATA*/) format("woff");
+  font-display: block;
+}
+
+:root {
+  --sky: #a9cfdc;
+  --sky-high: #cfe5ec;
+  --ridge-far: #7fa9b8;
+  --ridge-near: #5f8f7a;
+  --forest: #2d4a2b;
+  --forest-mid: #3f6b3a;
+  --moss: #6e9a4f;
+  --contour: #8db86a;
+  --wood-dark: #4a2f17;
+  --wood: #6b4423;
+  --wood-face: #e2b97a;
+  --wood-face-deep: #d4a560;
+  --wood-grain: #c99a55;
+  --carve: #f6e6c4;
+  --ink: #2a1a0e;
+  --ink-soft: #5a3d22;
+  --zhuyu: #c0262d;
+  --zhuyu-deep: #8f1a20;
+  --kiku: #f2b000;
+  --kiku-pale: #ffe08a;
+  --leaf: #3d7a35;
+
+  --step: clamp(10px, 1.6vmin, 20px);
+  --radius: 10px;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --t-title: clamp(34px, 5.9vmin, 72px);
+  --t-body: clamp(24px, 4.1vmin, 46px);
+  --t-small: clamp(20px, 3.1vmin, 34px);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body {
+  background: var(--sky);
+  color: var(--ink);
+  font-family: "ZhuyinKai", "BiauKai", "DFKai-SB", "Kaiti TC", serif;
+  overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: pan-y;
+}
+::selection { background: var(--kiku-pale); color: var(--ink); }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 4px solid var(--forest); outline-offset: 4px; border-radius: 6px; }
+
+/* ---------- 山景 ---------- */
+.scene { position: fixed; inset: 0; z-index: 0; }
+.scene svg { width: 100%; height: 100%; display: block; }
+
+/* ---------- 版面 ---------- */
+.app {
+  position: relative; z-index: 1;
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(0, 38fr) minmax(0, 62fr);
+  grid-template-rows: minmax(0, 1fr) auto;
+  grid-template-areas: "trail board" "trail controls";
+  gap: var(--step) calc(var(--step) * 2);
+  padding: calc(var(--step) * 1.6) calc(var(--step) * 2.2) calc(var(--step) * 1.6) 0;
+  padding-left: env(safe-area-inset-left);
+}
+
+/* ---------- 步道 ---------- */
+.trail { grid-area: trail; position: relative; min-height: 0; }
+.trail svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.trail .tall { display: block; }
+.trail .wide { display: none; }
+
+.post { cursor: pointer; }
+.post .hit { fill: transparent; }
+.post .stake { fill: var(--carve); stroke: var(--wood-dark); stroke-width: 3; transition: fill .4s var(--ease); }
+.post .cap { fill: var(--wood); }
+.post.passed .stake { fill: var(--wood-face-deep); }
+.post-label {
+  font-family: "ZhuyinKai", serif;
+  font-size: 25px;
+  fill: var(--carve);
+  paint-order: stroke;
+  stroke: var(--forest);
+  stroke-width: 6px;
+  stroke-linejoin: round;
+}
+.post.here .post-label { fill: #fff; }
+.post:focus-visible { outline: none; }
+.post:focus-visible .stake { stroke: var(--carve); stroke-width: 6; }
+
+.trail-path-bg { fill: none; stroke: var(--wood-dark); stroke-width: 15; stroke-linecap: round; opacity: .35; }
+.trail-path { fill: none; stroke: var(--carve); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 2 13; }
+.trail-walked { fill: none; stroke: var(--carve); stroke-width: 7; stroke-linecap: round; }
+
+/* ---------- 木牌 ---------- */
+.board {
+  grid-area: board;
+  position: relative;
+  min-height: 0;
+  background: var(--wood);
+  border-radius: var(--radius);
+  padding: clamp(10px, 1.5vmin, 18px);
+  box-shadow: 0 14px 30px -10px rgba(30, 20, 8, .55), 0 3px 0 var(--wood-dark);
+}
+.board::before, .board::after {
+  content: ""; position: absolute; width: 14px; height: 14px; border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #b9a58a, #4a3a28 70%);
+  top: 50%; transform: translateY(-50%);
+  z-index: 2;
+}
+.board::before { left: 4px; }
+.board::after { right: 4px; }
+.face {
+  position: relative;
+  height: 100%;
+  border-radius: 6px;
+  background-color: var(--wood-face);
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='140'><filter id='g' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='0.005 0.0857' numOctaves='3' seed='7' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.62  0 0 0 0 0.42  0 0 0 0 0.18  0 0 0 1.1 -0.45'/></filter><rect width='600' height='140' filter='url(%23g)'/></svg>");
+  background-size: 600px 140px;
+  box-shadow: inset 0 0 0 2px rgba(74, 47, 23, .35), inset 0 -10px 24px -12px rgba(74, 47, 23, .45);
+  overflow: hidden;
+}
+
+.station {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  padding: clamp(18px, 3.2vmin, 40px) clamp(20px, 4vmin, 52px);
+  gap: clamp(10px, 2vmin, 24px);
+  visibility: hidden;
+  opacity: 0;
+}
+.station.on {
+  visibility: visible;
+  opacity: 1;
+  animation: sign-in .6s var(--ease) both;
+}
+@keyframes sign-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: none; }
+}
+
+.station h1, .station h2 {
+  margin: 0;
+  font-weight: normal;
+  font-size: var(--t-title);
+  line-height: 1.25;
+  letter-spacing: .02em;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.station p { margin: 0; font-size: var(--t-body); line-height: 1.55; color: var(--ink); }
+.station .kiku { color: #9a5b00; }
+.station .red { color: var(--forest); }
+.w { white-space: nowrap; }
+.lead { max-width: 30em; }
+.stage {
+  flex: 1 1 auto; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(12px, 2.4vmin, 32px);
+}
+
+/* 木牌按鈕（雕刻字） */
+.carved {
+  appearance: none; border: 0; cursor: pointer;
+  background: var(--wood);
+  color: var(--carve);
+  font-size: var(--t-small);
+  line-height: 1.2;
+  padding: .45em 1em;
+  border-radius: 8px;
+  box-shadow: 0 6px 14px -6px rgba(30, 20, 8, .6), inset 0 -4px 0 var(--wood-dark);
+  transition: transform .25s var(--ease), box-shadow .25s var(--ease), background-color .25s;
+  min-height: 64px;
+}
+.carved:hover { background: #7a5029; }
+.carved:active { transform: translateY(3px); box-shadow: 0 2px 6px -3px rgba(30, 20, 8, .6), inset 0 -1px 0 var(--wood-dark); }
+
+/* ---------- 下方方向指標 ---------- */
+.controls {
+  grid-area: controls;
+  display: flex; justify-content: space-between; align-items: center;
+  gap: var(--step);
+}
+.arrow {
+  appearance: none; border: 0; cursor: pointer;
+  position: relative;
+  min-width: clamp(170px, 24vmin, 260px);
+  min-height: clamp(66px, 10vmin, 96px);
+  font-size: clamp(24px, 3.8vmin, 40px);
+  color: var(--carve);
+  background: var(--wood);
+  padding: 0 1.4em;
+  filter: drop-shadow(0 8px 10px rgba(30, 20, 8, .4));
+  white-space: nowrap;
+  transition: transform .25s var(--ease), opacity .3s;
+}
+.arrow.next { clip-path: polygon(0 0, calc(100% - 34px) 0, 100% 50%, calc(100% - 34px) 100%, 0 100%); padding-right: 1.9em; }
+.arrow.prev { clip-path: polygon(34px 0, 100% 0, 100% 100%, 34px 100%, 0 50%); padding-left: 1.9em; }
+.arrow:active { transform: scale(.97); }
+.arrow:hover { background: #7a5029; }
+.arrow.prev[hidden] { display: block; visibility: hidden; }
+.arrow.next[hidden] { display: none; }
+
+/* ---------- 第 0 站：登山口 ---------- */
+.s-cover { justify-content: center; align-items: flex-start; }
+.s-cover h1 { font-size: clamp(64px, 13vmin, 150px); line-height: 1.1; }
+.s-cover h1 .sub { display: block; font-size: .62em; color: var(--forest); }
+.s-cover p { font-size: var(--t-body); }
+.cover-sprig { position: absolute; right: clamp(16px, 4vmin, 48px); bottom: clamp(12px, 3vmin, 36px); width: clamp(120px, 24vmin, 260px); }
+
+/* ---------- 第 1 站：日曆 ---------- */
+.calendar {
+  appearance: none; border: 0; padding: 0; background: none; cursor: pointer;
+  width: clamp(180px, 34vmin, 330px);
+  aspect-ratio: 4 / 5;
+  perspective: 900px;
+  position: relative;
+}
+.cal-back, .cal-front {
+  position: absolute; inset: 14% 0 0 0;
+  background: #fffdf7;
+  border-radius: 6px;
+  box-shadow: 0 10px 20px -10px rgba(30, 20, 8, .55);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.cal-ring { position: absolute; left: 0; right: 0; top: 0; height: 14%; background: var(--wood-dark); border-radius: 6px 6px 0 0; z-index: 3;
+  display: flex; align-items: center; justify-content: center; color: #fff; font-size: clamp(18px, 3vmin, 30px); }
+.cal-front { transform-origin: top center; transition: transform .9s var(--ease), opacity .9s var(--ease); z-index: 2; }
+.cal-front .q { font-size: clamp(80px, 16vmin, 170px); color: var(--ink-soft); line-height: 1; }
+.cal-front .hint { font-size: clamp(18px, 2.8vmin, 28px); color: var(--ink-soft); }
+.calendar.open .cal-front { transform: rotateX(-105deg); opacity: 0; }
+.cal-back .m { font-size: clamp(24px, 4.2vmin, 44px); color: var(--ink); }
+.cal-back .d { font-size: clamp(64px, 12.5vmin, 136px); line-height: 1.05; color: var(--ink); }
+.cal-back .d em { font-style: normal; color: #b07400; }
+.cal-back .n { font-size: clamp(18px, 2.8vmin, 28px); color: var(--ink-soft); }
+.s-date .after { opacity: 0; transform: translateY(10px); transition: opacity .6s var(--ease) .5s, transform .6s var(--ease) .5s; }
+.s-date.done .after { opacity: 1; transform: none; }
+
+/* ---------- 第 2 站：兩個九 ---------- */
+.nines { position: relative; width: clamp(280px, 52vmin, 520px); height: clamp(140px, 24vmin, 240px); }
+.nine {
+  position: absolute; top: 0;
+  width: clamp(130px, 22vmin, 220px); aspect-ratio: 1;
+  display: grid; place-items: center;
+  font-size: clamp(76px, 14vmin, 140px);
+  background: var(--kiku);
+  color: var(--ink);
+  border-radius: 14px;
+  box-shadow: 0 10px 18px -10px rgba(30, 20, 8, .6), inset 0 -6px 0 rgba(120, 70, 0, .35);
+  transition: transform 1s var(--ease);
+}
+.nine.a { left: 0; }
+.nine.b { right: 0; }
+.s-nine.done .nine.a { transform: translateX(calc(clamp(280px, 52vmin, 520px) / 2 - 50% - 18px)) rotate(-4deg); }
+.s-nine.done .nine.b { transform: translateX(calc(-1 * (clamp(280px, 52vmin, 520px) / 2 - 50% - 18px))) rotate(5deg); }
+.s-nine .step2 { opacity: 0; transform: translateY(10px); transition: opacity .6s var(--ease) .7s, transform .6s var(--ease) .7s; }
+.s-nine.done .step2 { opacity: 1; transform: none; }
+.s-nine.done .stack-btn { display: none; }
+.jiu { display: inline-block; padding: 0 .2em; border-radius: 6px; background: var(--kiku-pale); }
+/* 這站文字較多，內文降一級才放得下 */
+.s-nine p { font-size: var(--t-small); }
+
+/* ---------- 第 3 站：故事影片 ---------- */
+.s-story .stage { align-self: stretch; }
+.film {
+  position: relative;
+  display: grid; grid-template-rows: minmax(0, 1fr) auto;
+  height: 100%; max-width: 100%;
+  aspect-ratio: 888 / 724;
+  border-radius: 8px; overflow: hidden;
+  background: var(--wood-dark);
+  box-shadow: 0 0 0 5px var(--wood), 0 14px 22px -10px rgba(30, 20, 8, .6);
+}
+.screen { position: relative; min-height: 0; }
+.film video { display: block; width: 100%; height: 100%; object-fit: contain; background: var(--wood-dark); cursor: pointer; }
+.film-bar { display: flex; align-items: center; gap: 12px; padding: 8px 12px; background: var(--wood-dark); }
+.bar-btn {
+  appearance: none; border: 0; cursor: pointer; flex: 0 0 auto;
+  width: 64px; height: 56px; border-radius: 8px;
+  display: grid; place-items: center;
+  background: var(--wood); box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .25);
+}
+.bar-btn svg { width: 30px; height: 30px; fill: var(--carve); stroke: var(--carve); }
+.bar-btn:active { transform: translateY(2px); }
+.bar-btn .i-pause, .film.playing .bar-btn .i-play { display: none; }
+.film.playing .bar-btn .i-pause { display: block; }
+.seek { flex: 1 1 auto; min-width: 0; height: 44px; margin: 0; background: transparent; -webkit-appearance: none; appearance: none; cursor: pointer; }
+.seek::-webkit-slider-runnable-track { height: 10px; border-radius: 5px; background: linear-gradient(var(--carve), var(--carve)) 0 / var(--p, 0%) 100% no-repeat, rgba(246, 230, 196, .3); }
+.seek::-moz-range-track { height: 10px; border-radius: 5px; background: rgba(246, 230, 196, .3); }
+.seek::-moz-range-progress { height: 10px; border-radius: 5px; background: var(--carve); }
+.seek::-webkit-slider-thumb { -webkit-appearance: none; width: 30px; height: 30px; margin-top: -10px; border-radius: 50%; background: var(--carve); border: 4px solid var(--wood); }
+.seek::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--carve); border: 4px solid var(--wood); }
+.film.missing .film-bar { display: none; }
+.play-big {
+  appearance: none; border: 0; cursor: pointer;
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .3em;
+  background: rgba(42, 26, 14, .28);
+  color: var(--carve);
+  font-size: var(--t-body);
+  transition: opacity .35s var(--ease), background-color .35s var(--ease);
+}
+.play-big svg { width: clamp(96px, 18vmin, 160px); height: auto; filter: drop-shadow(0 8px 10px rgba(30, 20, 8, .45)); transition: transform .3s var(--ease); }
+.play-big:hover svg { transform: scale(1.06); }
+.play-big:active svg { transform: scale(.96); }
+.play-label { padding: .1em .7em; border-radius: 8px; background: var(--wood); box-shadow: inset 0 -4px 0 var(--wood-dark); }
+.film.playing .play-big { opacity: 0; pointer-events: none; }
+.film-missing {
+  position: absolute; inset: 0; margin: 0;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  background: var(--wood-face);
+  font-size: var(--t-small); line-height: 1.6;
+}
+.film-missing[hidden] { display: none; }
+.film.missing .play-big { display: none; }
+.s-story .after { opacity: 0; transition: opacity .6s var(--ease); }
+.s-story.done .after { opacity: 1; }
+
+/* ---------- 第 4 站：長輩名牌 ---------- */
+.tags { display: grid; grid-template-columns: repeat(3, auto); gap: clamp(22px, 3.4vmin, 36px) clamp(12px, 2.2vmin, 26px); justify-content: center; padding-top: 18px; }
+.tag {
+  position: relative;
+  min-width: clamp(100px, 15vmin, 160px);
+  padding: .25em .6em .2em;
+  font-size: clamp(26px, 4.4vmin, 48px);
+  text-align: center;
+  background: #fffdf7;
+  border-radius: 999px;
+  box-shadow: 0 0 0 4px var(--wood), 0 12px 16px -10px rgba(30, 20, 8, .55);
+  opacity: 0; transform: translateY(-24px) rotate(-6deg);
+  transition: opacity .5s var(--ease), transform .8s var(--ease);
+}
+.tag::before { content: ""; position: absolute; left: 50%; top: -22px; width: 3px; height: 22px; background: var(--wood-dark); transform: translateX(-50%); }
+.s-elders.done .tag { opacity: 1; transform: none; }
+.s-elders.done .tag:nth-child(2) { transition-delay: .08s; transform: rotate(2deg); }
+.s-elders.done .tag:nth-child(3) { transition-delay: .16s; }
+.s-elders.done .tag:nth-child(4) { transition-delay: .24s; transform: rotate(-2deg); }
+.s-elders.done .tag:nth-child(5) { transition-delay: .32s; }
+.s-elders.done .tag:nth-child(6) { transition-delay: .40s; transform: rotate(3deg); }
+.s-elders.done .ask-btn { display: none; }
+.s-elders .stage { flex-direction: column; }
+.s-elders .after { opacity: 0; transition: opacity .6s var(--ease) .6s; }
+.s-elders.done .after { opacity: 1; }
+
+/* ---------- 第 5 站：吊掛的照片木牌 ---------- */
+.cards { display: flex; flex-direction: column; gap: clamp(10px, 2vmin, 22px); width: min(100%, 720px, 66vh); }
+.cards .row { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 3vmin, 36px); padding: 26px 4% 0; }
+.cards .row::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 8px; border-radius: 4px; background: var(--wood); box-shadow: 0 3px 4px -2px rgba(30, 20, 8, .5); }
+.card {
+  appearance: none; border: 0; padding: 0; cursor: pointer;
+  display: block; width: 100%; aspect-ratio: 16 / 10; position: relative;
+  background: #fffdf7;
+  border-radius: 4px;
+  box-shadow: 0 0 0 4px var(--wood), 0 12px 16px -10px rgba(30, 20, 8, .55);
+}
+.card::before, .card::after { content: ""; position: absolute; top: -24px; width: 3px; height: 26px; background: var(--wood-dark); }
+.card::before { left: 22%; }
+.card::after { right: 22%; }
+.card .shot { position: absolute; inset: 0; overflow: hidden; border-radius: 4px; }
+.card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; -webkit-user-drag: none; }
+.card .cap { display: none; }
+.card:active { transform: translateY(2px); }
+.zoom {
+  position: absolute; inset: 0; z-index: 5;
+  background: var(--wood-face);
+  animation: zoom-in .45s var(--ease) both;
+}
+.zoom[hidden] { display: none; }
+@keyframes zoom-in { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
+.zoom-in {
+  appearance: none; border: 0; background: none; cursor: pointer;
+  width: 100%; height: 100%;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: clamp(10px, 2vmin, 22px);
+  padding: clamp(16px, 3vmin, 36px);
+}
+.zshot {
+  display: block; height: 68%; max-width: 100%; aspect-ratio: 16 / 10;
+  border-radius: 6px; overflow: hidden;
+  box-shadow: 0 0 0 5px var(--wood), 0 14px 22px -10px rgba(30, 20, 8, .6);
+}
+.zshot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }
+.zcap { font-size: var(--t-body); line-height: 1.4; text-align: center; }
+.zback { pointer-events: none; }
+.s-thanks .after { opacity: 0; transition: opacity .6s var(--ease); }
+.s-thanks.done .after { opacity: 1; }
+
+/* ---------- 山頂：孝心小點子 ---------- */
+.s-top { gap: clamp(8px, 1.4vmin, 16px); }
+.s-top .lead { font-size: var(--t-small); }
+.ideas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: clamp(22px, 3.2vmin, 34px); column-gap: clamp(8px, 1.6vmin, 18px); width: 100%; position: relative; padding-top: 16px; }
+.rail { position: absolute; left: -2%; right: -2%; height: 8px; border-radius: 4px; background: var(--wood); box-shadow: 0 3px 4px -2px rgba(30, 20, 8, .5); }
+.idea {
+  appearance: none; border: 0; cursor: pointer;
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  padding: clamp(6px, 1vmin, 12px) 6px;
+  min-height: 64px;
+  background: #fffdf7;
+  border-radius: 4px;
+  box-shadow: 0 0 0 3px var(--wood), 0 8px 12px -8px rgba(30, 20, 8, .55);
+  font-size: clamp(19px, 3vmin, 32px);
+  line-height: 1.35;
+  transform-origin: 50% -16px;
+  transform: rotate(var(--tilt, -2.5deg));
+  transition: transform .7s var(--ease), box-shadow .4s var(--ease), background-color .4s var(--ease);
+}
+.idea:nth-child(even) { --tilt: 2deg; }
+.idea:nth-child(3n) { --tilt: -1.2deg; }
+.idea::before { content: ""; position: absolute; left: 50%; top: -18px; width: 3px; height: 18px; background: var(--wood-dark); transform: translateX(-50%); }
+.idea svg.icon { width: auto; height: clamp(28px, 4.6vmin, 50px); }
+.idea[aria-pressed="true"] {
+  transform: translateY(-8px) rotate(0);
+  background: var(--carve);
+  box-shadow: 0 0 0 5px var(--wood-dark), 0 18px 18px -10px rgba(30, 20, 8, .6);
+}
+.idea[aria-pressed="true"]::after { content: ""; position: absolute; left: 50%; top: -24px; width: 14px; height: 10px; border-radius: 50%; background: var(--wood-dark); transform: translateX(-50%); }
+.s-top .note { font-size: var(--t-small); line-height: 1.35; color: var(--forest); min-height: 1.6em; opacity: 0; transition: opacity .5s var(--ease); }
+.s-top .note.show { opacity: 1; }
+
+.icon { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.icon * { vector-effect: non-scaling-stroke; }
+.icon .fillk { fill: var(--kiku); stroke: var(--ink); }
+.icon .fillr { fill: var(--zhuyu); stroke: none; }
+.icon .fills { fill: #fffdf7; }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- 直向平板 ---------- */
+@media (max-aspect-ratio: 1/1) {
+  .app {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: clamp(150px, 22vh, 260px) minmax(0, 1fr) auto;
+    grid-template-areas: "trail" "board" "controls";
+    padding: var(--step) calc(var(--step) * 1.6) calc(var(--step) * 1.6);
+  }
+  .trail .tall { display: none; }
+  .trail .wide { display: block; }
+  :root { --t-title: clamp(36px, 6.6vw, 80px); --t-body: clamp(22px, 4vw, 44px); --t-small: clamp(19px, 3.2vw, 34px); }
+  .cards { width: min(100%, 50vh); }
+}
+@media (max-width: 700px) and (max-aspect-ratio: 1/1) {
+  .ideas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; transition-delay: 0s !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- 遠景：天空與遠山 -->
+<div class="scene" aria-hidden="true">
+  <svg viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice">
+    <rect width="1600" height="1000" fill="#a9cfdc"/>
+    <rect width="1600" height="420" fill="#cfe5ec" opacity=".55"/>
+    <g fill="#fff" opacity=".85">
+      <path d="M1080 150c18-34 70-38 88-6 26-22 74-6 72 30 30 2 40 40 10 50h-170c-34-6-30-62 0-74z"/>
+      <path d="M260 230c14-26 54-28 68-4 20-16 56-4 54 22 24 2 30 30 8 38h-130c-26-4-22-46 0-56z" opacity=".8"/>
+    </g>
+    <path d="M0 700 C 180 560, 320 600, 470 520 S 760 430, 900 500 S 1180 420, 1330 470 S 1520 430, 1600 460 V1000 H0Z" fill="#7fa9b8"/>
+    <path d="M0 800 C 220 700, 420 760, 640 690 S 1000 640, 1200 700 S 1480 660, 1600 690 V1000 H0Z" fill="#5f8f7a"/>
+    <path d="M0 900 C 260 850, 560 880, 820 850 S 1300 840, 1600 860 V1000 H0Z" fill="#3f6b3a"/>
+  </svg>
+</div>
+
+<div class="app">
+
+  <!-- 步道 -->
+  <nav class="trail" aria-label="登[ㄉㄥ]高步道，點站牌可以直接走過去">
+    <svg class="tall" viewBox="0 0 420 800" preserveAspectRatio="xMidYMid meet" aria-hidden="false">
+      <defs>
+        <clipPath id="mtn-clip-t"><path id="mtn-t" d="M-600 1400 L-600 760 C -200 700, 0 520, 60 450 C 100 380, 140 300, 170 230 C 200 160, 220 110, 235 80 C 255 120, 290 190, 340 270 C 380 340, 440 410, 520 470 C 700 560, 1000 600, 1600 640 L1600 1400 Z"/></clipPath>
+      </defs>
+      <use href="#mtn-t" fill="#3f6b3a"/>
+      <g clip-path="url(#mtn-clip-t)" fill="none" stroke="#8db86a" stroke-width="2" opacity=".55">
+        <path id="ridge-t" d="M-600 760 C -200 700, 0 520, 60 450 C 100 380, 140 300, 170 230 C 200 160, 220 110, 235 80 C 255 120, 290 190, 340 270 C 380 340, 440 410, 520 470 C 700 560, 1000 600, 1600 640" transform="translate(0 70)"/>
+        <use href="#ridge-t" transform="translate(0 150)"/>
+        <use href="#ridge-t" transform="translate(0 240)"/>
+        <use href="#ridge-t" transform="translate(0 340)"/>
+        <use href="#ridge-t" transform="translate(0 450)"/>
+      </g>
+      <path d="M-600 1400 L-600 700 C -200 660, 90 640, 200 700 C 260 690, 300 660, 360 650 C 700 600, 1100 650, 1600 640 L1600 1400 Z" fill="#2d4a2b"/>
+      <g aria-hidden="true"><g transform="translate(40 560) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(66 590) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(330 330) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(360 372) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(392 420) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(196 300) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(60 690) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(370 610) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(400 560) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(180 420) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(300 520) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(130 640) scale(1)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g></g>
+      <g transform="translate(235 78)"><rect x="-9" y="-12" width="18" height="12" fill="#e8e2d4" stroke="#4a2f17" stroke-width="2"/><path d="M-5 -6 H5 M0 -11 V-1" stroke="#c0262d" stroke-width="2"/></g>
+      <g transform="translate(262 70)"><circle r="9" fill="#f2b000"/><circle r="3.5" fill="#9a5b00"/></g>
+      <path class="trail-path-bg" data-path d="M110 752 C 250 742, 330 700, 300 646 S 80 604, 106 540 S 330 500, 312 440 S 120 392, 150 330 S 300 282, 270 222 S 205 150, 235 104"/>
+      <path class="trail-path" d="M110 752 C 250 742, 330 700, 300 646 S 80 604, 106 540 S 330 500, 312 440 S 120 392, 150 330 S 300 282, 270 222 S 205 150, 235 104"/>
+      <path class="trail-walked" d="M110 752 C 250 742, 330 700, 300 646 S 80 604, 106 540 S 330 500, 312 440 S 120 392, 150 330 S 300 282, 270 222 S 205 150, 235 104"/>
+      <g class="posts"></g>
+      <g class="marker"></g>
+    </svg>
+    <svg class="wide" viewBox="0 0 800 260" preserveAspectRatio="xMidYMid meet">
+      <defs>
+        <clipPath id="mtn-clip-w"><path id="mtn-w" d="M-200 1600 L-200 250 C 150 206, 350 166, 500 116 C 600 86, 680 54, 740 26 C 770 60, 800 90, 1000 160 L1000 1600 Z"/></clipPath>
+      </defs>
+      <use href="#mtn-w" fill="#3f6b3a"/>
+      <g clip-path="url(#mtn-clip-w)" fill="none" stroke="#8db86a" stroke-width="2" opacity=".55">
+        <path id="ridge-w" d="M-200 250 C 150 206, 350 166, 500 116 C 600 86, 680 54, 740 26 C 770 60, 800 90, 1000 160" transform="translate(0 36)"/>
+        <use href="#ridge-w" transform="translate(0 40)"/>
+        <use href="#ridge-w" transform="translate(0 84)"/>
+        <use href="#ridge-w" transform="translate(0 132)"/>
+      </g>
+      <g aria-hidden="true"><g transform="translate(120 262) scale(0.8)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(170 250) scale(0.8)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(420 196) scale(0.8)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(460 186) scale(0.8)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(620 150) scale(0.8)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(660 128) scale(0.8)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(790 120) scale(0.8)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g><g transform="translate(560 196) scale(0.8)"><path d="M0 -30 L12 0 H-12Z M0 -18 L14 10 H-14Z" fill="#24401f"/><rect x="-2" y="10" width="4" height="7" fill="#4a2f17"/></g></g><g transform="translate(740 26)"><rect x="-8" y="-11" width="16" height="11" fill="#e8e2d4" stroke="#4a2f17" stroke-width="2"/><path d="M-4 -5.5 H4 M0 -10 V-1" stroke="#c0262d" stroke-width="2"/></g><g transform="translate(764 22)"><circle r="8" fill="#f2b000"/><circle r="3" fill="#9a5b00"/></g>
+      <path class="trail-path-bg" data-path d="M40 226 C 120 236, 150 196, 210 204 S 300 222, 330 180 S 430 168, 460 150 S 560 150, 590 112 S 690 80, 738 44"/>
+      <path class="trail-path" d="M40 226 C 120 236, 150 196, 210 204 S 300 222, 330 180 S 430 168, 460 150 S 560 150, 590 112 S 690 80, 738 44"/>
+      <path class="trail-walked" d="M40 226 C 120 236, 150 196, 210 204 S 300 222, 330 180 S 430 168, 460 150 S 560 150, 590 112 S 690 80, 738 44"/>
+      <g class="posts"></g>
+      <g class="marker"></g>
+    </svg>
+  </nav>
+
+  <!-- 木牌 -->
+  <main class="board" aria-live="polite">
+    <div class="face">
+
+      <!-- 登山口 -->
+      <section class="station s-cover on" data-name="登[ㄉㄥ]山口" aria-label="登[ㄉㄥ]山口">
+        <h1><span class="w">重[ㄔㄨㄥˊ]陽節</span><span class="sub"><span class="w">登[ㄉㄥ]高</span>去！</span></h1>
+        <svg class="cover-sprig" viewBox="0 0 200 200" aria-hidden="true">
+          <path d="M40 190 C 70 140, 90 110, 120 60" fill="none" stroke="#4a2f17" stroke-width="6" stroke-linecap="round"/>
+          <path d="M84 126 C 50 118, 34 92, 40 70 C 66 76, 84 98, 84 126Z" fill="#3d7a35"/>
+          <path d="M104 92 C 128 70, 156 70, 172 84 C 154 104, 128 106, 104 92Z" fill="#3d7a35"/>
+          <path d="M66 160 C 96 160, 118 176, 122 196 C 96 196, 74 182, 66 160Z" fill="#3d7a35"/>
+          <g fill="#c0262d"><circle cx="122" cy="52" r="12"/><circle cx="140" cy="62" r="11"/><circle cx="118" cy="74" r="11"/><circle cx="104" cy="58" r="10"/></g>
+          <g fill="#fff" opacity=".6"><circle cx="118" cy="48" r="3"/><circle cx="136" cy="58" r="3"/></g>
+        </svg>
+      </section>
+
+      <!-- 第一站：九月九日 -->
+      <section class="station s-date" data-name="日期" aria-label="第一站，九月九日">
+        <h2><span class="w">重[ㄔㄨㄥˊ]陽節</span>是<span class="w">哪一天</span>？</h2>
+        <div class="stage">
+          <button class="calendar" type="button" data-act="date" aria-label="翻開日曆">
+            <span class="cal-ring"><span class="w">農曆</span></span>
+            <span class="cal-back" aria-hidden="true">
+              <span class="m">九月</span>
+              <span class="d"><em>初九</em></span>
+              <span class="n">秋天</span>
+            </span>
+            <span class="cal-front">
+              <span class="q">？</span>
+              <span class="hint">點我翻開</span>
+            </span>
+          </button>
+        </div>
+        <p class="after"><span class="w">農曆</span><span class="w">九月初九</span>，就是<span class="red"><span class="w">重[ㄔㄨㄥˊ]陽節</span></span>。<br><span class="w">今年</span>是<span class="w">10月18日</span>，<span class="w">星期日</span>。</p>
+      </section>
+
+      <!-- 第二站：為什麼叫重陽 -->
+      <section class="station s-nine" data-name="為[ㄨㄟˋ]什麼" aria-label="第二站，為[ㄨㄟˋ]什麼叫重[ㄔㄨㄥˊ]陽">
+        <h2><span class="w">為[ㄨㄟˋ]什麼</span>叫<span class="w">重[ㄔㄨㄥˊ]陽</span>？</h2>
+        <p><span class="w">古時候</span>的人說，「九」是<span class="w">吉祥</span>的<span class="w">陽數</span>，<span class="w">象徵</span><span class="w">光明</span>與<span class="w">吉祥</span>。</p>
+        <div class="stage">
+          <div class="nines" aria-hidden="true">
+            <span class="nine a">九</span>
+            <span class="nine b">九</span>
+          </div>
+          <button class="carved stack-btn" type="button" data-act="nine"><span class="w">疊在一起</span></button>
+        </div>
+        <div class="step2">
+          <p>「<span class="w">重[ㄔㄨㄥˊ]</span>」<span class="w">代表</span><span class="w">重[ㄔㄨㄥˊ]複</span>、<span class="w">累[ㄌㄟˇ]積</span>。</p>
+          <p><span class="w">兩個九</span><span class="w">疊在一起</span>，就叫「<span class="w">重[ㄔㄨㄥˊ]陽</span>」。</p>
+          <p><span class="jiu">九九</span><span class="w">聽起來</span>像<span class="jiu">久久</span>，<span class="w">祝福</span><span class="w">長[ㄓㄤˇ]輩</span><span class="w">長[ㄔㄤˊ]長[ㄔㄤˊ]久久</span>。</p>
+        </div>
+      </section>
+
+      <!-- 第三站：登高的故事（影片） -->
+      <section class="station s-story" data-name="由來" aria-label="第三站，登[ㄉㄥ]高的故事">
+        <h2><span class="w">登[ㄉㄥ]高</span>的<span class="w">故事</span></h2>
+        <div class="stage">
+          <div class="film">
+            <div class="screen">
+              <video src="重陽節故事.mp4#t=0.5" preload="metadata" playsinline disablepictureinpicture aria-label="重[ㄔㄨㄥˊ]陽節故事影片"></video>
+              <button class="play-big" type="button" data-act="play">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="30" fill="#6b4423"/><path d="M25 19 L47 32 L25 45Z" fill="#f6e6c4"/></svg>
+              <span class="play-label">看<span class="w">故事</span></span>
+            </button>
+            </div>
+            <div class="film-bar">
+              <button class="bar-btn" type="button" data-act="toggle" aria-label="播放或暫停">
+                <svg class="i-play" viewBox="0 0 32 32" aria-hidden="true"><path d="M10 7 L25 16 L10 25Z"/></svg>
+                <svg class="i-pause" viewBox="0 0 32 32" aria-hidden="true"><rect x="8" y="7" width="6" height="18" rx="1.5"/><rect x="18" y="7" width="6" height="18" rx="1.5"/></svg>
+              </button>
+              <input class="seek" type="range" min="0" max="1000" value="0" step="1" aria-label="影片進度">
+              <button class="bar-btn" type="button" data-act="full" aria-label="全螢幕">
+                <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M6 12 V6 H12 M20 6 H26 V12 M26 20 V26 H20 M12 26 H6 V20" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+            </div>
+            <p class="film-missing" hidden>找不到影片。<br>請把「重[ㄔㄨㄥˊ]陽節故事.mp4」<br>放在同一個資料夾。</p>
+          </div>
+        </div>
+        <p class="after">從此以後，<span class="w">大家</span>在<span class="w">重[ㄔㄨㄥˊ]陽節</span><span class="red w">登[ㄉㄥ]高</span>。</p>
+      </section>
+
+      <!-- 第四站：敬老節 -->
+      <section class="station s-elders" data-name="敬老" aria-label="第四站，敬老節">
+        <h2><span class="w">重[ㄔㄨㄥˊ]陽節</span>也是<span class="w">敬老節</span></h2>
+        <p><span class="w">這一天</span>，<span class="w">我們</span>要<span class="w">關心</span><span class="w">家裡</span>的<span class="w">長[ㄓㄤˇ]輩</span>。</p>
+        <div class="stage">
+          <button class="carved ask-btn" type="button" data-act="elders">你家有哪些<span class="w">長[ㄓㄤˇ]輩</span>？</button>
+          <div class="tags" aria-hidden="true">
+            <span class="tag">爺爺[˙ㄧㄝ]</span>
+            <span class="tag">奶奶[˙ㄋㄞ]</span>
+            <span class="tag">外公</span>
+            <span class="tag">外婆</span>
+            <span class="tag">阿公</span>
+            <span class="tag">阿嬤</span>
+          </div>
+        </div>
+        <p class="after"><span class="w">還有誰</span>呢？<span class="w">說說看</span>！</p>
+      </section>
+
+      <!-- 第五站：長輩為我們做的事 -->
+      <section class="station s-thanks" data-name="感謝" aria-label="第五站，長[ㄓㄤˇ]輩為[ㄨㄟˋ]我們做的事">
+        <h2><span class="w"><span class="w">長[ㄓㄤˇ]輩</span></span>為[ㄨㄟˋ]<span class="w"><span class="w">我們</span></span>做了<span class="w">什麼</span>？</h2>
+        <div class="stage">
+          <div class="cards">
+            <div class="row">
+              <button class="card" type="button" data-act="card" aria-label="看看長[ㄓㄤˇ]輩在做什麼：煮飯">
+                <span class="shot"><img src="煮飯.png" alt="奶奶煮飯給小朋友吃" draggable="false"></span>
+                <span class="cap">煮飯<span class="w">給我們吃</span>。</span>
+              </button>
+              <button class="card" type="button" data-act="card" aria-label="看看長[ㄓㄤˇ]輩在做什麼：接放學">
+                <span class="shot"><img src="接送.png" alt="爺爺牽著小朋友放學回家" draggable="false"></span>
+                <span class="cap">接<span class="w">我們</span><span class="w">放學</span>。</span>
+              </button>
+            </div>
+            <div class="row">
+              <button class="card" type="button" data-act="card" aria-label="看看長[ㄓㄤˇ]輩在做什麼：說故事">
+                <span class="shot"><img src="說故事.png" alt="奶奶說故事給小朋友聽" draggable="false"></span>
+                <span class="cap">說<span class="w">故事</span>給<span class="w">我們</span>聽。</span>
+              </button>
+              <button class="card" type="button" data-act="card" aria-label="看看長[ㄓㄤˇ]輩在做什麼：照顧">
+                <span class="shot"><img src="照顧.png" alt="爺爺照顧生病的小朋友" draggable="false"></span>
+                <span class="cap"><span class="w">生病</span>時<span class="w">照顧</span><span class="w">我們</span>。</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="zoom" hidden>
+          <button class="zoom-in" type="button" data-act="unzoom" aria-label="回去">
+            <span class="zshot"><img src="" alt="" draggable="false"></span>
+            <span class="zcap"></span>
+            <span class="carved zback">回去</span>
+          </button>
+        </div>
+        <p class="after"><span class="w"><span class="w">長[ㄓㄤˇ]輩</span></span><span class="w">照顧</span><span class="w"><span class="w">我們</span></span>，換<span class="w"><span class="w">我們</span></span><span class="w"><span class="w">關心</span></span><span class="w"><span class="w">長[ㄓㄤˇ]輩</span></span>！</p>
+      </section>
+
+      <!-- 山頂：孝心小點子[˙ㄗ] -->
+      <section class="station s-top" data-name="山頂" aria-label="山頂，孝心小點子[˙ㄗ]">
+        <h2>到<span class="w">山頂</span>了！</h2>
+        <p class="lead"><span class="w">我可以</span><span class="w">做什麼</span>？挑[ㄊㄧㄠ]一個想做的<span class="w">孝心</span><span class="w">小點子[˙ㄗ]</span>！</p>
+        <div class="stage">
+          <div class="ideas" role="group" aria-label="孝心小點子[˙ㄗ]">
+            <span class="rail" aria-hidden="true" style="top:6px"></span>
+            <span class="rail rail2" aria-hidden="true"></span>
+            <button class="idea" type="button" aria-pressed="false" data-act="idea">
+              <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="24" cy="14" r="7" class="fills"/><path d="M14 58 C 14 36, 18 26, 24 24 C 30 26, 34 36, 34 58" class="fills"/><path d="M40 20 L48 30 M44 14 L54 26"/><path d="M36 34 C 42 32, 46 34, 50 32"/></svg>
+              捶捶背
+            </button>
+            <button class="idea" type="button" aria-pressed="false" data-act="idea">
+              <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="15" r="7" class="fills"/><circle cx="43" cy="19" r="6" class="fills"/><path d="M8 58 C 8 38, 13 28, 22 26 C 31 28, 35 38, 35 58" class="fills"/><path d="M30 58 C 30 42, 34 32, 43 30 C 52 32, 56 42, 56 58" class="fills"/><path d="M14 40 C 24 47, 40 47, 50 40"/><path d="M32 13 C 27 10, 27 5, 30 4 C 31 3.6, 32 4.6, 32 5.8 C 32 4.6, 33 3.6, 34 4 C 37 5, 37 10, 32 13Z" class="fillr"/></svg>
+              <span class="w">給長[ㄓㄤˇ]輩</span><span class="w">一個</span><span class="w">抱抱</span>
+            </button>
+            <button class="idea" type="button" aria-pressed="false" data-act="idea">
+              <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 14 H54 V42 H30 L18 54 V42 H10Z" class="fills"/><path d="M32 36 C 20 28, 18 24, 20 20 C 22 16, 30 16, 32 22 C 34 16, 42 16, 44 20 C 46 24, 44 28, 32 36Z" class="fillr"/></svg>
+              說<span class="w">謝謝您</span>
+            </button>
+            <button class="idea" type="button" aria-pressed="false" data-act="idea">
+              <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M6 12 H34 V30 H18 L10 38 V30 H6Z" class="fills"/><path d="M58 24 H32 V42 H46 L54 50 V42 H58Z" class="fills"/><path d="M14 21 H26 M38 33 H52"/></svg>
+              陪<span class="w">長[ㄓㄤˇ]輩</span>聊天
+            </button>
+            <button class="idea" type="button" aria-pressed="false" data-act="idea">
+              <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="12" r="6" class="fills"/><path d="M22 18 V38 L14 56 M22 38 L30 56 M22 24 L32 30"/><path d="M12 26 L8 56"/><circle cx="42" cy="20" r="5" class="fills"/><path d="M42 25 V42 L36 56 M42 42 L48 56 M42 30 L32 30"/></svg>
+              一起散[ㄙㄢˋ]步
+            </button>
+            <button class="idea" type="button" aria-pressed="false" data-act="idea">
+              <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 16 H54 V52 H10Z" class="fills"/><path d="M32 16 V52"/><g transform="translate(43 34)"><circle r="7" class="fillk"/></g><path d="M16 28 H26 M16 36 H26 M16 44 H24"/></svg>
+              畫<span class="w">一張</span><span class="w">卡片</span>
+            </button>
+            <button class="idea" type="button" aria-pressed="false" data-act="idea">
+              <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M20 8 H44 V56 H20Z" class="fills"/><path d="M28 48 H36"/><path d="M48 18 C 52 22, 52 28, 48 32 M52 12 C 60 20, 60 30, 52 38"/></svg>
+              <span class="w">打電話</span><span class="w">問候</span>
+            </button>
+            <button class="idea" type="button" aria-pressed="false" data-act="idea">
+              <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M14 26 H50 L46 56 H18Z" class="fills"/><path d="M24 26 C 24 14, 40 14, 40 26"/><circle cx="30" cy="40" r="5" class="fillr"/><circle cx="38" cy="44" r="4" class="fillk"/></svg>
+              <span class="w">幫[ㄅㄤ]忙</span>拿<span class="w">東西</span>
+            </button>
+          </div>
+        </div>
+        <p class="note" aria-live="polite">想試試看，就<span class="w">很棒了</span>！<br><span class="w">祝福</span><span class="w">長[ㄓㄤˇ]輩</span><span class="w">長[ㄔㄤˊ]長[ㄔㄤˊ]久久</span>，<span class="w">重[ㄔㄨㄥˊ]陽節</span><span class="w">快樂</span>！</p>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- 方向指標 -->
+  <div class="controls">
+    <button class="arrow prev" type="button" data-act="prev" hidden>上一站</button>
+    <button class="arrow next" type="button" data-act="next">出發</button>
+    <button class="arrow next restart" type="button" data-act="restart" hidden>回到登[ㄉㄥ]山口</button>
+  </div>
+</div>
+
+<!-- 茱萸與菊花的共用圖形 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="zhuyu-marker">
+      <path d="M0 0 C -6 -14, -2 -26, 8 -34" fill="none" stroke="#4a2f17" stroke-width="3" stroke-linecap="round"/>
+      <path d="M2 -20 C -14 -24, -22 -36, -20 -46 C -8 -42, 0 -32, 2 -20Z" fill="#3d7a35" stroke="#1f3d1c" stroke-width="1.5"/>
+      <path d="M6 -28 C 18 -40, 32 -40, 38 -32 C 28 -22, 16 -22, 6 -28Z" fill="#3d7a35" stroke="#1f3d1c" stroke-width="1.5"/>
+      <g stroke="#7a1218" stroke-width="2">
+        <circle cx="8" cy="-38" r="9" fill="#c0262d"/>
+        <circle cx="20" cy="-30" r="8" fill="#c0262d"/>
+        <circle cx="-4" cy="-30" r="8" fill="#c0262d"/>
+      </g>
+      <g fill="#fff" opacity=".7"><circle cx="5" cy="-41" r="2.5"/><circle cx="17" cy="-33" r="2.2"/></g>
+    </g>
+  </defs>
+</svg>
+<template id="unused-tpl">
+  <svg class="bloom" viewBox="-30 -30 60 60" aria-hidden="true">
+    <g fill="#f2b000" stroke="#9a5b00" stroke-width="1.5">
+      <ellipse rx="7" ry="20" transform="rotate(0)"/><ellipse rx="7" ry="20" transform="rotate(30)"/><ellipse rx="7" ry="20" transform="rotate(60)"/>
+      <ellipse rx="7" ry="20" transform="rotate(90)"/><ellipse rx="7" ry="20" transform="rotate(120)"/><ellipse rx="7" ry="20" transform="rotate(150)"/>
+    </g>
+    <circle r="8" fill="#c0262d"/>
+  </svg>
+</template>
+
+<script>
+(function () {
+  "use strict";
+  var stations = Array.prototype.slice.call(document.querySelectorAll(".station"));
+  var N = stations.length;
+  var current = 0;
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  var portrait = window.matchMedia("(max-aspect-ratio: 1/1)");
+  var prevBtn = document.querySelector('[data-act="prev"]');
+  var nextBtn = document.querySelector('[data-act="next"]');
+  var restartBtn = document.querySelector('[data-act="restart"]');
+  var SVGNS = "http://www.w3.org/2000/svg";
+
+  /* ---- 步道：兩種方向各一張 SVG ---- */
+  var trails = Array.prototype.slice.call(document.querySelectorAll(".trail svg")).map(function (svg) {
+    var path = svg.querySelector("[data-path]");
+    var walked = svg.querySelector(".trail-walked");
+    var total = path.getTotalLength();
+    var lens = stations.map(function (_, i) { return total * i / (N - 1); });
+    var postsG = svg.querySelector(".posts");
+    var tall = svg.classList.contains("tall");
+    var posts = stations.map(function (st, i) {
+      var p = path.getPointAtLength(lens[i]);
+      var g = document.createElementNS(SVGNS, "g");
+      g.setAttribute("class", "post");
+      g.setAttribute("transform", "translate(" + p.x.toFixed(1) + " " + p.y.toFixed(1) + ")");
+      g.setAttribute("tabindex", "0");
+      g.setAttribute("role", "button");
+      g.setAttribute("aria-label", st.getAttribute("aria-label"));
+      var hit = document.createElementNS(SVGNS, "circle");
+      hit.setAttribute("class", "hit"); hit.setAttribute("r", tall ? "38" : "34");
+      var stake = document.createElementNS(SVGNS, "rect");
+      stake.setAttribute("class", "stake");
+      stake.setAttribute("x", "-9"); stake.setAttribute("y", "-26"); stake.setAttribute("width", "18"); stake.setAttribute("height", "30"); stake.setAttribute("rx", "3");
+      var cap = document.createElementNS(SVGNS, "rect");
+      cap.setAttribute("class", "cap");
+      cap.setAttribute("x", "-11"); cap.setAttribute("y", "-30"); cap.setAttribute("width", "22"); cap.setAttribute("height", "8"); cap.setAttribute("rx", "2");
+      var label = document.createElementNS(SVGNS, "text");
+      label.setAttribute("class", "post-label");
+      label.textContent = st.getAttribute("data-name");
+      if (tall) {
+        var right = p.x < 210;
+        label.setAttribute("x", right ? "20" : "-20");
+        label.setAttribute("y", "-2");
+        label.setAttribute("text-anchor", right ? "start" : "end");
+      } else {
+        label.setAttribute("x", "0");
+        label.setAttribute("y", "36");
+        label.setAttribute("text-anchor", "middle");
+        label.setAttribute("font-size", "21");
+      }
+      g.appendChild(hit); g.appendChild(stake); g.appendChild(cap); g.appendChild(label);
+      g.addEventListener("click", function () { go(i); });
+      g.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(i); } });
+      postsG.appendChild(g);
+      return g;
+    });
+    var marker = svg.querySelector(".marker");
+    var use = document.createElementNS(SVGNS, "use");
+    use.setAttribute("href", "#zhuyu-marker");
+    if (!tall) use.setAttribute("transform", "scale(.8)");
+    marker.appendChild(use);
+    walked.style.strokeDasharray = total + " " + total;
+    return { svg: svg, path: path, walked: walked, total: total, lens: lens, posts: posts, marker: marker, at: 0 };
+  });
+
+  function place(t, len) {
+    var p = t.path.getPointAtLength(len);
+    t.marker.setAttribute("transform", "translate(" + p.x.toFixed(1) + " " + (p.y - 8).toFixed(1) + ")");
+    t.walked.style.strokeDashoffset = (t.total - len).toFixed(1);
+    t.at = len;
+  }
+  trails.forEach(function (t) { place(t, 0); });
+
+  var raf = 0;
+  function travel(to) {
+    cancelAnimationFrame(raf);
+    var froms = trails.map(function (t) { return t.at; });
+    var dur = reduce.matches ? 0 : 650 + 260 * Math.abs(to - current);
+    var start = performance.now();
+    function frame(now) {
+      var k = dur ? Math.min(1, (now - start) / dur) : 1;
+      var e = 1 - Math.pow(1 - k, 4);
+      trails.forEach(function (t, j) { place(t, froms[j] + (t.lens[to] - froms[j]) * e); });
+      if (k < 1) raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+
+  function go(i) {
+    i = Math.max(0, Math.min(N - 1, i));
+    if (i === current && stations[i].classList.contains("on")) return;
+    if (video && !video.paused) video.pause();
+    if (zoom) zoom.hidden = true;
+    travel(i);
+    stations[current].classList.remove("on");
+    stations[current].setAttribute("aria-hidden", "true");
+    current = i;
+    stations[i].classList.add("on");
+    stations[i].removeAttribute("aria-hidden");
+    trails.forEach(function (t) {
+      t.posts.forEach(function (g, k) {
+        g.classList.toggle("here", k === i);
+        g.classList.toggle("passed", k < i);
+        if (k === i) g.setAttribute("aria-current", "step"); else g.removeAttribute("aria-current");
+      });
+    });
+    prevBtn.hidden = i === 0;
+    nextBtn.hidden = i === N - 1;
+    restartBtn.hidden = i !== N - 1;
+    nextBtn.textContent = i === 0 ? "出發" : "下一站";
+  }
+
+  var zoom = document.querySelector(".zoom"), lastCard = null;
+
+  /* ---- 第三站影片 ---- */
+  var video = document.querySelector(".film video");
+  var film = video.closest(".film");
+  var playLabel = film.querySelector(".play-label");
+  var seek = film.querySelector(".seek");
+  var seeking = false;
+  function playVideo() {
+    if (video.ended) video.currentTime = 0;
+    var pr = video.play();
+    if (pr && pr.catch) pr.catch(function () {});
+  }
+  function showProgress() {
+    var v = video.duration ? video.currentTime / video.duration : 0;
+    if (!seeking) seek.value = Math.round(v * 1000);
+    seek.style.setProperty("--p", (seek.value / 10) + "%");
+  }
+  video.addEventListener("timeupdate", showProgress);
+  video.addEventListener("loadedmetadata", showProgress);
+  video.addEventListener("click", function () { if (video.paused) playVideo(); else video.pause(); });
+  seek.addEventListener("input", function () {
+    seeking = true;
+    if (video.duration) video.currentTime = seek.value / 1000 * video.duration;
+    seek.style.setProperty("--p", (seek.value / 10) + "%");
+  });
+  seek.addEventListener("change", function () { seeking = false; });
+  video.addEventListener("play", function () { film.classList.add("playing"); });
+  video.addEventListener("pause", function () {
+    film.classList.remove("playing");
+    playLabel.textContent = video.ended ? "再看一次" : "繼續看";
+  });
+  video.addEventListener("ended", function () {
+    film.closest(".station").classList.add("done");
+    playLabel.textContent = "再看一次";
+  });
+  video.addEventListener("error", function () {
+    film.classList.add("missing");
+    film.querySelector(".film-missing").hidden = false;
+  });
+
+  stations.forEach(function (s, i) { if (i) s.setAttribute("aria-hidden", "true"); });
+  go(0);
+
+  /* ---- 站內小互動 ---- */
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("[data-act]");
+    if (!el) return;
+    var act = el.getAttribute("data-act");
+    var st = el.closest(".station");
+    if (act === "next") go(current + 1);
+    else if (act === "prev") go(current - 1);
+    else if (act === "restart") reset();
+    else if (act === "date") { el.classList.add("open"); st.classList.add("done"); el.setAttribute("aria-label", "農曆九月初九"); }
+    else if (act === "nine") st.classList.add("done");
+    else if (act === "elders") st.classList.add("done");
+    else if (act === "play" || (act === "toggle" && video.paused)) playVideo();
+    else if (act === "toggle") video.pause();
+    else if (act === "full") {
+      if (video.requestFullscreen) video.requestFullscreen();
+      else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen();
+    }
+    else if (act === "card") {
+      var img = el.querySelector("img");
+      zoom.querySelector("img").src = img.getAttribute("src");
+      zoom.querySelector("img").alt = img.alt;
+      zoom.querySelector(".zcap").innerHTML = el.querySelector(".cap").innerHTML;
+      zoom.hidden = false;
+      zoom.querySelector(".zoom-in").focus();
+      lastCard = el;
+      el.classList.add("seen");
+      if (st.querySelectorAll(".card.seen").length === st.querySelectorAll(".card").length) st.classList.add("done");
+    }
+    else if (act === "unzoom") {
+      zoom.hidden = true;
+      if (lastCard) lastCard.focus();
+    }
+    else if (act === "idea") {
+      placeRail();
+      var on = el.getAttribute("aria-pressed") !== "true";
+      el.setAttribute("aria-pressed", on ? "true" : "false");
+      st.querySelector(".note").classList.toggle("show", !!st.querySelector('.idea[aria-pressed="true"]'));
+    }
+  });
+
+  /* 第二條欄杆：對齊第二排木牌上方 */
+  function placeRail() {
+    var r2 = document.querySelector(".rail2"), row2 = document.querySelectorAll(".idea")[4];
+    if (r2 && row2) r2.style.top = (row2.offsetTop - 22) + "px";
+  }
+  window.addEventListener("resize", placeRail);
+
+  function reset() {
+    document.querySelectorAll(".station.done").forEach(function (s) { s.classList.remove("done"); });
+    document.querySelectorAll(".calendar.open").forEach(function (x) { x.classList.remove("open"); });
+    document.querySelectorAll(".card.seen").forEach(function (x) { x.classList.remove("seen"); });
+    zoom.hidden = true;
+    video.pause();
+    try { video.currentTime = 0.5; } catch (err) {}
+    playLabel.textContent = "看故事";
+    document.querySelector(".calendar").setAttribute("aria-label", "翻開日曆");
+    document.querySelectorAll(".idea").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
+    document.querySelector(".s-top .note").classList.remove("show");
+    go(0);
+  }
+
+  /* ---- 鍵盤與滑動 ---- */
+  document.addEventListener("keydown", function (e) {
+    if (e.target === video || e.target === seek) return;
+    if (e.key === "ArrowRight" || e.key === "PageDown") go(current + 1);
+    else if (e.key === "ArrowLeft" || e.key === "PageUp") go(current - 1);
+  });
+  var sx = null, sy = 0;
+  var board = document.querySelector(".board");
+  board.addEventListener("pointerdown", function (e) {
+    if (e.target.closest(".film")) { sx = null; return; }
+    sx = e.clientX; sy = e.clientY;
+  });
+  board.addEventListener("pointerup", function (e) {
+    if (sx === null) return;
+    var dx = e.clientX - sx, dy = e.clientY - sy;
+    sx = null;
+    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) go(current + (dx < 0 ? 1 : -1));
+  });
+})();
+</script>
+</body>
+</html>
