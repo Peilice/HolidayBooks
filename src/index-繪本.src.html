@@ -342,12 +342,20 @@ button { font: inherit; color: inherit; }
 }
 .film-missing[hidden] { display: none; }
 .film.missing .play-big { display: none; }
+.s-story .scene {
+  flex: 1 1 0; min-height: 0; align-self: center; width: auto; max-width: 100%; object-fit: contain;
+  /* 邊緣淡出、底色與紙張相乘，讓插圖融進背景 */
+  mix-blend-mode: multiply;
+  --fade: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
+  -webkit-mask-image: var(--fade); -webkit-mask-composite: source-in;
+  mask-image: var(--fade); mask-composite: intersect;
+}
 .s-story .after { opacity: 0; transition: opacity .6s var(--ease); }
 .s-story.done .after { opacity: 1; }
 
 /* ---------- 敬老：長輩貼紙 ---------- */
 .s-elders .pic { gap: clamp(14px, 2.4vmin, 28px); }
-.tags { display: grid; grid-template-columns: repeat(2, auto); gap: clamp(14px, 2.4vmin, 26px) clamp(14px, 2.4vmin, 28px); justify-content: center; }
+.tags { display: grid; grid-template-columns: repeat(2, auto); gap: clamp(24px, 4vmin, 44px) clamp(36px, 6vmin, 72px); justify-content: center; }
 .tag {
   min-width: clamp(110px, 16vmin, 170px);
   padding: .3em .6em .25em;
@@ -387,29 +395,30 @@ button { font: inherit; color: inherit; }
 .card .shot { position: absolute; inset: 0; overflow: hidden; border-radius: 6px; }
 .card img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; -webkit-user-drag: none; }
 .card .cap { display: none; }
-.zoom {
-  position: absolute; inset: 0; z-index: 5;
-  background: var(--page);
+.zoom { /* 放大圖顯示在右頁標題下方的空白處 */
+  position: relative;
+  flex: 1 1 0; min-height: 0; width: 100%;
   animation: zoom-in .45s var(--ease) both;
 }
 .zoom[hidden] { display: none; }
+.zoom:not([hidden]) ~ .after { display: none; } /* 看大圖時讓出底部空間 */
 @keyframes zoom-in { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: none; } }
 .zoom-in {
   appearance: none; border: 0; background: none; cursor: pointer;
   width: 100%; height: 100%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: clamp(10px, 2vmin, 22px);
-  padding: clamp(16px, 3vmin, 36px);
+  display: flex; flex-direction: column; align-items: center;
+  gap: clamp(6px, 1.2vmin, 14px);
+  padding: 0;
 }
 .zshot {
-  display: block; height: 68%; max-width: 100%; aspect-ratio: 16 / 10;
+  display: block; aspect-ratio: 16 / 10;
+  width: min(100cqw - 16px, (100cqh - 16px) * 1.6); /* 依可用空間等比放大，留邊給白框 */
   border-radius: 6px; overflow: hidden;
   box-shadow: 0 0 0 6px #fff, 0 0 0 7px var(--page-edge), 0 16px 24px -12px var(--shadow);
 }
 .zshot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }
 .zcap { font-size: var(--t-body); line-height: 1.4; text-align: center; }
-.zback { pointer-events: none; display: inline-flex; align-items: center; justify-content: center; }
-.zback-ico { display: block; }
+.zbox { flex: 1 1 0; min-height: 0; width: 100%; container-type: size; display: grid; place-items: center; }
 .s-thanks .after { opacity: 0; transition: opacity .6s var(--ease); }
 .s-thanks.done .after { opacity: 1; }
 
@@ -436,7 +445,7 @@ button { font: inherit; color: inherit; }
   box-shadow: 0 0 0 4px var(--cloth-deep), 0 12px 14px -10px var(--shadow);
   transform: rotate(-1.5deg);
 }
-.s-top .note { font-size: var(--t-small); color: var(--cloth); min-height: 1.6em; opacity: 0; transition: opacity .5s var(--ease); }
+.s-top .note { margin-block: auto; text-align: center; font-size: var(--t-body); line-height: 1.8; color: var(--cloth); min-height: 1.6em; opacity: 0; transition: opacity .5s var(--ease); }
 .s-top .note.show { opacity: 1; }
 
 .icon { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
@@ -501,7 +510,7 @@ button { font: inherit; color: inherit; }
           </div>
           <div class="pg text">
             <h2><span class="w">重[ㄔㄨㄥˊ]陽節</span>是<span class="w">哪一天</span>？</h2>
-            <p class="after"><span class="w">農曆</span><span class="w">九月初九</span>，就是<span class="red"><span class="w">重[ㄔㄨㄥˊ]陽節</span></span>。<br><span class="w">今年</span>是<span class="w">10月18日</span>，<span class="w">星期日</span>。</p>
+            <p class="after"><span class="w">農曆</span><span class="w">九月初九</span>，就是<span class="red"><span class="w">重[ㄔㄨㄥˊ]陽節</span></span>。<br><br><br><span class="w">今年</span>是<span class="w">10月18日</span>，<span class="w">星期日</span>。</p>
             <span class="folio">3</span>
           </div>
         </section>
@@ -555,6 +564,7 @@ button { font: inherit; color: inherit; }
           </div>
           <div class="pg text">
             <h2><span class="w">登[ㄉㄥ]高</span>的<span class="w">故事</span></h2>
+            <img class="scene" src="登高.png" alt="一家人穿著古裝，在菊花和楓葉間登高遠望" draggable="false">
             <p class="after push">從此以後，<span class="w">大家</span>在<span class="w">重[ㄔㄨㄥˊ]陽節</span><span class="red w">登[ㄉㄥ]高</span>。</p>
             <span class="folio">7</span>
           </div>
@@ -563,7 +573,7 @@ button { font: inherit; color: inherit; }
         <!-- 敬老節 -->
         <section class="spread s-elders" data-name="敬老" aria-label="第四頁，敬老節">
           <div class="pg pic">
-            <button class="btn ask-btn" type="button" data-act="elders">你家有哪些<span class="w">長[ㄓㄤˇ]輩</span>？</button>
+            <button class="btn ask-btn" type="button" data-act="elders"><span class="w">家裡</span>有哪些<span class="w">長[ㄓㄤˇ]輩</span>？</button>
             <div class="tags" aria-hidden="true">
               <span class="tag">爺爺[˙ㄧㄝ]</span>
               <span class="tag">奶奶[˙ㄋㄞ]</span>
@@ -605,17 +615,16 @@ button { font: inherit; color: inherit; }
                 <span class="cap"><span class="w">生病</span>時<span class="w">照顧</span><span class="w">我們</span>。</span>
               </button>
             </div>
-            <div class="zoom" hidden>
-              <button class="zoom-in" type="button" data-act="unzoom" aria-label="回去">
-                <span class="zshot"><img alt="" draggable="false"></span>
-                <span class="zcap"></span>
-                <span class="btn zback"><svg class="zback-ico" viewBox="0 0 24 24" width="36" height="36" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></span>
-              </button>
-            </div>
             <span class="folio">10</span>
           </div>
           <div class="pg text">
             <h2><span class="w">長[ㄓㄤˇ]輩</span>為[ㄨㄟˋ]<span class="w">我們</span>做了<span class="w">什麼</span>？</h2>
+            <div class="zoom" hidden>
+              <button class="zoom-in" type="button" data-act="unzoom" aria-label="回去">
+                <span class="zcap"></span>
+                <span class="zbox"><span class="zshot"><img alt="" draggable="false"></span></span>
+              </button>
+            </div>
             <p class="after push"><span class="w">長[ㄓㄤˇ]輩</span><span class="w">照顧</span><span class="w">我們</span>，換<span class="w">我們</span><span class="w">關心</span><span class="w">長[ㄓㄤˇ]輩</span>！</p>
             <span class="folio">11</span>
           </div>
