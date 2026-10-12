@@ -225,12 +225,16 @@ button { font: inherit; color: inherit; }
 .s-cover h1 .sub { display: block; font-size: .6em; color: var(--cloth); }
 
 /* ---------- 日曆 ---------- */
+/* 日曆頁以整個左半頁為容器，日曆依可用寬高撐滿（4:5 → 寬最多為高的 0.8） */
+.s-date .pg.pic { container-type: size; padding: clamp(14px, 2.4vmin, 28px) clamp(14px, 2.4vmin, 28px) clamp(34px, 5vmin, 58px); } /* 底部留給頁碼 */
+@media (max-aspect-ratio: 1/1) { .s-date .pg.pic { padding-bottom: clamp(14px, 2.4vmin, 28px); } } /* 直向不顯示頁碼 */
 .calendar {
   appearance: none; border: 0; padding: 0; background: none; cursor: pointer;
-  width: clamp(180px, 34vmin, 330px);
+  width: min(100cqw, 80cqh);
   aspect-ratio: 4 / 5;
-  perspective: 900px;
+  perspective: 1400px;
   position: relative;
+  container-type: size; /* 日曆內文字以日曆寬度 cqw 等比縮放 */
 }
 .cal-back, .cal-front {
   position: absolute; inset: 14% 0 0 0;
@@ -240,15 +244,16 @@ button { font: inherit; color: inherit; }
   display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 .cal-ring { position: absolute; left: 0; right: 0; top: 0; height: 14%; background: var(--cloth); border-radius: 6px 6px 0 0; z-index: 3;
-  display: flex; align-items: center; justify-content: center; color: var(--page); font-size: clamp(18px, 3vmin, 30px); }
+  display: flex; align-items: center; justify-content: center; color: var(--page); font-size: 9cqw; }
 .cal-front { transform-origin: top center; transition: transform .9s var(--ease), opacity .9s var(--ease); z-index: 2; }
-.cal-front .q { font-size: clamp(80px, 16vmin, 170px); color: var(--ink-soft); line-height: 1; }
-.cal-front .hint { font-size: clamp(18px, 2.8vmin, 28px); color: var(--ink-soft); }
+.cal-front .q { font-family: Georgia, "Times New Roman", serif; font-size: 46cqw; color: var(--ink-soft); line-height: 1; }
+.cal-front .hint { font-size: 8.5cqw; color: var(--ink-soft); }
 .calendar.open .cal-front { transform: rotateX(-105deg); opacity: 0; }
-.cal-back .m { font-size: clamp(24px, 4.2vmin, 44px); color: var(--ink); }
-.cal-back .d { font-size: clamp(64px, 12.5vmin, 136px); line-height: 1.05; color: var(--ink); }
-.cal-back .d em { font-style: normal; color: #b07400; }
-.cal-back .n { font-size: clamp(18px, 2.8vmin, 28px); color: var(--ink-soft); }
+.cal-back .d { font-family: Georgia, "Times New Roman", serif; font-size: 46cqw; line-height: 1; white-space: nowrap; color: #b07400; }
+.cal-back .d em { font-style: normal; }
+.cal-back .d i { font-style: normal; margin: 0 .08em; color: var(--ink-soft); }
+.cal-back .m { font-size: 14cqw; color: var(--ink); white-space: nowrap; margin: 15cqw 0 1cqw; }
+.cal-back .n { font-size: 10cqw; color: var(--ink-soft); }
 .s-date .after { opacity: 0; transform: translateY(10px); transition: opacity .6s var(--ease) .5s, transform .6s var(--ease) .5s; }
 .s-date.done .after { opacity: 1; transform: none; }
 
@@ -274,8 +279,14 @@ button { font: inherit; color: inherit; }
 .s-nine.done .step2 { opacity: 1; transform: none; }
 .s-nine.done .stack-btn { visibility: hidden; }
 .jiu { display: inline-block; padding: 0 .2em; border-radius: 6px; background: var(--kiku-pale); }
-/* 這站文字較多，內文降一級才放得下 */
-.s-nine .pg.text p { font-size: var(--t-small); line-height: 1.5; }
+/* 這站分三段，段與段之間空一行；內文用一般字級 */
+.s-nine .pg.text p { font-size: var(--t-body); line-height: 1.55; }
+.s-nine .step2 { margin-top: calc(var(--t-body) * .9); }
+.s-nine .step2 p.gap { margin-top: calc(var(--t-body) * .9); }
+@media (max-aspect-ratio: 1/1) { /* 直向時文字區只占下方 44%，維持小一級避免溢出 */
+  .s-nine .pg.text p { font-size: var(--t-small); }
+  .s-nine .step2, .s-nine .step2 p.gap { margin-top: calc(var(--t-small) * .7); }
+}
 
 /* ---------- 故事影片 ---------- */
 .s-story .pic { padding: clamp(16px, 2.6vmin, 30px); }
@@ -397,7 +408,8 @@ button { font: inherit; color: inherit; }
 }
 .zshot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: right center; }
 .zcap { font-size: var(--t-body); line-height: 1.4; text-align: center; }
-.zback { pointer-events: none; }
+.zback { pointer-events: none; display: inline-flex; align-items: center; justify-content: center; }
+.zback-ico { display: block; }
 .s-thanks .after { opacity: 0; transition: opacity .6s var(--ease); }
 .s-thanks.done .after { opacity: 1; }
 
@@ -476,12 +488,12 @@ button { font: inherit; color: inherit; }
             <button class="calendar" type="button" data-act="date" aria-label="翻開日曆">
               <span class="cal-ring"><span class="w">農曆</span></span>
               <span class="cal-back" aria-hidden="true">
-                <span class="m">九月</span>
-                <span class="d"><em>初九</em></span>
+                <span class="d"><em>9</em><i>·</i><em>9</em></span>
+                <span class="m">九月初九</span>
                 <span class="n">秋天</span>
               </span>
               <span class="cal-front">
-                <span class="q">？</span>
+                <span class="q">?</span>
                 <span class="hint">點我翻開</span>
               </span>
             </button>
@@ -510,7 +522,7 @@ button { font: inherit; color: inherit; }
             <div class="step2">
               <p>「<span class="w">重[ㄔㄨㄥˊ]</span>」<span class="w">代表</span><span class="w">重[ㄔㄨㄥˊ]複</span>、<span class="w">累[ㄌㄟˇ]積</span>。</p>
               <p><span class="w">兩個九</span><span class="w">疊在一起</span>，就叫「<span class="w">重[ㄔㄨㄥˊ]陽</span>」。</p>
-              <p><span class="jiu">九九</span><span class="w">聽起來</span>像<span class="w"><span class="jiu">久久</span>，</span><span class="w">祝福</span><span class="w">長[ㄓㄤˇ]輩</span><span class="w">長[ㄔㄤˊ]長[ㄔㄤˊ]久久</span>。</p>
+              <p class="gap"><span class="jiu">九九</span><span class="w">聽起來</span>像<span class="w"><span class="jiu">久久</span>，</span><span class="w">祝福</span><span class="w">長[ㄓㄤˇ]輩</span><span class="w">長[ㄔㄤˊ]長[ㄔㄤˊ]久久</span>。</p>
             </div>
             <span class="folio">5</span>
           </div>
@@ -557,8 +569,10 @@ button { font: inherit; color: inherit; }
               <span class="tag">奶奶[˙ㄋㄞ]</span>
               <span class="tag">外公</span>
               <span class="tag">外婆</span>
-              <span class="tag">阿公</span>
-              <span class="tag">阿嬤</span>
+              <span class="tag">姑婆</span>
+              <span class="tag">姨婆</span>
+              <span class="tag">叔公</span>
+              <span class="tag">舅公</span>
             </div>
             <span class="folio">8</span>
           </div>
@@ -595,7 +609,7 @@ button { font: inherit; color: inherit; }
               <button class="zoom-in" type="button" data-act="unzoom" aria-label="回去">
                 <span class="zshot"><img alt="" draggable="false"></span>
                 <span class="zcap"></span>
-                <span class="btn zback">回去</span>
+                <span class="btn zback"><svg class="zback-ico" viewBox="0 0 24 24" width="36" height="36" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></svg></span>
               </button>
             </div>
             <span class="folio">10</span>
