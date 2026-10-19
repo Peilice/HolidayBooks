@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>繪本書櫃</title>
+<title>節日繪本</title>
 <style>
 @font-face {
   font-family: "ZhuyinKai";
@@ -190,23 +190,23 @@ body {
 <body>
 
 <div class="room">
-  <h1><span class="w">繪本</span><span class="w">書櫃</span></h1>
+  <h1><span class="w">節日</span><span class="w">繪本</span></h1>
 
   <!--
     書單：照順序排上書架，層數、每層幾本、裝飾書背都會自動安排。
     加一本新書 → 複製下面一整個 <a class="book"> … </a>，改：
-      href          繪本檔名
+      href          繪本網頁（每個節日一個資料夾，例如 中秋節/index.html）
       aria-label    念給螢幕報讀的書名
       --cover       封面布的顏色；--accent 內頁框線的顏色（可省略）
       .ttl / .sub   封面主標題、副標題（多音字照樣用「字[注音]」標記）
-      img src       封面插圖
+      img src       封面插圖（放在該節日的資料夾裡）
   -->
   <main class="case">
-    <a class="book" href="重陽節繪本.html" aria-label="打開重[ㄔㄨㄥˊ]陽節繪本：重[ㄔㄨㄥˊ]陽節登[ㄉㄥ]高去" style="--cover:#2e5e8c; --accent:#f2c14e">
+    <a class="book" href="重陽節/index.html" aria-label="打開重[ㄔㄨㄥˊ]陽節繪本：重[ㄔㄨㄥˊ]陽節登[ㄉㄥ]高去" style="--cover:#2e5e8c; --accent:#f2c14e">
       <span class="board">
         <span class="label">
           <span class="ttl"><span class="w">重[ㄔㄨㄥˊ]陽節</span><span class="sub"><span class="w">登[ㄉㄥ]高</span>去！</span></span>
-          <img src="茱萸.png" alt="" draggable="false">
+          <img src="重陽節/茱萸.png" alt="" draggable="false">
         </span>
       </span>
     </a>

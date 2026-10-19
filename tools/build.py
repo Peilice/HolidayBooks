@@ -1,4 +1,4 @@
-"""把 src/*.src.html 建成可離線使用的單一 HTML（書櫃 → index.html，繪本 → 重陽節繪本.html）。
+"""把 src/*.src.html 建成可離線使用的單一 HTML（書櫃 → index.html，各節日繪本 → <節日>/index.html）。
 
 1. 「字[ㄓㄨㄛˊ]」標記 → 字 + IVS 選擇子（依字咍注音標楷的讀音順序）。
 2. 列出沒有標記、但字型有多個讀音的字，方便人工確認預設讀音。
@@ -19,7 +19,7 @@ from fontTools.ttLib import TTFont
 ROOT = Path(__file__).resolve().parent.parent
 PAGES = [
     (ROOT / "src" / "書櫃.src.html", ROOT / "index.html"),
-    (ROOT / "src" / "重陽節繪本.src.html", ROOT / "重陽節繪本.html"),
+    (ROOT / "src" / "重陽節.src.html", ROOT / "重陽節" / "index.html"),
 ]
 FONT = ROOT / "fonts" / "BpmfZihiKaiStd-Regular.ttf"
 TABLE = ROOT / "fonts" / "phonic_table.txt"
@@ -55,7 +55,7 @@ def main():
     readings = load_readings()
     pages = [(Path(sys.argv[1]), Path(sys.argv[2]))] if len(sys.argv) > 2 else PAGES
     for src, out in pages:
-        print(f"\n### {src.name} → {out.name}")
+        print(f"\n### {src.name} → {out.resolve().relative_to(ROOT).as_posix()}")
         build(src, out, readings)
 
 
