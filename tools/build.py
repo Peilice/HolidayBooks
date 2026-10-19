@@ -1,10 +1,11 @@
-"""把 src/index-繪本.src.html 建成可離線使用的單一 index.html。
+"""把 src/*.src.html 建成可離線使用的單一 HTML（書櫃 → index.html，繪本 → 重陽節繪本.html）。
 
 1. 「字[ㄓㄨㄛˊ]」標記 → 字 + IVS 選擇子（依字咍注音標楷的讀音順序）。
 2. 列出沒有標記、但字型有多個讀音的字，方便人工確認預設讀音。
 3. 只取用到的字，裁出字型子集，以 base64 WOFF 內嵌。
 
-用法：python tools/build.py [來源.src.html 輸出.html]
+用法：python tools/build.py            （建置下面 PAGES 列出的全部頁面）
+      python tools/build.py 來源.src.html 輸出.html
 """
 import base64
 import io
@@ -16,8 +17,10 @@ from fontTools import subset
 from fontTools.ttLib import TTFont
 
 ROOT = Path(__file__).resolve().parent.parent
-SRC = Path(sys.argv[1]) if len(sys.argv) > 2 else ROOT / "src" / "index-繪本.src.html"
-OUT = Path(sys.argv[2]) if len(sys.argv) > 2 else ROOT / "index.html"
+PAGES = [
+    (ROOT / "src" / "書櫃.src.html", ROOT / "index.html"),
+    (ROOT / "src" / "重陽節繪本.src.html", ROOT / "重陽節繪本.html"),
+]
 FONT = ROOT / "fonts" / "BpmfZihiKaiStd-Regular.ttf"
 TABLE = ROOT / "fonts" / "phonic_table.txt"
 
@@ -46,10 +49,17 @@ def is_han(ch):
 
 
 def main():
-    readings = load_readings()
     # Windows 終端機預設 cp950，印不出注音 IVS 選擇子，統一改用 UTF-8 輸出
     sys.stdout.reconfigure(encoding="utf-8")
     sys.stderr.reconfigure(encoding="utf-8")
+    readings = load_readings()
+    pages = [(Path(sys.argv[1]), Path(sys.argv[2]))] if len(sys.argv) > 2 else PAGES
+    for src, out in pages:
+        print(f"\n### {src.name} → {out.name}")
+        build(src, out, readings)
+
+
+def build(SRC, OUT, readings):
     src = SRC.read_text(encoding="utf-8")
     errors = []
 
