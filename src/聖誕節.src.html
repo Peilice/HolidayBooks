@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>聖誕節繪本</title>
+<title>聖誕節繪本：聖誕老公公的秘密</title>
 <style>
 @font-face {
   font-family: "ZhuyinKai";
@@ -242,235 +242,134 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
 .go.snow-btn[aria-pressed="false"] { opacity: .6; }
 .go.next[hidden] { display: none; }
 
-/* ---------- 封面：點亮聖誕樹 ---------- */
-.s-cover .pic { padding-bottom: clamp(20px, 3.6vmin, 44px); }
-.tree-btn {
-  appearance: none; border: 0; padding: 0; background: none; cursor: pointer;
-  width: 100%; height: 100%;
-  display: flex; flex-direction: column; align-items: center; gap: clamp(6px, 1vmin, 12px);
-}
-.tree-btn svg { flex: 1 1 0; min-height: 0; width: 100%; }
-.tree-hint { font-size: var(--t-small); color: var(--cloth); }
-.tree-hint .on-text, .lit .tree-hint .off-text { display: none; }
-.lit .tree-hint .on-text { display: inline; }
-.light { fill: #d8d2c4; stroke: #263042; stroke-width: 1.5; transition: fill .4s; }
-.lit .light { fill: var(--c); animation: twinkle 1.4s ease-in-out var(--d, 0s) infinite alternate; }
-@keyframes twinkle { from { opacity: 1; } to { opacity: .4; } }
-.tree-star { fill: #e8dcb0; transition: fill .4s; }
-.lit .tree-star { fill: #ffd54a; }
-.halo { fill: #ffd54a; opacity: 0; transition: opacity .6s; }
-.lit .halo { opacity: .35; }
-.s-cover .text { justify-content: center; }
-.s-cover h1 { font-size: clamp(48px, min(12vmin, 21cqi), 140px); line-height: 1.1; }
-.s-cover h1 .sub { display: block; font-size: .6em; color: var(--tomato); }
-
-/* ---------- 倒數[ㄕㄨˇ]月曆 ---------- */
-.s-advent .pg.pic { container-type: size; padding: clamp(14px, 2.4vmin, 28px) clamp(14px, 2.4vmin, 28px) clamp(34px, 5vmin, 58px); }
-@media (max-aspect-ratio: 1/1) { .s-advent .pg.pic { padding-bottom: clamp(14px, 2.4vmin, 28px); } }
-.advent {
-  width: min(100cqw, 100cqh); aspect-ratio: 1;
-  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr);
-  gap: min(1.8cqw, 1.8cqh);
-  padding: min(2.6cqw, 2.6cqh);
-  border-radius: 10px;
-  background:
-    repeating-linear-gradient(0deg, rgba(255, 255, 255, .05) 0 1px, transparent 1px 3px),
-    repeating-linear-gradient(90deg, rgba(0, 0, 0, .07) 0 1px, transparent 1px 3px),
-    var(--cloth);
-  box-shadow: 0 14px 22px -12px var(--shadow), inset 0 0 0 3px var(--gold);
-}
-.door {
-  appearance: none; border: 0; padding: 0; cursor: pointer;
-  position: relative; perspective: 500px;
-  display: grid; place-items: center;
-  border-radius: 6px;
-  background: var(--page);
-  box-shadow: inset 0 2px 6px rgba(60, 30, 5, .35);
-}
-.door .in { width: 66%; height: 66%; opacity: 0; transform: scale(.5); transition: opacity .3s .25s, transform .5s cubic-bezier(.34, 1.56, .64, 1) .25s; }
-.door .flap {
-  position: absolute; inset: 0;
-  display: grid; place-items: center;
-  border-radius: 6px;
-  background: var(--tomato); color: #fff;
-  font-family: Georgia, "Times New Roman", serif; font-size: min(6.4cqw, 6.4cqh); line-height: 1;
-  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .35), 0 4px 6px -3px rgba(0, 0, 0, .4);
-  transform-origin: left center;
-  transition: transform .7s var(--ease);
-}
-.door:nth-child(3n+2) .flap { background: var(--pine); }
-.door:nth-child(3n) .flap { background: var(--gold); color: var(--ink); }
-.door.big .flap { background: var(--page); color: var(--tomato); box-shadow: inset 0 0 0 3px var(--tomato), 0 4px 6px -3px rgba(0, 0, 0, .4); }
-.door:hover .flap { transform: rotateY(-14deg); }
-.door.open .flap { transform: rotateY(-115deg); }
-.door.open .in { opacity: 1; transform: none; }
-.s-advent .after { transition-delay: .6s; }
-.s-advent p.gap { margin-top: calc(var(--t-body) * .9); font-size: var(--t-small); color: var(--ink-soft); }
-
-/* ---------- 一起佈置聖誕樹 ---------- */
-.s-deco .pic { gap: clamp(8px, 1.4vmin, 16px); padding-bottom: clamp(40px, 5.6vmin, 62px); }
-.deco-tree { flex: 1 1 0; min-height: 0; width: 100%; }
-.orn { opacity: 0; transform-box: fill-box; transform-origin: center; transform: translateY(-30px) scale(.4); transition: opacity .3s, transform .6s cubic-bezier(.34, 1.56, .64, 1); }
-.orn.on { opacity: 1; transform: none; }
-.garland { opacity: 0; transition: opacity .8s; }
-.s-deco.done .garland { opacity: 1; }
-.s-deco.done .light { fill: var(--c); animation: twinkle 1.4s ease-in-out var(--d, 0s) infinite alternate; }
-.tray { flex: 0 0 auto; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: clamp(6px, 1vmin, 12px); width: 100%; }
-.tray .idea { padding: 6px 2px; font-size: clamp(16px, 2.2vmin, 22px); min-height: 0; }
-.tray .idea svg.icon { height: clamp(28px, 4.4vmin, 46px); }
-.tray .idea.used { opacity: .55; box-shadow: 0 0 0 3px var(--gold); }
-
-/* ---------- 故事圖卡 ---------- */
-.story { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; gap: clamp(10px, 1.8vmin, 20px); }
-.frames { flex: 1 1 0; min-height: 0; width: 100%; container-type: size; display: grid; place-items: center; }
-.frame {
-  grid-area: 1 / 1;
-  width: min(100cqw - 14px, (100cqh - 14px) * 4 / 3); aspect-ratio: 4 / 3;
-  border-radius: 6px; overflow: hidden;
+/* ---------- 插圖 ---------- */
+.defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+.pg.pic { gap: clamp(8px, 1.4vmin, 16px); }
+.art { flex: 1 1 0; min-height: 0; width: 100%; container-type: size; display: grid; place-items: center; }
+.art > svg {
+  display: block;
+  width: min(100cqw - 14px, (100cqh - 14px) * 4 / 3);
+  aspect-ratio: 4 / 3; height: auto;
+  border-radius: 8px;
   box-shadow: 0 0 0 6px #fff, 0 0 0 7px var(--page-edge), 0 16px 24px -12px var(--shadow);
-  opacity: 0; transform: translateX(24px) rotate(1.5deg);
-  transition: opacity .5s var(--ease), transform .6s var(--ease);
 }
-.frame.on { opacity: 1; transform: rotate(-1deg); }
-.frame svg { display: block; width: 100%; height: 100%; }
-.frame .cap { display: none; }
-.story-bar { display: flex; align-items: center; gap: clamp(14px, 2.4vmin, 28px); }
-.dots { display: flex; gap: 10px; }
-.dot { width: 16px; height: 16px; border-radius: 50%; background: var(--page-edge); box-shadow: inset 0 0 0 2px #d8cfbc; transition: background-color .3s; }
-.dot.on { background: var(--tomato); box-shadow: none; }
-.story-text { min-height: 4.8em; }
+[data-act] { cursor: pointer; }
+svg [role="button"]:focus { outline: none; }
+svg [role="button"]:focus-visible { outline: 4px solid var(--cloth-deep); outline-offset: 2px; }
+.hint { margin: 0; text-align: center; font-size: var(--t-small); line-height: 1.3; color: var(--tomato-deep); }
+.hint .b { display: none; }
+.done .hint .a { display: none; }
+.done .hint .b { display: inline; }
 
-/* ---------- 小卡（佈置的裝飾、寫卡片的選項） ---------- */
-.ideas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: clamp(10px, 1.6vmin, 18px); width: 100%; height: 100%; }
-.idea {
-  appearance: none; border: 0; cursor: pointer;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15em;
-  padding: 6px 8px;
-  min-height: 64px;
-  text-align: center;
-  white-space: nowrap;
-  background: #fff;
-  border-radius: 14px;
-  box-shadow: 0 0 0 3px var(--page-edge), 0 8px 12px -10px var(--shadow);
-  font-size: clamp(22px, 3.1vmin, 30px);
-  line-height: 1.2;
-  transition: transform .5s var(--ease), box-shadow .4s var(--ease), background-color .4s var(--ease), opacity .4s;
-}
-.idea svg.icon { width: auto; height: clamp(30px, 4.8vmin, 50px); flex: 0 0 auto; }
-.idea .cap, .idea .say { display: none; }
-.idea[aria-pressed="true"] {
-  background: #eef6f0;
-  box-shadow: 0 0 0 4px var(--cloth-deep), 0 12px 14px -10px var(--shadow);
-  transform: rotate(-1.5deg);
-}
-/* 右頁放大 */
-.zoom {
-  flex: 1 1 0; min-height: 0; width: 100%;
-  display: flex; flex-direction: column; align-items: center; gap: clamp(6px, 1.2vmin, 14px);
-  animation: zoom-in .45s var(--ease) both;
-}
-.zoom[hidden] { display: none; }
-@keyframes zoom-in { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
-.zbox { flex: 1 1 0; min-height: 0; width: 100%; container-type: size; display: grid; place-items: center; }
-.zart {
-  display: grid; place-items: center;
-  width: min(100cqw - 16px, 100cqh - 16px); aspect-ratio: 1;
-  border-radius: 50%;
-  background: #fff;
-  box-shadow: 0 0 0 6px var(--gold), 0 16px 24px -12px var(--shadow);
-}
-.zart svg { width: 64%; height: 64%; }
-.zcap { margin: 0; text-align: center; font-size: var(--t-body); line-height: 1.5; }
-.zcap b, .story-text b { font-weight: normal; color: var(--tomato); }
+/* 故事文字 */
+.pg.text { gap: clamp(8px, 1.6vmin, 20px); }
+.spread .say { color: var(--cloth); }
+.after { opacity: 0; transform: translateY(8px); transition: opacity .7s var(--ease) .6s, transform .7s var(--ease) .6s; }
+.done .after { opacity: 1; transform: none; }
 
-/* ---------- 聖誕夜：雪橇飛行 ---------- */
-.frame.on .fly { animation: fly 2.6s cubic-bezier(.3, .6, .3, 1) both; }
-@keyframes fly { from { transform: translate(-190px, 60px) rotate(8deg); } to { transform: translate(236px, 6px) rotate(-4deg); } }
+/* 封面 */
+.s-cover .pg.pic { padding: clamp(20px, 3.6vmin, 44px) clamp(22px, 4vmin, 52px); }
+.s-cover .text { justify-content: center; }
+.s-cover h1 { font-size: clamp(40px, min(9vmin, 13cqi), 110px); line-height: 1.2; }
+.s-cover h1 .sub { display: block; margin-top: .35em; font-size: .5em; color: var(--tomato); }
+.halo { opacity: .25; transform-box: fill-box; transform-origin: center; transition: opacity .6s, transform .9s var(--ease); }
+.lit .halo { opacity: .5; transform: scale(2.4); }
+.lamp-body { fill: #e8c867; transition: fill .4s; }
+.lit .lamp-body { fill: #fff3a0; }
 
-/* ---------- 禮物：打開襪子[˙ㄗ] ---------- */
-.socks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: minmax(0, 1fr); gap: clamp(10px, 1.6vmin, 18px); width: 100%; height: 100%; }
-.sock {
-  appearance: none; border: 0; padding: 0; background: none; cursor: pointer;
-  position: relative; min-height: 0;
-  display: grid; place-items: center;
-  color: var(--tomato);
-}
-.sock:nth-child(2), .sock:nth-child(3) { color: var(--cloth); }
-.sock .stk { width: auto; height: 86%; max-width: 100%; overflow: visible; transform-origin: 50% 0; transition: opacity .4s, transform .5s var(--ease); }
-.sock:hover .stk { animation: swing .8s ease-in-out; }
-@keyframes swing { 25% { transform: rotate(6deg); } 75% { transform: rotate(-5deg); } }
-.gift {
-  position: absolute; inset: 6% 4%;
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .15em;
-  background: #fff; border-radius: 14px;
-  box-shadow: 0 0 0 4px var(--gold), 0 12px 16px -10px var(--shadow);
-  font-size: clamp(22px, 3.2vmin, 32px); line-height: 1.2; white-space: nowrap; color: var(--ink);
-  opacity: 0; transform: scale(.4) translateY(30%);
-  transition: opacity .35s var(--ease), transform .6s cubic-bezier(.34, 1.56, .64, 1);
-}
-.gift svg.icon { height: clamp(38px, 6vmin, 64px); width: auto; }
-.sock.open .stk { opacity: .18; transform: translateY(6%); animation: none; }
-.sock.open .gift { opacity: 1; transform: rotate(var(--r, -2deg)); }
-.sock:nth-child(2) { --r: 2deg; }
-.sock:nth-child(3) { --r: 1deg; }
-.sock:nth-child(4) { --r: -1.5deg; }
+/* 第一頁：幫小朋友 */
+.shiver { animation: shiver .22s linear infinite; }
+@keyframes shiver { 0%, 100% { transform: translateX(-1.5px); } 50% { transform: translateX(1.5px); } }
+.done .shiver { animation: none; }
+.kidc { --smile: 0; --frown: 1; }
+.done .kidc { --smile: 1; --frown: 0; }
+.scarf, .bread, .heart { opacity: 0; transition: opacity .5s var(--ease) .2s; }
+.done .scarf, .done .bread, .done .heart { opacity: 1; }
+.done .heart { animation: float 1.6s ease-in-out .6s infinite alternate; }
+@keyframes float { to { transform: translateY(-8px); } }
+.shake-lines { transition: opacity .4s; }
+.done .shake-lines { opacity: 0; }
 
-/* ---------- 寫一張聖誕卡 ---------- */
-.s-card .pic { justify-content: flex-start; gap: clamp(6px, 1.2vmin, 14px); }
-.s-card .ask { font-size: var(--t-small); color: var(--cloth); line-height: 1.3; align-self: flex-start; }
-.who { flex: 0 0 auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(8px, 1.4vmin, 16px); width: 100%; }
-.who .idea { min-height: clamp(56px, 8vmin, 84px); }
-.s-card .ideas { flex: 1 1 0; min-height: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-.xcard {
-  flex: 1 1 0; min-height: 0;
-  position: relative;
-  display: flex; flex-direction: column; justify-content: center; gap: .3em;
-  padding: clamp(18px, 3vmin, 36px) clamp(22px, 4vmin, 48px);
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 0 0 clamp(8px, 1.2vmin, 12px) var(--tomato), 0 0 0 clamp(11px, 1.6vmin, 16px) var(--gold), 0 18px 26px -14px var(--shadow);
-  margin: clamp(12px, 1.8vmin, 18px);
-  transform: rotate(-1deg);
-}
-.xcard p { font-size: var(--t-body); line-height: 1.5; }
-.xcard .blank { display: inline-block; min-width: 3em; border-bottom: 3px dashed var(--page-edge); color: var(--cloth); }
-.xcard .blank.filled { border-bottom-color: transparent; animation: ink .5s var(--ease); }
-@keyframes ink { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
-.xcard .sign { align-self: flex-end; color: var(--tomato); }
-.holly { position: absolute; width: clamp(48px, 8vmin, 84px); height: auto; }
-.holly.tl { top: -6px; right: -6px; transform: scaleX(-1); }
-.holly.br { bottom: -6px; left: -6px; transform: scaleY(-1); }
-.s-card .note { text-align: center; font-size: var(--t-small); color: var(--cloth); min-height: 1.6em; }
+/* 第二頁：掛襪子 */
+.cold { --smile: 0; --frown: 1; }
+.sock { transform: translate(var(--x1), var(--y1)) rotate(var(--r1)) scale(.8); transition: transform 1s var(--ease); }
+.sock.hung { transform: translate(var(--x2), var(--y2)) scale(.8); pointer-events: none; }
 
-.icon { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
-.icon * { vector-effect: non-scaling-stroke; }
-.icon .fillk { fill: var(--kiku); }
-.icon .fillr { fill: var(--rose); }
-.icon .fills { fill: #fff; }
-.icon .fillg { fill: var(--pine); }
-.icon .fillb { fill: var(--bark); }
-.icon .fillu { fill: var(--sky); }
-.icon .filli { fill: var(--ink); stroke: none; }
-.icon .heart { fill: var(--rose); stroke: none; }
+/* 金幣 */
+.cn { opacity: 0; transition: opacity .5s var(--ease); }
+.flycoin, .flycoin2 { opacity: 0; }
+
+/* 第三頁：第一個晚上 */
+.s-night1.done .flycoin { animation: toss 1s ease-in forwards; }
+@keyframes toss { 0% { opacity: 1; transform: none; } 50% { opacity: 1; transform: translate(36px, -54px); } 100% { opacity: 0; transform: translate(67px, -30px); } }
+.s-night1 .cn1 { transition-delay: 1.2s; }
+.s-night1.done .cn1 { opacity: 1; }
+.glow { opacity: 0; transition: opacity .6s 1.2s; }
+.s-night1.done .glow { opacity: .55; }
+.dong { opacity: 0; }
+.s-night1.done .dong { animation: dong .8s var(--ease) 1.2s forwards; }
+@keyframes dong { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+/* 第四頁：第二、第三個晚上 */
+.s-nights .cn1 { opacity: 1; }
+.s-nights .cn2, .s-nights .cn3 { transition-delay: 1.1s; }
+.s-nights[data-night="2"] .cn2, .s-nights.done .cn2, .s-nights.done .cn3 { opacity: 1; }
+.nights circle { fill: none; stroke: #fff3c4; stroke-width: 2.5; transition: fill .3s; }
+.nights circle:first-child, .s-nights[data-night="2"] .nights circle:nth-child(2), .s-nights.done .nights circle { fill: #fff3c4; }
+.nick-roof, .nick-door, .dad { opacity: 0; transition: opacity .6s; }
+.s-nights[data-night="2"] .nick-roof { opacity: 1; }
+.s-nights.done .nick-door { opacity: 1; transition-delay: .2s; }
+.s-nights.done .dad { opacity: 1; }
+.s-nights[data-night="2"] .flycoin2 { animation: toss2 .9s ease-in .6s forwards; }
+@keyframes toss2 { 0% { opacity: 1; transform: none; } 50% { opacity: 1; transform: translate(-4px, -24px); } 100% { opacity: 0; transform: translate(-9px, -12px); } }
+.door { transform-box: fill-box; transform-origin: 0 50%; transition: transform .9s var(--ease) .5s; }
+.s-nights.done .door { transform: scaleX(.18); }
+
+/* 第五頁：倒出金幣 */
+.wall5 { fill: #d9d4cc; transition: fill 1.4s .4s; }
+.s-morning.done .wall5 { fill: #f6e3c4; }
+.flame { opacity: 0; transition: opacity .8s .3s; }
+.s-morning.done .flame, .s-xmas .flame { opacity: 1; }
+.flame path { transform-box: fill-box; transform-origin: 50% 100%; animation: flicker .5s ease-in-out infinite alternate; }
+@keyframes flicker { to { transform: scale(.94, 1.08); } }
+.s-morning .cn { opacity: 1; }
+.s-morning .poured .cn { opacity: 0; }
+.pile { opacity: 0; }
+.poured .pile { animation: pile .7s var(--ease) forwards; }
+@keyframes pile { from { opacity: 0; transform: translateY(-90px); } to { opacity: 1; transform: none; } }
+.poured { pointer-events: none; }
+.happy { --smile: 0; --frown: 1; }
+.s-morning.done .happy { --smile: 1; --frown: 0; }
+.s-morning.done .hopper { animation: jump .5s ease-in-out .3s infinite alternate; }
+@keyframes jump { to { transform: translateY(-10px); } }
+.bread5 { opacity: 0; transition: opacity .6s 1s; }
+.s-morning.done .bread5 { opacity: 1; }
+
+/* 最後一頁：聖誕夜 */
+.sleigh6 { animation: fly6 7s linear infinite; }
+@keyframes fly6 { from { transform: translateX(-130px); } to { transform: translateX(150px); } }
+.tw circle { animation: twinkle 1.2s ease-in-out infinite alternate; }
+.tw circle:nth-child(2n) { animation-delay: .6s; }
+@keyframes twinkle { to { opacity: .45; } }
+.st6 .box { opacity: 0; transform-box: fill-box; transform-origin: 50% 100%; transform: scale(.3); transition: transform .7s cubic-bezier(.34, 1.56, .64, 1), opacity .3s; }
+.st6.open .box { opacity: 1; transform: translateY(-34px); }
+.st6.open { pointer-events: none; }
+.cheer6 { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.6); transition: opacity .4s, transform .7s cubic-bezier(.34, 1.56, .64, 1); }
+.s-xmas.done .cheer6 { opacity: 1; transform: none; }
 
 /* ---------- 直向平板：單頁，圖在上、字在下 ---------- */
 @media (max-aspect-ratio: 1/1) {
-  :root { --t-title: clamp(34px, 6.2vw, 76px); --t-body: clamp(22px, 3.9vw, 42px); --t-small: clamp(19px, 3.1vw, 32px); --tab-out: clamp(100px, 13vw, 124px); }
+  :root { --t-title: clamp(30px, 5.4vw, 66px); --t-body: clamp(20px, 3.4vw, 38px); --t-small: clamp(18px, 2.8vw, 30px); --tab-out: clamp(100px, 13vw, 124px); }
   .spread { grid-template-columns: 1fr; grid-template-rows: 56fr 44fr; }
   .pages::after { display: none; }
   .pg.pic { padding-bottom: clamp(14px, 2vmin, 24px); }
   .pg.pic .folio { display: none; }
   .pg.text { padding-top: clamp(10px, 1.6vmin, 18px); }
+  .spread p { line-height: 1.5; }
   .leaf { left: var(--board); }
   .leaf.fwd { animation-name: turn-fwd-1; }
   .leaf.back { animation-name: turn-back-1; }
   .s-cover .text { justify-content: flex-start; }
-  .story-text { min-height: 0; }
-  .s-advent .pg.text p { font-size: var(--t-small); }
-  .s-advent .pg.text { gap: clamp(6px, 1.2vmin, 14px); }
-  .zoom { flex-direction: row; align-items: stretch; }
-  .zbox { flex: 0 0 38%; }
-  .zcap { flex: 1 1 0; align-self: center; text-align: left; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -481,9 +380,9 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
 </head>
 <body>
 
-<!-- 故事圖卡共用的人物：好心的尼古拉（腳底在 y=100）、小朋友（腳底在 y=60，衣服顏色跟著 color） -->
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+<svg class="defs" aria-hidden="true" focusable="false">
   <defs>
+    <!-- 好心的尼古拉（腳底在 y=100） -->
     <g id="nick" stroke="#263042" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
       <path d="M-20 22 L-30 100 H30 L20 22 Q0 12 -20 22Z" fill="#c8423a"/>
       <path d="M-28 92 H28" stroke="#fff" stroke-width="6"/>
@@ -496,14 +395,70 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
       <path d="M16 30 L32 48" stroke-width="11"/>
       <path d="M16 30 L32 48" stroke="#c8423a" stroke-width="6"/>
     </g>
-    <g id="kid" stroke="#263042" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
-      <path d="M-14 16 L-26 -8 M14 16 L26 -8" stroke-width="5"/>
-      <path d="M-16 10 L-20 60 H20 L16 10 Q0 4 -16 10Z" fill="currentColor"/>
-      <circle cx="0" cy="-6" r="14" fill="#f6d2b0"/>
-      <path d="M-14 -8 C -14 -26, 14 -26, 14 -8 C 8 -15, -8 -15, -14 -8Z" fill="#3b2a20"/>
-      <path d="M-8 -5 Q-5 -9 -2 -5 M2 -5 Q5 -9 8 -5" stroke-width="2"/>
-      <path d="M-6 1 Q0 8 6 1" stroke-width="2.5"/>
+    <!-- 尼古拉比「噓」的手（疊在 #nick 上，同一個座標） -->
+    <g id="hush-arm" stroke="#263042" stroke-linecap="round">
+      <path d="M-18 34 Q-21 22 -6 20" stroke-width="11" fill="none"/>
+      <path d="M-18 34 Q-21 22 -6 20" stroke="#c8423a" stroke-width="6" fill="none"/>
+      <path d="M-2 21 V9" stroke-width="6"/>
+      <path d="M-2 21 V9" stroke="#f6d2b0" stroke-width="3"/>
+      <circle cx="-4" cy="21" r="4.5" fill="#f6d2b0" stroke-width="2"/>
     </g>
+    <!-- 小朋友／大人：腳底中心為原點；--coat 衣服、--hair 頭髮、--braids 辮子[˙ㄗ]、--beard 鬍子[˙ㄗ]、--smile/--frown 表情 -->
+    <symbol id="child" overflow="visible">
+      <g stroke="#263042" stroke-width="3" stroke-linejoin="round" stroke-linecap="round">
+        <path d="M-7 -1 V-14 M7 -1 V-14" stroke-width="5"/>
+        <path d="M-15 -66 Q-25 -56 -19 -46" fill="none" stroke-width="6" style="stroke:var(--hair,#6b4a33);opacity:var(--braids,0)"/>
+        <path d="M15 -66 Q25 -56 19 -46" fill="none" stroke-width="6" style="stroke:var(--hair,#6b4a33);opacity:var(--braids,0)"/>
+        <path d="M-13 -50 Q0 -56 13 -50 L20 -12 Q0 -6 -20 -12Z" style="fill:var(--coat,#5aa7a0)"/>
+        <path d="M-13 -48 Q-24 -38 -21 -24 L-13 -27Z" style="fill:var(--coat,#5aa7a0)"/>
+        <path d="M13 -48 Q24 -38 21 -24 L13 -27Z" style="fill:var(--coat,#5aa7a0)"/>
+        <circle cx="-18" cy="-22" r="4" fill="#f6d2b0" stroke-width="2"/>
+        <circle cx="18" cy="-22" r="4" fill="#f6d2b0" stroke-width="2"/>
+        <circle cx="0" cy="-66" r="15" fill="#f6d2b0"/>
+        <path d="M-15 -66 Q-15 -84 0 -84 Q15 -84 15 -66 Q8 -76 0 -74 Q-8 -76 -15 -66Z" style="fill:var(--hair,#6b4a33)"/>
+        <path d="M-12 -60 Q-12 -44 0 -40 Q12 -44 12 -60 Q0 -54 -12 -60Z" fill="#6b4a33" style="opacity:var(--beard,0)"/>
+      </g>
+      <circle cx="-5" cy="-66" r="2" fill="#263042"/>
+      <circle cx="5" cy="-66" r="2" fill="#263042"/>
+      <circle cx="-9" cy="-60" r="2.8" fill="#f29b9b" opacity=".75"/>
+      <circle cx="9" cy="-60" r="2.8" fill="#f29b9b" opacity=".75"/>
+      <path d="M-4 -59 Q0 -55.5 4 -59" fill="none" stroke="#263042" stroke-width="2" stroke-linecap="round" style="opacity:var(--smile,1)"/>
+      <path d="M-4 -56 Q0 -59.5 4 -56" fill="none" stroke="#263042" stroke-width="2" stroke-linecap="round" style="opacity:var(--frown,0)"/>
+    </symbol>
+    <g id="sock-shape" stroke="#263042" stroke-width="2.5" stroke-linejoin="round">
+      <path d="M22 14 V36 C22 44 26 48 32 52 L40 57 C46 60 54 58 54 50 C54 45 50 42 46 40 L42 38 V14 Z" fill="currentColor"/>
+      <rect x="19" y="6" width="26" height="10" rx="3" fill="#fff"/>
+    </g>
+    <!-- 襪子[˙ㄗ]：襪口上緣中間為原點 -->
+    <symbol id="sock" overflow="visible"><use href="#sock-shape" transform="translate(-32 -6)"/></symbol>
+    <symbol id="coin" overflow="visible">
+      <circle r="6" fill="#f2b000" stroke="#263042" stroke-width="2"/>
+      <path d="M-2 -3 L1.5 2.5" stroke="#fff3c4" stroke-width="1.6" stroke-linecap="round"/>
+    </symbol>
+    <!-- 金幣袋：袋底中間為原點 -->
+    <symbol id="cbag" overflow="visible">
+      <g stroke="#263042" stroke-width="2.5" stroke-linejoin="round">
+        <path d="M-14 0 Q-19 -18 -6 -22 L6 -22 Q19 -18 14 0Z" fill="#b9773f"/>
+        <path d="M-6 -22 L-10 -29 L10 -29 L6 -22Z" fill="#b9773f"/>
+      </g>
+      <path d="M-7 -21 H7" stroke="#f2c14e" stroke-width="3"/>
+      <use href="#coin" transform="translate(0 -9) scale(.8)"/>
+    </symbol>
+    <symbol id="bread" overflow="visible">
+      <ellipse rx="16" ry="8" fill="#d99a4e" stroke="#263042" stroke-width="2.5"/>
+      <path d="M-8 -4 L-4 2 M0 -6 L4 1 M8 -4 L11 0" stroke="#a8692e" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="gift" overflow="visible">
+      <g stroke="#263042" stroke-width="2.5" stroke-linejoin="round">
+        <rect x="-11" y="-20" width="22" height="20" style="fill:var(--g,#2f7a4f)"/>
+        <rect x="-13" y="-25" width="26" height="7" style="fill:var(--g,#2f7a4f)"/>
+      </g>
+      <path d="M0 -25 V0" stroke="#f2c14e" stroke-width="4"/>
+      <path d="M0 -25 Q-11 -36 -6 -25 M0 -25 Q11 -36 6 -25" stroke="#f2c14e" stroke-width="3" fill="none"/>
+    </symbol>
+    <symbol id="heart" overflow="visible">
+      <path d="M0 8 C -14 -2 -14 -12 -7 -12 C -3 -12 0 -9 0 -6 C 0 -9 3 -12 7 -12 C 14 -12 14 -2 0 8Z" fill="#d94b3d" stroke="#263042" stroke-width="2"/>
+    </symbol>
     <g id="sleigh" stroke="#263042" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
       <path d="M106 36 L100 48 M112 38 L110 50 M128 38 L134 49 M134 35 L142 45" fill="none"/>
       <path d="M131 28 L141 16" stroke="#b9773f" stroke-width="7"/>
@@ -520,10 +475,7 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
       <path d="M8 20 H58 C 63 20 64 26 62 32 L56 40 H16 C 9 40 7 33 8 20Z" fill="#d94b3d"/>
       <path d="M20 40 V48 M48 40 V48 M6 48 H58 Q66 48 66 41" fill="none" stroke="#f2b000" stroke-width="3.5"/>
     </g>
-    <g id="sock-shape" stroke="#263042" stroke-width="2.5" stroke-linejoin="round">
-      <path d="M22 14 V36 C22 44 26 48 32 52 L40 57 C46 60 54 58 54 50 C54 45 50 42 46 40 L42 38 V14 Z" fill="currentColor"/>
-      <rect x="19" y="6" width="26" height="10" rx="3" fill="#fff"/>
-    </g>
+    <clipPath id="win6"><rect x="24" y="40" width="120" height="90"/></clipPath>
   </defs>
 </svg>
 
@@ -536,466 +488,285 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
     <main class="cover" aria-live="polite">
       <div class="pages">
 
-        <!-- 封面跨頁 -->
+        <!-- 封面 -->
         <section class="spread s-cover on" data-name="封面" aria-label="封面">
           <div class="pg pic">
-            <button class="tree-btn" type="button" data-act="lights" aria-pressed="false" aria-label="點亮聖誕樹">
-              <svg viewBox="0 0 300 360" aria-hidden="true">
-                <circle class="halo" cx="150" cy="38" r="40"/>
-                <rect x="135" y="288" width="30" height="26" fill="#8a5228" stroke="#263042" stroke-width="4"/>
-                <g fill="#2f7a4f" stroke="#1f5a39" stroke-width="5" stroke-linejoin="round">
-                  <path d="M150 140 L252 295 Q150 312 48 295 Z"/>
-                  <path d="M150 90 L226 215 Q150 229 74 215 Z"/>
-                  <path d="M150 42 L196 140 Q150 151 104 140 Z"/>
+            <div class="art">
+              <svg viewBox="0 0 400 300" role="group" aria-label="雪夜裡，穿紅袍、白鬍子[˙ㄗ]的尼古拉提著[˙ㄓㄜ]燈籠走在路上">
+                <rect width="400" height="300" fill="#22365c"/>
+                <g fill="#fff3c4"><circle cx="40" cy="40" r="2.5"/><circle cx="92" cy="74" r="2"/><circle cx="160" cy="30" r="2.5"/><circle cx="214" cy="64" r="2"/><circle cx="276" cy="28" r="2.5"/><circle cx="380" cy="120" r="2"/></g>
+                <circle cx="330" cy="62" r="24" fill="#fff3c4"/><circle cx="342" cy="54" r="22" fill="#22365c"/>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round">
+                  <path d="M238 176 L280 136 L322 176Z" fill="#8a5228"/>
+                  <rect x="246" y="174" width="68" height="70" fill="#e8c99a"/>
+                  <rect x="260" y="188" width="20" height="20" fill="#ffd54a" stroke-width="2"/>
+                  <rect x="290" y="208" width="16" height="36" fill="#8a5228" stroke-width="2"/>
+                  <path d="M326 198 L358 168 L390 198Z" fill="#8a5228"/>
+                  <rect x="332" y="196" width="52" height="50" fill="#e8c99a"/>
+                  <rect x="348" y="208" width="18" height="16" fill="#ffd54a" stroke-width="2"/>
                 </g>
-                <g fill="none" stroke="#f2c14e" stroke-width="5" stroke-linecap="round">
-                  <path d="M118 118 Q150 134 182 116"/>
-                  <path d="M92 192 Q150 214 208 190"/>
-                  <path d="M68 268 Q150 292 232 264"/>
+                <path d="M241 174 L280 139 L319 174 M329 196 L358 171 L387 196" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+                <path d="M0 236 Q 120 222 220 236 T 400 232 V300 H0Z" fill="#f4f1ea"/>
+                <g fill="#d8d2c4"><ellipse cx="40" cy="276" rx="6" ry="3"/><ellipse cx="62" cy="270" rx="6" ry="3"/><ellipse cx="84" cy="276" rx="6" ry="3"/></g>
+                <circle class="halo" cx="162" cy="222" r="30" fill="#ffd54a"/>
+                <use href="#nick" transform="translate(120 140) scale(1.3)"/>
+                <g data-act="lamp" role="button" tabindex="0" aria-label="點亮燈籠">
+                  <path d="M162 202 V212" stroke="#263042" stroke-width="2.5"/>
+                  <rect class="lamp-body" x="154" y="212" width="16" height="20" rx="3" stroke="#263042" stroke-width="2.5"/>
+                  <circle cx="162" cy="220" r="34" fill="transparent"/>
                 </g>
-                <g stroke="#263042" stroke-width="2.5">
-                  <circle cx="150" cy="100" r="8" fill="#d94b3d"/>
-                  <circle cx="122" cy="165" r="9" fill="#f2b000"/>
-                  <circle cx="182" cy="158" r="9" fill="#d94b3d"/>
-                  <circle cx="150" cy="238" r="9" fill="#6fb3d9"/>
-                  <circle cx="106" cy="246" r="9" fill="#d94b3d"/>
-                  <circle cx="198" cy="242" r="9" fill="#f2b000"/>
-                </g>
-                <g>
-                  <circle class="light" cx="124" cy="122" r="5" style="--c:#ffd54a;--d:0s"/>
-                  <circle class="light" cx="142" cy="128" r="5" style="--c:#ff6b6b;--d:.4s"/>
-                  <circle class="light" cx="160" cy="128" r="5" style="--c:#7fd1ff;--d:.8s"/>
-                  <circle class="light" cx="178" cy="120" r="5" style="--c:#9be37b;--d:.2s"/>
-                  <circle class="light" cx="100" cy="197" r="5" style="--c:#ff6b6b;--d:.6s"/>
-                  <circle class="light" cx="124" cy="205" r="5" style="--c:#7fd1ff;--d:1s"/>
-                  <circle class="light" cx="150" cy="208" r="5" style="--c:#9be37b;--d:.3s"/>
-                  <circle class="light" cx="176" cy="205" r="5" style="--c:#ffd54a;--d:.7s"/>
-                  <circle class="light" cx="200" cy="196" r="5" style="--c:#ff6b6b;--d:.1s"/>
-                  <circle class="light" cx="80" cy="274" r="5" style="--c:#7fd1ff;--d:.5s"/>
-                  <circle class="light" cx="112" cy="282" r="5" style="--c:#9be37b;--d:.9s"/>
-                  <circle class="light" cx="150" cy="285" r="5" style="--c:#ffd54a;--d:.2s"/>
-                  <circle class="light" cx="188" cy="282" r="5" style="--c:#ff6b6b;--d:.6s"/>
-                  <circle class="light" cx="220" cy="272" r="5" style="--c:#7fd1ff;--d:1.1s"/>
-                </g>
-                <polygon class="tree-star" points="150,14 156,31 174,31 160,42 165,60 150,49 135,60 140,42 126,31 144,31" stroke="#9a5b00" stroke-width="3" stroke-linejoin="round"/>
-                <path d="M100 312 H200 L190 354 H110Z" fill="#d94b3d" stroke="#263042" stroke-width="4" stroke-linejoin="round"/>
-                <rect x="94" y="304" width="112" height="14" rx="4" fill="#a8352a" stroke="#263042" stroke-width="4"/>
+                <g fill="#fff"><circle cx="30" cy="140" r="3"/><circle cx="70" cy="100" r="2.5"/><circle cx="200" cy="120" r="3"/><circle cx="230" cy="200" r="2.5"/><circle cx="120" cy="60" r="2.5"/><circle cx="300" cy="110" r="3"/></g>
               </svg>
-              <span class="tree-hint"><span class="off-text">點一下，<span class="w">點亮</span><span class="w">聖誕樹</span></span><span class="on-text"><span class="w">好漂亮</span>！</span></span>
-            </button>
+            </div>
+            <p class="hint">點點看燈籠！</p>
           </div>
           <div class="pg text">
-            <h1><span class="w">聖誕節</span><span class="sub"><span class="w">送溫暖</span>去！</span></h1>
+            <h1><span class="w">聖誕</span><span class="w">老公公</span>的<span class="w">秘密</span><span class="sub"><span class="w">聖誕節</span>的<span class="w">故事</span></span></h1>
           </div>
         </section>
 
-        <!-- 倒數[ㄕㄨˇ]月曆（小門由下方程式產生） -->
-        <section class="spread s-advent" data-name="倒數[ㄕㄨˇ]" aria-label="第一頁，倒數[ㄕㄨˇ]到聖誕節">
+        <!-- 第一頁：好心的尼古拉 -->
+        <section class="spread s-help" data-name="尼古拉" aria-label="第一頁，好心的尼古拉">
           <div class="pg pic">
-            <div class="advent" role="group" aria-label="倒數[ㄕㄨˇ]月曆，點小門打開"></div>
+            <div class="art">
+              <svg viewBox="0 0 400 300" role="group" aria-label="雪地裡，尼古拉看到一個冷得[˙ㄉㄜ]發抖的小朋友">
+                <rect width="400" height="300" fill="#2c4470"/>
+                <g fill="#fff3c4"><circle cx="30" cy="30" r="2"/><circle cx="120" cy="50" r="2.5"/><circle cx="250" cy="26" r="2"/><circle cx="370" cy="44" r="2.5"/></g>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round">
+                  <path d="M10 160 L50 128 L90 160Z" fill="#8a5228"/>
+                  <rect x="18" y="158" width="64" height="62" fill="#e8c99a"/>
+                  <rect x="32" y="172" width="18" height="18" fill="#ffd54a" stroke-width="2"/>
+                  <path d="M96 176 L128 150 L160 176Z" fill="#6e4323"/>
+                  <rect x="102" y="174" width="52" height="46" fill="#d8bf98"/>
+                </g>
+                <path d="M13 158 L50 131 L87 158 M99 174 L128 153 L157 174" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+                <circle cx="350" cy="118" r="34" fill="#ffd54a" opacity=".2"/>
+                <path d="M350 232 V122" stroke="#263042" stroke-width="5"/>
+                <rect x="338" y="104" width="24" height="22" rx="3" fill="#ffd54a" stroke="#263042" stroke-width="3"/>
+                <path d="M0 220 Q200 206 400 222 V300 H0Z" fill="#f4f1ea"/>
+                <use href="#nick" transform="translate(262 150) scale(-1.12 1.12)"/>
+                <g data-act="help" role="button" tabindex="0" aria-label="幫[ㄅㄤ]幫[ㄅㄤ]小朋友">
+                  <g transform="translate(150 266) scale(1.12)">
+                    <g class="shiver">
+                      <use class="kidc" href="#child" style="--coat:#8592a8;--hair:#3b2a20"/>
+                      <path class="scarf" d="M-13 -52 Q0 -45 13 -52 L13 -45 Q0 -38 -13 -45Z M5 -45 L11 -28 L2 -29Z" fill="#d94b3d" stroke="#263042" stroke-width="2.5" stroke-linejoin="round"/>
+                      <g class="bread"><use href="#bread" transform="translate(22 -24) scale(0.7)"/></g>
+                    </g>
+                    <g class="heart"><use href="#heart" transform="translate(0 -100) scale(0.9)"/></g>
+                  </g>
+                  <rect x="118" y="160" width="68" height="110" fill="transparent"/>
+                </g>
+                <g class="shake-lines" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M112 206 L104 202 M112 218 L104 220 M190 206 L198 202 M190 218 L198 220"/></g>
+                <g fill="#fff"><circle cx="40" cy="110" r="3"/><circle cx="90" cy="70" r="2.5"/><circle cx="200" cy="96" r="3"/><circle cx="300" cy="60" r="2.5"/><circle cx="380" cy="180" r="3"/><circle cx="230" cy="150" r="2.5"/></g>
+              </svg>
+            </div>
+            <p class="hint"><span class="a">點點看，小朋友好冷！</span><span class="b">小朋友笑了[˙ㄌㄜ]！</span></p>
             <span class="folio">2</span>
           </div>
           <div class="pg text">
-            <h2><span class="w">聖誕節</span><span class="w">快到了</span>！</h2>
-            <p><span class="w">十二月</span><span class="w">一日</span>開始，<span class="w">每天</span><span class="w">打開</span><span class="w">一個</span><span class="w">小門</span>，<span class="w">倒數[ㄕㄨˇ]到</span><span class="w">聖誕節</span>。</p>
-            <p><span class="w">找找看</span>，<span class="red">25</span>在<span class="w">哪裡</span>？</p>
-            <div class="after push">
-              <p><span class="w">國曆</span><span class="w">十二月</span><span class="w">二十五日</span>，就是<span class="red w">聖誕節</span>！<span class="w">今年</span>是<span class="w">星期五</span>。</p>
-              <p class="gap"><span class="w">聖誕節</span><span class="w">原本是</span><span class="w">西方</span><span class="w">國家</span><span class="w">紀念</span><span class="w">耶穌</span><span class="w">誕生</span>的<span class="w">節日</span>，<span class="w">現在</span><span class="w">世界</span><span class="w">各地</span>的人<span class="w">都[ㄉㄡ]會</span><span class="w">一起</span><span class="w">過[ㄍㄨㄛˋ]</span>。</p>
-            </div>
+            <h2><span class="w">好心</span>的<span class="w">尼古拉</span></h2>
+            <p><span class="w">很久很久</span><span class="w">以前</span>，有一個<span class="w">好心</span>的人，<span class="w">名字</span>叫<span class="w">尼古拉</span>。</p>
+            <p>他<span class="w">看到</span><span class="w">有人</span><span class="w">需要</span><span class="w">幫[ㄅㄤ]忙</span>，<span class="w">就會</span><span class="w">伸出手</span>。</p>
+            <p class="after"><span class="w">而且</span>，他<span class="w">總是</span><span class="w">偷偷的</span>幫[ㄅㄤ]，<span class="w">不讓</span><span class="w">別人</span><span class="w">知道</span>。</p>
             <span class="folio">3</span>
           </div>
         </section>
 
-        <!-- 一起佈置聖誕樹 -->
-        <section class="spread s-deco" data-name="佈置" aria-label="第二頁，一起佈置聖誕樹">
+        <!-- 第二頁：好冷的冬天 -->
+        <section class="spread s-cold" data-name="冬天" aria-label="第二頁，好冷的冬天">
           <div class="pg pic">
-            <svg class="deco-tree" viewBox="0 0 300 360" aria-hidden="true">
-              <rect x="135" y="288" width="30" height="26" fill="#8a5228" stroke="#263042" stroke-width="4"/>
-              <g fill="#2f7a4f" stroke="#1f5a39" stroke-width="5" stroke-linejoin="round">
-                <path d="M150 140 L252 295 Q150 312 48 295 Z"/>
-                <path d="M150 90 L226 215 Q150 229 74 215 Z"/>
-                <path d="M150 42 L196 140 Q150 151 104 140 Z"/>
-              </g>
-              <g class="garland">
-                <g fill="none" stroke="#f2c14e" stroke-width="5" stroke-linecap="round">
-                  <path d="M118 118 Q150 134 182 116"/>
-                  <path d="M92 192 Q150 214 208 190"/>
-                  <path d="M68 268 Q150 292 232 264"/>
-                </g>
-                <circle class="light" cx="124" cy="122" r="5" style="--c:#ffd54a;--d:0s"/>
-                <circle class="light" cx="142" cy="128" r="5" style="--c:#ff6b6b;--d:.4s"/>
-                <circle class="light" cx="160" cy="128" r="5" style="--c:#7fd1ff;--d:.8s"/>
-                <circle class="light" cx="178" cy="120" r="5" style="--c:#9be37b;--d:.2s"/>
-                <circle class="light" cx="100" cy="197" r="5" style="--c:#ff6b6b;--d:.6s"/>
-                <circle class="light" cx="124" cy="205" r="5" style="--c:#7fd1ff;--d:1s"/>
-                <circle class="light" cx="150" cy="208" r="5" style="--c:#9be37b;--d:.3s"/>
-                <circle class="light" cx="176" cy="205" r="5" style="--c:#ffd54a;--d:.7s"/>
-                <circle class="light" cx="200" cy="196" r="5" style="--c:#ff6b6b;--d:.1s"/>
-                <circle class="light" cx="80" cy="274" r="5" style="--c:#7fd1ff;--d:.5s"/>
-                <circle class="light" cx="112" cy="282" r="5" style="--c:#9be37b;--d:.9s"/>
-                <circle class="light" cx="150" cy="285" r="5" style="--c:#ffd54a;--d:.2s"/>
-                <circle class="light" cx="188" cy="282" r="5" style="--c:#ff6b6b;--d:.6s"/>
-                <circle class="light" cx="220" cy="272" r="5" style="--c:#7fd1ff;--d:1.1s"/>
-              </g>
-              <g class="icon">
-                <g class="orn" data-o="ball"><circle cx="150" cy="104" r="9" class="fillr"/><circle cx="126" cy="196" r="10" class="fillk"/><circle cx="196" cy="222" r="10" class="fillu"/><circle cx="110" cy="288" r="10" class="fillr"/><circle cx="196" cy="290" r="10" class="fillk"/></g>
-                <g class="orn" data-o="bell"><g transform="translate(80 236) scale(.6)"><path d="M26 10 Q32 4 38 10"/><path d="M32 10 C 20 10 18 22 18 32 C 18 40 14 44 10 48 H54 C 50 44 46 40 46 32 C 46 22 44 10 32 10Z" class="fillk"/><circle cx="32" cy="53" r="5" class="fillk"/></g></g>
-                <g class="orn" data-o="candy"><g transform="translate(160 148) scale(.55)"><path d="M38 58 V22 C38 12 24 12 24 22 V26" style="stroke-width:12;vector-effect:none"/><path d="M38 58 V22 C38 12 24 12 24 22 V26" style="stroke:#fff;stroke-width:7;vector-effect:none"/><path d="M38 58 V22 C38 12 24 12 24 22 V26" style="stroke:#d94b3d;stroke-width:7;stroke-dasharray:4 5;stroke-linecap:butt;vector-effect:none"/></g></g>
-                <g class="orn" data-o="ginger"><g transform="translate(114 148) scale(.55)"><path d="M23 26 C 18 18 22 6 32 6 C 42 6 46 18 41 26 L52 32 C 57 35 54 41 49 39 L42 36 V44 L48 54 C 51 59 45 62 42 58 L32 48 L22 58 C 19 62 13 59 16 54 L22 44 V36 L15 39 C 10 41 7 35 12 32 Z" class="fillb"/><circle cx="28" cy="15" r="1.8" class="filli"/><circle cx="36" cy="15" r="1.8" class="filli"/><path d="M28 20 Q32 23 36 20"/><circle cx="32" cy="32" r="2" class="fills"/><circle cx="32" cy="40" r="2" class="fills"/></g></g>
-                <g class="orn" data-o="sock"><g transform="translate(150 230) scale(.7)"><path d="M22 14 V36 C22 44 26 48 32 52 L40 57 C46 60 54 58 54 50 C54 45 50 42 46 40 L42 38 V14 Z" class="fillr"/><rect x="19" y="6" width="26" height="10" rx="3" class="fills"/></g></g>
-                <polygon class="orn" data-o="star" points="150,14 156,31 174,31 160,42 165,60 150,49 135,60 140,42 126,31 144,31" fill="#ffd54a" stroke="#9a5b00" stroke-width="3"/>
-              </g>
-              <path d="M100 312 H200 L190 354 H110Z" fill="#d94b3d" stroke="#263042" stroke-width="4" stroke-linejoin="round"/>
-              <rect x="94" y="304" width="112" height="14" rx="4" fill="#a8352a" stroke="#263042" stroke-width="4"/>
-            </svg>
-            <div class="tray" role="group" aria-label="聖誕樹的裝飾">
-              <button class="idea" type="button" data-act="deco" data-o="star">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><polygon points="32,6 38.5,24.1 57.7,24.7 42.5,36.4 47.9,54.8 32,44 16.1,54.8 21.5,36.4 6.3,24.7 25.5,24.1" class="fillk"/></svg>
-                <span>星星</span>
-                <span class="cap"><b>星星</b><br><span class="w">放在</span><span class="w">聖誕樹</span>的<span class="w">最上面</span>。</span>
-              </button>
-              <button class="idea" type="button" data-act="deco" data-o="bell">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M26 10 Q32 4 38 10"/><path d="M32 10 C 20 10 18 22 18 32 C 18 40 14 44 10 48 H54 C 50 44 46 40 46 32 C 46 22 44 10 32 10Z" class="fillk"/><circle cx="32" cy="53" r="5" class="fillk"/><path d="M22 28 C 24 20 28 18 30 18"/></svg>
-                <span>鈴鐺</span>
-                <span class="cap"><b>鈴鐺</b><br><span class="w">叮叮噹</span>，<span class="w">叮叮噹</span>！</span>
-              </button>
-              <button class="idea" type="button" data-act="deco" data-o="ball">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="38" r="20" class="fillr"/><path d="M28 18 V12 H36 V18" class="fillk"/><path d="M14 34 Q32 42 50 34" style="stroke:#fff"/><circle cx="25" cy="30" r="3" class="fills" style="stroke:none"/></svg>
-                <span>彩球</span>
-                <span class="cap"><b>彩球</b><br><span class="w">圓圓</span>的<span class="w">彩球</span>，<span class="w">掛滿</span><span class="w">聖誕樹</span>。</span>
-              </button>
-              <button class="idea" type="button" data-act="deco" data-o="candy">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M38 58 V22 C38 12 24 12 24 22 V26" style="stroke-width:12;vector-effect:none"/><path d="M38 58 V22 C38 12 24 12 24 22 V26" style="stroke:#fff;stroke-width:7;vector-effect:none"/><path d="M38 58 V22 C38 12 24 12 24 22 V26" style="stroke:#d94b3d;stroke-width:7;stroke-dasharray:4 5;stroke-linecap:butt;vector-effect:none"/></svg>
-                <span>拐杖糖</span>
-                <span class="cap"><b><span class="w">拐杖糖</span></b><br><span class="w">紅白</span><span class="w">條紋</span>的<span class="w">糖果</span>。</span>
-              </button>
-              <button class="idea" type="button" data-act="deco" data-o="ginger">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M23 26 C 18 18 22 6 32 6 C 42 6 46 18 41 26 L52 32 C 57 35 54 41 49 39 L42 36 V44 L48 54 C 51 59 45 62 42 58 L32 48 L22 58 C 19 62 13 59 16 54 L22 44 V36 L15 39 C 10 41 7 35 12 32 Z" class="fillb"/><circle cx="28" cy="15" r="1.8" class="filli"/><circle cx="36" cy="15" r="1.8" class="filli"/><path d="M28 20 Q32 23 36 20"/><circle cx="32" cy="32" r="2" class="fills"/><circle cx="32" cy="40" r="2" class="fills"/></svg>
-                <span>薑餅人</span>
-                <span class="cap"><b><span class="w">薑餅人</span></b><br><span class="w">香香甜甜</span>的<span class="w">小餅乾</span>。</span>
-              </button>
-              <button class="idea" type="button" data-act="deco" data-o="sock">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M22 14 V36 C22 44 26 48 32 52 L40 57 C46 60 54 58 54 50 C54 45 50 42 46 40 L42 38 V14 Z" class="fillr"/><rect x="19" y="6" width="26" height="10" rx="3" class="fills"/></svg>
-                <span>襪子[˙ㄗ]</span>
-                <span class="cap"><b>襪子[˙ㄗ]</b><br><span class="w">掛起來</span>，<span class="w">等待</span><span class="w">驚喜</span>。</span>
-              </button>
+            <div class="art">
+              <svg viewBox="0 0 400 300" role="group" aria-label="冷冷的屋子[˙ㄗ]裡，爸爸[˙ㄅㄚ]和三姊妹站在快熄滅的火爐邊">
+                <rect width="400" height="300" fill="#c9d3df"/>
+                <rect y="256" width="400" height="44" fill="#9aa6b5"/>
+                <g stroke="#263042" stroke-width="3"><rect x="26" y="44" width="76" height="66" fill="#22365c"/><path d="M64 44 V110 M26 77 H102" stroke-width="2.5"/></g>
+                <g fill="#fff"><circle cx="38" cy="56" r="2"/><circle cx="52" cy="96" r="2"/><circle cx="84" cy="60" r="2"/><circle cx="90" cy="100" r="2"/></g>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round"><rect x="150" y="122" width="140" height="134" fill="#b9573f"/><rect x="178.0" y="172.92000000000002" width="84.0" height="83.07999999999998" fill="#3b2a20"/><rect x="140" y="110" width="160" height="16" fill="#8a5228"/></g><path d="M150 148.8 H178.0 M262.0 148.8 H290 M150 195.7 H178.0 M262.0 195.7 H290" stroke="#263042" stroke-width="1.5" opacity=".5"/><path d="M202.0 256 Q212.0 247 220.0 256 Q230.0 248 238.0 256Z" fill="#b8402c"/>
+                <path d="M158 152 Q220 160 282 152" stroke="#8a5228" stroke-width="2.5" fill="none"/>
+                <g fill="#263042"><circle cx="158" cy="152" r="3"/><circle cx="282" cy="152" r="3"/></g>
+                <use class="cold" href="#child" transform="translate(40 262) scale(1.35)" style="--coat:#7a5a44;--beard:1"/>
+                <use class="cold" href="#child" transform="translate(318 262) scale(1)" style="--coat:#b8605a;--braids:1"/>
+                <use class="cold" href="#child" transform="translate(350 262) scale(0.9)" style="--coat:#5a8a7a;--hair:#3b2a20"/>
+                <use class="cold" href="#child" transform="translate(379 262) scale(0.8)" style="--coat:#c99a3a;--braids:1"/>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round"><path d="M70 268 L78 292 H134 L142 268Z" fill="#b9773f"/><path d="M84 274 V288 M98 274 V290 M112 274 V290 M126 274 V288" stroke-width="2"/></g>
+                <g class="sock" data-act="sock" role="button" tabindex="0" aria-label="掛上第1隻襪子[˙ㄗ]" style="color:#d94b3d;--x1:88px;--y1:254px;--r1:-72deg;--x2:188px;--y2:153px"><use href="#sock"/><rect x="-16" y="-4" width="40" height="62" fill="transparent"/></g>
+                <g class="sock" data-act="sock" role="button" tabindex="0" aria-label="掛上第2隻襪子[˙ㄗ]" style="color:#2f7a4f;--x1:106px;--y1:252px;--r1:-10deg;--x2:220px;--y2:157px"><use href="#sock"/><rect x="-16" y="-4" width="40" height="62" fill="transparent"/></g>
+                <g class="sock" data-act="sock" role="button" tabindex="0" aria-label="掛上第3隻襪子[˙ㄗ]" style="color:#d94b3d;--x1:126px;--y1:258px;--r1:64deg;--x2:252px;--y2:153px"><use href="#sock"/><rect x="-16" y="-4" width="40" height="62" fill="transparent"/></g>
+              </svg>
             </div>
+            <p class="hint"><span class="a">幫[ㄅㄤ]三姊妹把襪子[˙ㄗ]掛起來！</span><span class="b">掛好了[˙ㄌㄜ]，晚安！</span></p>
             <span class="folio">4</span>
           </div>
           <div class="pg text">
-            <h2><span class="w">一起</span><span class="w">佈置</span><span class="w">聖誕樹</span></h2>
-            <p class="hint">點<span class="w">下面</span>的<span class="w">裝飾</span>，<span class="w">掛到</span><span class="w">樹上</span>！</p>
-            <div class="zoom" hidden>
-              <span class="zbox"><span class="zart"></span></span>
-              <p class="zcap"></p>
-            </div>
-            <p class="after"><span class="w">全部</span><span class="w">掛好了</span>，<span class="red w">聖誕樹</span><span class="w">亮起來</span>囉[˙ㄌㄨㄛ]！</p>
+            <h2><span class="w">好冷</span>的<span class="w">冬天</span></h2>
+            <p><span class="w">村子[˙ㄗ]裡</span>有<span class="w">一戶</span><span class="w">人家</span>，<span class="w">住著[˙ㄓㄜ]</span><span class="w">爸爸[˙ㄅㄚ]</span>和<span class="w">三姊妹</span>。</p>
+            <p><span class="w">冬天</span><span class="w">好冷</span>，<span class="w">家裡</span><span class="w">沒有</span><span class="w">柴火</span>，<span class="w">也沒有</span><span class="w">麵包</span>。</p>
+            <p class="after"><span class="w">晚上</span>，<span class="w">三姊妹</span>把<span class="w">洗好的</span><span class="w">襪子[˙ㄗ]</span>，<span class="w">掛在</span><span class="w">火爐邊</span><span class="w">晾乾</span>。</p>
             <span class="folio">5</span>
           </div>
         </section>
 
-        <!-- 聖誕老公公的故事（圖卡） -->
-        <section class="spread s-story seq" data-name="故事" aria-label="第三頁，聖誕老公公的故事">
+        <!-- 第三頁：第一個晚上 -->
+        <section class="spread s-night1" data-name="第一晚" aria-label="第三頁，第一個晚上">
           <div class="pg pic">
-            <div class="story">
-              <div class="frames">
-                <!-- 1. 好心的尼古拉 -->
-                <div class="frame on">
-                  <svg viewBox="0 0 400 300" role="img" aria-label="雪夜裡，穿紅袍、白鬍子[˙ㄗ]的尼古拉提著燈籠走在路上">
-                    <rect width="400" height="300" fill="#22365c"/>
-                    <g fill="#fff3c4"><circle cx="40" cy="40" r="2.5"/><circle cx="92" cy="74" r="2"/><circle cx="160" cy="30" r="2.5"/><circle cx="214" cy="64" r="2"/><circle cx="276" cy="28" r="2.5"/><circle cx="380" cy="120" r="2"/></g>
-                    <circle cx="330" cy="62" r="24" fill="#fff3c4"/><circle cx="342" cy="54" r="22" fill="#22365c"/>
-                    <g stroke="#263042" stroke-width="3" stroke-linejoin="round">
-                      <path d="M238 176 L280 136 L322 176Z" fill="#8a5228"/>
-                      <rect x="246" y="174" width="68" height="70" fill="#e8c99a"/>
-                      <rect x="260" y="188" width="20" height="20" fill="#ffd54a" stroke-width="2"/>
-                      <rect x="290" y="208" width="16" height="36" fill="#8a5228" stroke-width="2"/>
-                      <path d="M326 198 L358 168 L390 198Z" fill="#8a5228"/>
-                      <rect x="332" y="196" width="52" height="50" fill="#e8c99a"/>
-                      <rect x="348" y="208" width="18" height="16" fill="#ffd54a" stroke-width="2"/>
-                    </g>
-                    <path d="M241 174 L280 139 L319 174 M329 196 L358 171 L387 196" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
-                    <path d="M0 236 Q 120 222 220 236 T 400 232 V300 H0Z" fill="#f4f1ea"/>
-                    <g fill="#d8d2c4"><ellipse cx="40" cy="276" rx="6" ry="3"/><ellipse cx="62" cy="270" rx="6" ry="3"/><ellipse cx="84" cy="276" rx="6" ry="3"/></g>
-                    <circle cx="162" cy="222" r="30" fill="#ffd54a" opacity=".25"/>
-                    <use href="#nick" transform="translate(120 140) scale(1.3)"/>
-                    <path d="M162 202 V212" stroke="#263042" stroke-width="2.5"/>
-                    <rect x="154" y="212" width="16" height="20" rx="3" fill="#ffd54a" stroke="#263042" stroke-width="2.5"/>
-                    <g fill="#fff"><circle cx="30" cy="140" r="3"/><circle cx="70" cy="100" r="2.5"/><circle cx="200" cy="120" r="3"/><circle cx="230" cy="200" r="2.5"/><circle cx="120" cy="60" r="2.5"/><circle cx="300" cy="110" r="3"/></g>
-                  </svg>
-                  <span class="cap"><span class="w">很久</span><span class="w">很久</span><span class="w">以前</span>，有一位<span class="w">好心</span>的<span class="red w">尼古拉</span>。<span class="w">他常常</span><span class="w">幫[ㄅㄤ]助</span><span class="w">需要</span><span class="w">幫[ㄅㄤ]忙</span>的人。</span>
-                </div>
-                <!-- 2. 很窮的一家人 -->
-                <div class="frame">
-                  <svg viewBox="0 0 400 300" role="img" aria-label="下雪的夜晚，一間破舊的小房子[˙ㄗ]，窗裡的一家人冷得[˙ㄉㄜ]發抖">
-                    <rect width="400" height="300" fill="#22365c"/>
-                    <path d="M0 240 Q 200 226 400 240 V300 H0Z" fill="#f4f1ea"/>
-                    <path d="M58 252 V172 M58 204 L38 182 M58 192 L82 168 M70 180 L74 162" fill="none" stroke="#6e4323" stroke-width="6" stroke-linecap="round"/>
-                    <g stroke="#263042" stroke-width="3" stroke-linejoin="round">
-                      <rect x="236" y="104" width="18" height="40" fill="#9a6a3f"/>
-                      <path d="M118 158 L200 98 L282 158Z" fill="#6e4323"/>
-                      <rect x="134" y="156" width="132" height="92" fill="#c9b49a"/>
-                      <rect x="150" y="174" width="66" height="46" fill="#5b6378"/>
-                      <g stroke-width="2" fill="#f6d2b0"><circle cx="167" cy="206" r="8"/><circle cx="183" cy="203" r="9.5"/><circle cx="199" cy="206" r="8"/></g>
-                      <rect x="230" y="190" width="24" height="58" fill="#8a5228"/>
-                    </g>
-                    <path d="M163 210 Q167 207 171 210 M179 208 Q183 205 187 208 M195 210 Q199 207 203 210" fill="none" stroke="#263042" stroke-width="1.6" stroke-linecap="round"/>
-                    <path d="M150 196 L216 196 M183 174 V220" stroke="#263042" stroke-width="2"/>
-                    <path d="M196 120 L210 112 M244 140 L250 150 M140 190 L148 200" stroke="#263042" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M121 157 L200 101 L279 157" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
-                    <use href="#nick" transform="translate(336 176)"/>
-                    <g fill="#fff"><circle cx="30" cy="40" r="3"/><circle cx="80" cy="90" r="2.5"/><circle cx="110" cy="30" r="3"/><circle cx="150" cy="70" r="2.5"/><circle cx="260" cy="40" r="3"/><circle cx="300" cy="90" r="2.5"/><circle cx="350" cy="40" r="3"/><circle cx="370" cy="140" r="2.5"/><circle cx="20" cy="120" r="2.5"/><circle cx="100" cy="140" r="3"/><circle cx="300" cy="150" r="2.5"/><circle cx="220" cy="60" r="2.5"/></g>
-                  </svg>
-                  <span class="cap"><span class="w">他看到</span><span class="w">一戶</span><span class="w">人家</span><span class="w">很窮</span>，<span class="w">冬天</span><span class="w">好冷</span>，<span class="w">沒有錢</span><span class="w">過[ㄍㄨㄛˋ]日子[˙ㄗ]</span>。</span>
-                </div>
-                <!-- 3. 偷偷放金幣 -->
-                <div class="frame">
-                  <svg viewBox="0 0 400 300" role="img" aria-label="晚上，尼古拉站在屋頂上，把金幣丟進煙囪">
-                    <rect width="400" height="300" fill="#22365c"/>
-                    <g fill="#fff3c4"><circle cx="40" cy="40" r="2.5"/><circle cx="120" cy="30" r="2"/><circle cx="190" cy="20" r="2.5"/><circle cx="360" cy="140" r="2"/></g>
-                    <circle cx="340" cy="56" r="24" fill="#fff3c4"/><circle cx="352" cy="48" r="22" fill="#22365c"/>
-                    <g stroke="#263042" stroke-width="3" stroke-linejoin="round">
-                      <rect x="228" y="96" width="52" height="110" fill="#b9573f"/>
-                      <rect x="222" y="86" width="64" height="16" fill="#9a3f2c"/>
-                      <path d="M228 120 H280 M228 144 H280 M228 168 H280 M254 102 V120 M242 120 V144 M266 120 V144 M254 144 V168" stroke-width="2" fill="none"/>
-                      <path d="M-10 250 L170 140 L410 250 V310 H-10Z" fill="#6e4323"/>
-                    </g>
-                    <path d="M-10 246 L170 136 L410 246" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M224 86 H284" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
-                    <use href="#nick" transform="translate(146 42) scale(1.1)"/>
-                    <path d="M186 92 Q220 44 254 84" fill="none" stroke="#ffd54a" stroke-width="3" stroke-dasharray="3 8" stroke-linecap="round"/>
-                    <g fill="#f2b000" stroke="#263042" stroke-width="2"><circle cx="186" cy="94" r="7"/><circle cx="208" cy="68" r="7"/><circle cx="232" cy="62" r="7"/><circle cx="252" cy="78" r="7"/></g>
-                    <g fill="#fff"><circle cx="60" cy="110" r="3"/><circle cx="100" cy="80" r="2.5"/><circle cx="310" cy="110" r="3"/><circle cx="380" cy="80" r="2.5"/></g>
-                  </svg>
-                  <span class="cap"><span class="w">晚上</span>，<span class="w">他偷偷</span>把<span class="red w">金幣</span><span class="w">丟進</span><span class="w">煙囪</span>，<span class="w">金幣</span><span class="w">掉進</span>了<span class="w">火爐</span><span class="w">旁邊</span>的<span class="w">襪子[˙ㄗ]</span>裡。</span>
-                </div>
-                <!-- 4. 早上的驚喜 -->
-                <div class="frame">
-                  <svg viewBox="0 0 400 300" role="img" aria-label="早上，火爐邊的襪子[˙ㄗ]裡裝滿金幣，兩個小朋友開心得[˙ㄉㄜ]舉起雙手">
-                    <rect width="400" height="300" fill="#f6e3c4"/>
-                    <rect y="256" width="400" height="44" fill="#c99a6b"/>
-                    <g stroke="#263042" stroke-width="3" stroke-linejoin="round">
-                      <rect x="22" y="38" width="92" height="80" fill="#bfe3f5"/>
-                      <circle cx="56" cy="70" r="14" fill="#ffd54a" stroke="none"/>
-                      <path d="M68 38 V118 M22 78 H114" stroke-width="3"/>
-                      <rect x="140" y="120" width="170" height="136" fill="#b9573f"/>
-                      <rect x="180" y="170" width="90" height="86" fill="#3b2a20"/>
-                      <path d="M200 256 C 194 232 214 226 208 204 C 224 220 230 200 228 190 C 246 210 252 236 246 256Z" fill="#f28c28" stroke="none"/>
-                      <path d="M214 256 C 212 242 224 238 222 226 C 232 236 236 246 232 256Z" fill="#ffd54a" stroke="none"/>
-                      <rect x="128" y="106" width="194" height="16" fill="#8a5228"/>
-                    </g>
-                    <g fill="#f2b000" stroke="#263042" stroke-width="2"><circle cx="168" cy="122" r="6"/><circle cx="178" cy="118" r="6"/><circle cx="232" cy="122" r="6"/><circle cx="292" cy="124" r="6"/><circle cx="300" cy="118" r="6"/></g>
-                    <use href="#sock-shape" transform="translate(146 116) scale(1.1)" style="color:#d94b3d"/>
-                    <use href="#sock-shape" transform="translate(206 116) scale(1.1)" style="color:#2f7a4f"/>
-                    <use href="#sock-shape" transform="translate(266 116) scale(1.1)" style="color:#d94b3d"/>
-                    <use href="#kid" transform="translate(76 192) scale(1.05)" style="color:#7cb26a"/>
-                    <use href="#kid" transform="translate(354 192) scale(1.05)" style="color:#f2b000"/>
-                    <g fill="#f2b000"><path d="M40 160 l3 8 8 0 -6 5 2 8 -7 -5 -7 5 2 -8 -6 -5 8 0z"/><path d="M370 140 l3 8 8 0 -6 5 2 8 -7 -5 -7 5 2 -8 -6 -5 8 0z"/></g>
-                  </svg>
-                  <span class="cap"><span class="w">第二天</span><span class="w">早上</span>，<span class="w">大家</span><span class="w">看到</span><span class="w">襪子[˙ㄗ]</span>裡的<span class="w">金幣</span>，<span class="red w">好開心</span>！</span>
-                </div>
-              </div>
-              <div class="story-bar">
-                <span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
-                <button class="btn" type="button" data-act="seq" data-next="下一張" data-again="再看一次"><span class="w">下一張</span></button>
-              </div>
+            <div class="art">
+              <svg viewBox="0 0 400 300" role="group" aria-label="半夜，尼古拉在屋頂上，把金幣丟進煙囪">
+                <rect width="400" height="300" fill="#22365c"/>
+                <g fill="#fff3c4"><circle cx="24" cy="30" r="2.5"/><circle cx="80" cy="60" r="2"/><circle cx="130" cy="24" r="2.5"/><circle cx="210" cy="80" r="2"/></g>
+                <circle cx="196" cy="44" r="24" fill="#fff3c4"/><circle cx="208" cy="36" r="22" fill="#22365c"/>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round">
+                  <rect x="150" y="150" width="34" height="80" fill="#b9573f"/>
+                  <rect x="144" y="140" width="46" height="14" fill="#9a3f2c"/>
+                  <path d="M-10 280 L120 170 L250 280 V310 H-10Z" fill="#6e4323"/>
+                </g>
+                <path d="M-10 276 L120 166 L250 276" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M146 140 H188" stroke="#fff" stroke-width="5" stroke-linecap="round"/>
+                <use href="#nick" transform="translate(70 132) scale(.8)"/>
+                <g class="flycoin"><use href="#coin" transform="translate(100 168) scale(1)"/></g><g class="flycoin" style="animation-delay:.15s"><use href="#coin" transform="translate(104 172) scale(1)"/></g><g class="flycoin" style="animation-delay:.3s"><use href="#coin" transform="translate(98 174) scale(1)"/></g>
+                <g data-act="drop" role="button" tabindex="0" aria-label="把金幣袋丟進煙囪">
+                  <use href="#cbag" transform="translate(96 196) scale(1.15)"/>
+                  <circle cx="96" cy="180" r="30" fill="transparent"/>
+                </g>
+                <rect x="244" y="34" width="146" height="196" rx="10" fill="#4a4a6a" stroke="#fff" stroke-width="4"/>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round"><rect x="272" y="112" width="84" height="96" fill="#b9573f"/><rect x="288.8" y="148.48000000000002" width="50.4" height="59.51999999999998" fill="#3b2a20"/><rect x="262" y="100" width="104" height="16" fill="#8a5228"/></g><path d="M272 131.2 H288.8 M339.2 131.2 H356 M272 164.8 H288.8 M339.2 164.8 H356" stroke="#263042" stroke-width="1.5" opacity=".5"/><path d="M296.0 208 Q306.0 199 314.0 208 Q324.0 200 332.0 208Z" fill="#b8402c"/>
+                <path d="M278 134 Q314 140 350 134" stroke="#8a5228" stroke-width="2" fill="none"/>
+                <circle class="glow" cx="290" cy="156" r="18" fill="#ffd54a"/>
+                <g transform="translate(290 135) scale(.62)" style="color:#d94b3d"><use href="#sock"/><g class="cn cn1"><use href="#coin" transform="translate(-7 -3) scale(1)"/><use href="#coin" transform="translate(6 -5) scale(1)"/><use href="#coin" transform="translate(0 -12) scale(1)"/></g></g>
+                <g transform="translate(314 138) scale(.62)" style="color:#2f7a4f"><use href="#sock"/></g>
+                <g transform="translate(338 135) scale(.62)" style="color:#d94b3d"><use href="#sock"/></g>
+                <text class="dong" x="316" y="92" text-anchor="middle" font-size="30" fill="#ffd54a">咚！</text>
+                <g fill="#fff"><circle cx="40" cy="110" r="3"/><circle cx="110" cy="90" r="2.5"/><circle cx="220" cy="120" r="3"/><circle cx="30" cy="200" r="2.5"/></g>
+              </svg>
             </div>
+            <p class="hint"><span class="a">點金幣袋，丟進煙囪！</span><span class="b">掉進襪子[˙ㄗ]裡了[˙ㄌㄜ]！</span></p>
             <span class="folio">6</span>
           </div>
           <div class="pg text">
-            <h2><span class="w">聖誕</span><span class="w">老公公</span>的<span class="w">故事</span></h2>
-            <p class="story-text" aria-live="polite"></p>
-            <p class="after push">從此以後，<span class="w">大家</span>在<span class="w">聖誕節</span><span class="red w">掛襪子[˙ㄗ]</span>。<span class="w">好心</span>的<span class="w">尼古拉</span>，就是<span class="w">聖誕</span><span class="w">老公公</span>喔！</p>
+            <h2><span class="w">第一個</span><span class="w">晚上</span></h2>
+            <p><span class="w">尼古拉</span><span class="w">知道了[˙ㄌㄜ]</span>，<span class="w">心裡想</span>：<span class="say">「<span class="w">我來</span><span class="w">幫[ㄅㄤ]幫[ㄅㄤ]</span><span class="w">他們</span>！」</span></p>
+            <p class="after"><span class="w">半夜</span>，他<span class="w">爬上</span><span class="w">屋頂</span>，把<span class="w">一袋</span><span class="w">金幣</span><span class="w">丟進</span><span class="w">煙囪</span>。</p>
+            <p class="after"><span class="say">「咚！」</span><span class="w">金幣</span><span class="w">剛好</span><span class="w">掉進</span><span class="w">一隻</span><span class="w">襪子[˙ㄗ]裡</span>。</p>
             <span class="folio">7</span>
           </div>
         </section>
 
-        <!-- 聖誕夜出發（雪橇環遊世界） -->
-        <section class="spread s-trip seq" data-name="出發" aria-label="第四頁，聖誕夜出發">
+        <!-- 第四頁：第二、第三個晚上 -->
+        <section class="spread s-nights" data-name="又來了[˙ㄌㄜ]" aria-label="第四頁，尼古拉又來了[˙ㄌㄜ]">
           <div class="pg pic">
-            <div class="story">
-              <div class="frames">
-                <!-- 1. 芬蘭 -->
-                <div class="frame on">
-                  <svg viewBox="0 0 400 300" role="img" aria-label="雪夜裡的芬蘭小屋，聖誕老公公坐著麋鹿雪橇飛上天">
-                    <rect width="400" height="300" fill="#22365c"/>
-                    <g fill="#fff3c4"><circle cx="40" cy="40" r="2.5"/><circle cx="92" cy="94" r="2"/><circle cx="160" cy="30" r="2.5"/><circle cx="330" cy="120" r="2"/><circle cx="370" cy="200" r="2.5"/></g>
-                    <circle cx="60" cy="150" r="20" fill="#fff3c4"/><circle cx="70" cy="143" r="18" fill="#22365c"/>
-                    <path d="M0 256 Q 200 240 400 256 V300 H0Z" fill="#f4f1ea"/>
-                    <circle cx="200" cy="176" r="78" fill="#fff" stroke="#f2c14e" stroke-width="6"/>
-                    <g class="icon" transform="translate(146 122) scale(1.7)"><path d="M10 34 L32 14 L54 34Z" class="fillr"/><rect x="15" y="34" width="34" height="22" class="fillb"/><rect x="21" y="40" width="9" height="8" class="fillk"/><rect x="35" y="42" width="8" height="14" class="fills"/><path d="M12 32 L32 14 L52 32" style="stroke:#fff;stroke-width:3"/><path d="M54 4 V14 M49 9 H59 M51 6 L57 12 M57 6 L51 12 M8 6 V14 M4 10 H12"/></g>
-                    <g class="fly"><use href="#sleigh"/></g>
-                  </svg>
-                  <span class="cap"><span class="w">聖誕</span><span class="w">老公公</span>從<b>芬蘭</b><span class="w">出發</span>！<span class="w">這裡</span><span class="w">冬天</span><span class="w">下大雪</span>，<span class="w">雪地</span>裡有<span class="w">麋鹿</span>。</span>
-                </div>
-                <!-- 2. 德國 -->
-                <div class="frame">
-                  <svg viewBox="0 0 400 300" role="img" aria-label="夜晚熱鬧的德國聖誕市集小攤子">
-                    <rect width="400" height="300" fill="#2a3f6a"/>
-                    <g fill="#fff3c4"><circle cx="30" cy="60" r="2.5"/><circle cx="110" cy="40" r="2"/><circle cx="60" cy="200" r="2.5"/><circle cx="350" cy="230" r="2"/><circle cx="380" cy="150" r="2.5"/></g>
-                    <path d="M0 256 Q 200 244 400 256 V300 H0Z" fill="#f4f1ea"/>
-                    <circle cx="200" cy="176" r="78" fill="#fff" stroke="#f2c14e" stroke-width="6"/>
-                    <g class="icon" transform="translate(146 122) scale(1.7)"><path d="M6 10 Q32 18 58 10"/><circle cx="14" cy="13" r="2.5" class="fillk"/><circle cx="26" cy="15" r="2.5" class="fillr"/><circle cx="38" cy="15" r="2.5" class="fillk"/><circle cx="50" cy="13" r="2.5" class="fillr"/><path d="M12 28 V56 M52 28 V56"/><path d="M8 22 H56 V28 Q50 34 44 28 Q38 34 32 28 Q26 34 20 28 Q14 34 8 28Z" class="fillr"/><rect x="10" y="42" width="44" height="14" class="fillb"/><circle cx="24" cy="38" r="4" class="fillk"/><circle cx="36" cy="38" r="4" class="fillg"/></g>
-                    <g class="fly"><use href="#sleigh"/></g>
-                  </svg>
-                  <span class="cap"><span class="w">飛到</span><b>德國</b>。<span class="w">熱鬧</span>的<span class="w">聖誕</span><span class="w">市集</span>，有<span class="w">好多</span>燈和<span class="w">小攤子[˙ㄗ]</span>。</span>
-                </div>
-                <!-- 3. 日本 -->
-                <div class="frame">
-                  <svg viewBox="0 0 400 300" role="img" aria-label="日本的聖誕草莓蛋糕">
-                    <rect width="400" height="300" fill="#22365c"/>
-                    <g fill="#fff3c4"><circle cx="40" cy="40" r="2.5"/><circle cx="80" cy="170" r="2"/><circle cx="140" cy="60" r="2.5"/><circle cx="330" cy="200" r="2"/><circle cx="370" cy="130" r="2.5"/></g>
-                    <g fill="#1a2a48"><rect x="0" y="230" width="60" height="70"/><rect x="330" y="220" width="70" height="80"/></g>
-                    <g fill="#ffd54a"><rect x="14" y="244" width="8" height="8"/><rect x="36" y="262" width="8" height="8"/><rect x="346" y="236" width="8" height="8"/><rect x="372" y="256" width="8" height="8"/></g>
-                    <circle cx="200" cy="176" r="78" fill="#fff" stroke="#f2c14e" stroke-width="6"/>
-                    <g class="icon" transform="translate(146 122) scale(1.7)"><path d="M6 56 H58"/><path d="M12 34 H52 V54 H12Z" class="fills"/><path d="M12 44 H52" style="stroke:#d94b3d;stroke-width:4"/><path d="M12 34 Q17 28 22 34 Q27 28 32 34 Q37 28 42 34 Q47 28 52 34"/><path d="M24 18 C 17 24 21 31 24 31 C 28 31 31 24 24 18Z" class="fillr"/><path d="M40 18 C 33 24 37 31 40 31 C 44 31 47 24 40 18Z" class="fillr"/><path d="M22 18 L26 16 M38 18 L42 16" style="stroke:#3d7a35"/></g>
-                    <g class="fly"><use href="#sleigh"/></g>
-                  </svg>
-                  <span class="cap"><span class="w">飛到</span><b>日本</b>。<span class="w">大家</span>和<span class="w">家人</span><span class="w">一起吃</span><span class="w">草莓</span><span class="w">蛋糕</span>。</span>
-                </div>
-                <!-- 4. 澳洲（夏天） -->
-                <div class="frame">
-                  <svg viewBox="0 0 400 300" role="img" aria-label="大太陽下的澳洲海邊，有人在衝浪">
-                    <rect width="400" height="300" fill="#8fd3f4"/>
-                    <circle cx="56" cy="60" r="26" fill="#ffd54a"/>
-                    <path d="M56 20 V12 M56 100 V108 M16 60 H8 M96 60 H104 M28 32 L22 26 M84 88 L90 94 M28 88 L22 94 M84 32 L90 26" stroke="#f2b000" stroke-width="4" stroke-linecap="round"/>
-                    <path d="M0 236 Q 50 224 100 236 T 200 236 T 300 236 T 400 236 V300 H0Z" fill="#4aa3d8"/>
-                    <path d="M0 272 Q 200 258 400 272 V300 H0Z" fill="#f3d9a4"/>
-                    <circle cx="200" cy="176" r="78" fill="#fff" stroke="#f2c14e" stroke-width="6"/>
-                    <g class="icon" transform="translate(146 122) scale(1.7)"><circle cx="18" cy="18" r="8" class="fillk"/><path d="M18 3 V6 M18 30 V33 M3 18 H6 M30 18 H33 M7 7 L9 9 M27 27 L29 29 M7 29 L9 27 M27 9 L29 7"/><ellipse cx="42" cy="38" rx="18" ry="4" class="fillr" transform="rotate(-12 42 38)"/><path d="M2 46 Q10 40 18 46 T34 46 T50 46 T66 46 V60 H2Z" class="fillu"/></g>
-                    <g class="fly"><use href="#sleigh"/></g>
-                  </svg>
-                  <span class="cap"><span class="w">飛到</span><b>澳洲</b>。咦？<span class="w">這裡</span>的<span class="w">聖誕節</span>是<span class="w">夏天</span>！<span class="w">大家</span><span class="w">到海邊</span><span class="w">玩水</span>。</span>
-                </div>
-                <!-- 5. 台灣 -->
-                <div class="frame">
-                  <svg viewBox="0 0 400 300" role="img" aria-label="台北一〇一和亮著聖誕燈的城市夜景">
-                    <rect width="400" height="300" fill="#22365c"/>
-                    <g fill="#fff3c4"><circle cx="40" cy="40" r="2.5"/><circle cx="90" cy="110" r="2"/><circle cx="150" cy="40" r="2.5"/><circle cx="340" cy="150" r="2"/></g>
-                    <g fill="#1a2a48"><rect x="0" y="220" width="50" height="80"/><rect x="50" y="244" width="40" height="56"/><rect x="310" y="232" width="44" height="68"/><rect x="354" y="210" width="46" height="90"/></g>
-                    <g fill="#ffd54a"><rect x="12" y="232" width="8" height="8"/><rect x="30" y="252" width="8" height="8"/><rect x="62" y="258" width="8" height="8"/><rect x="322" y="246" width="8" height="8"/><rect x="366" y="224" width="8" height="8"/><rect x="384" y="250" width="8" height="8"/></g>
-                    <path d="M0 214 Q 25 222 50 214 M310 226 Q 332 234 354 226 Q 377 214 400 206" fill="none" stroke="#ff6b6b" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>
-                    <circle cx="200" cy="176" r="78" fill="#fff" stroke="#f2c14e" stroke-width="6"/>
-                    <g class="icon" transform="translate(146 122) scale(1.7)"><path d="M32 4 V14"/><path d="M29 14 H35 V18 H29Z" class="fillu"/><path d="M27 18 H37 L39 28 H25Z M25 28 H39 L41 38 H23Z M23 38 H41 L43 48 H21Z" class="fillu"/><path d="M20 48 H44 L46 58 H18Z" class="fillu"/><circle cx="12" cy="20" r="2.5" class="fillk"/><circle cx="52" cy="16" r="2.5" class="fillr"/><circle cx="8" cy="40" r="2.5" class="fillr"/><circle cx="56" cy="38" r="2.5" class="fillk"/></g>
-                    <g class="fly"><use href="#sleigh"/></g>
-                  </svg>
-                  <span class="cap"><span class="w">最後</span><span class="w">回到</span><b>台灣</b>！<span class="w">街上</span><span class="w">亮起</span><span class="w">聖誕燈</span>，<span class="w">大家</span><span class="w">交換</span><span class="w">禮物</span>。</span>
-                </div>
-              </div>
-              <div class="story-bar">
-                <span class="dots" aria-hidden="true"><span class="dot on"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span></span>
-                <button class="btn" type="button" data-act="seq" data-next="下一站" data-again="再飛一次"><span class="w">下一站</span></button>
-              </div>
+            <div class="art">
+              <svg viewBox="0 0 400 300" role="group" aria-label="又是晚上，尼古拉又來送金幣">
+                <rect width="400" height="300" fill="#22365c"/>
+                <g fill="#fff3c4"><circle cx="110" cy="30" r="2.5"/><circle cx="170" cy="56" r="2"/><circle cx="230" cy="24" r="2.5"/><circle cx="380" cy="110" r="2"/><circle cx="20" cy="90" r="2"/></g>
+                <g class="nights"><circle cx="24" cy="24" r="8"/><circle cx="48" cy="24" r="8"/><circle cx="72" cy="24" r="8"/></g>
+                <g data-act="moon" role="button" tabindex="0" aria-label="點月亮，換下一個晚上">
+                  <circle cx="336" cy="56" r="24" fill="#fff3c4"/><circle cx="348" cy="48" r="22" fill="#22365c"/>
+                  <circle cx="336" cy="56" r="36" fill="transparent"/>
+                </g>
+                <path d="M0 252 Q200 238 400 252 V300 H0Z" fill="#f4f1ea"/>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round">
+                  <rect x="252" y="80" width="26" height="46" fill="#b9573f"/>
+                  <rect x="248" y="74" width="34" height="10" fill="#9a3f2c"/>
+                  <path d="M92 144 L205 72 L318 144Z" fill="#6e4323"/>
+                  <rect x="108" y="142" width="194" height="110" fill="#c9b49a"/>
+                  <rect x="126" y="164" width="80" height="58" fill="#ffd54a"/>
+                  <rect x="232" y="186" width="44" height="66" fill="#3b2a20"/>
+                </g>
+                <path d="M95 142 L205 75 L315 142" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M132 172 H200" stroke="#8a5228" stroke-width="2"/>
+                <g transform="translate(146 172) scale(.42)" style="color:#d94b3d"><use href="#sock"/><g class="cn cn1"><use href="#coin" transform="translate(-7 -3) scale(1)"/><use href="#coin" transform="translate(6 -5) scale(1)"/><use href="#coin" transform="translate(0 -12) scale(1)"/></g></g>
+                <g transform="translate(166 172) scale(.42)" style="color:#2f7a4f"><use href="#sock"/><g class="cn cn2"><use href="#coin" transform="translate(-7 -3) scale(1)"/><use href="#coin" transform="translate(6 -5) scale(1)"/><use href="#coin" transform="translate(0 -12) scale(1)"/></g></g>
+                <g transform="translate(186 172) scale(.42)" style="color:#d94b3d"><use href="#sock"/><g class="cn cn3"><use href="#coin" transform="translate(-7 -3) scale(1)"/><use href="#coin" transform="translate(6 -5) scale(1)"/><use href="#coin" transform="translate(0 -12) scale(1)"/></g></g>
+                <path d="M126 193 H206 M166 164 V222" stroke="#263042" stroke-width="2.5"/>
+                <g class="dad"><use href="#child" transform="translate(256 252) scale(1.2)" style="--coat:#7a5a44;--beard:1"/></g>
+                <g class="door"><rect x="232" y="186" width="44" height="66" fill="#8a5228" stroke="#263042" stroke-width="3"/><circle cx="268" cy="222" r="3" fill="#f2c14e"/></g>
+                <g class="nick-roof"><use href="#nick" transform="translate(296 64) scale(-.62 .62)"/></g>
+                <g class="flycoin2"><use href="#coin" transform="translate(276 94) scale(1)"/></g><g class="flycoin2" style="animation-delay:.8s"><use href="#coin" transform="translate(272 98) scale(1)"/></g>
+                <g class="nick-door"><g transform="translate(340 176) scale(.76)"><use href="#nick"/><use href="#hush-arm"/></g></g>
+                <g fill="#fff"><circle cx="30" cy="140" r="3"/><circle cx="70" cy="210" r="2.5"/><circle cx="360" cy="180" r="3"/><circle cx="330" cy="236" r="2.5"/><circle cx="60" cy="60" r="2.5"/></g>
+              </svg>
             </div>
+            <p class="hint"><span class="a">點月亮，換下一個晚上！</span><span class="b">噓！是秘密喔！</span></p>
             <span class="folio">8</span>
           </div>
           <div class="pg text">
-            <h2><span class="w">聖誕夜</span>，<span class="w">出發</span>！</h2>
-            <p class="story-text" aria-live="polite"></p>
-            <p class="after push"><span class="w">你想</span><span class="w">怎麼</span><span class="w">過[ㄍㄨㄛˋ]</span><span class="w">聖誕節</span>呢？<span class="w">說說看</span>！</p>
+            <h2><span class="w">尼古拉</span><span class="w">又來了[˙ㄌㄜ]</span></h2>
+            <p><span class="w">第二個</span><span class="w">晚上</span>，<span class="w">尼古拉</span><span class="w">又來了[˙ㄌㄜ]</span>。</p>
+            <p class="after"><span class="w">第三個</span><span class="w">晚上</span>，<span class="w">爸爸[˙ㄅㄚ]</span><span class="w">躲在</span><span class="w">門後</span>，<span class="w">終於</span><span class="w">看到了[˙ㄌㄜ]</span>他。</p>
+            <p class="after"><span class="w">尼古拉</span><span class="w">笑著[˙ㄓㄜ]說</span>：<span class="say">「噓！<span class="w">這是</span><span class="w">我們的</span><span class="w">秘密</span>喔！」</span></p>
             <span class="folio">9</span>
           </div>
         </section>
 
-        <!-- 最好的禮物 -->
-        <section class="spread s-gift" data-name="禮物" aria-label="第五頁，最好的禮物是什麼">
+        <!-- 第五頁：驚喜的早上 -->
+        <section class="spread s-morning" data-name="早上" aria-label="第五頁，驚喜的早上">
           <div class="pg pic">
-            <div class="socks" role="group" aria-label="四隻襪子[˙ㄗ]">
-              <button class="sock" type="button" data-act="sock" aria-label="打開第一隻襪子[˙ㄗ]">
-                <svg class="stk" viewBox="0 0 64 64" aria-hidden="true"><use href="#sock-shape"/></svg>
-                <span class="gift">
-                  <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="15" r="7" class="fills"/><circle cx="43" cy="19" r="6" class="fills"/><path d="M8 58 C 8 38, 13 28, 22 26 C 31 28, 35 38, 35 58" class="fills"/><path d="M30 58 C 30 42, 34 32, 43 30 C 52 32, 56 42, 56 58" class="fills"/><path d="M14 40 C 24 47, 40 47, 50 40"/><path d="M32 13 C 27 10, 27 5, 30 4 C 31 3.6, 32 4.6, 32 5.8 C 32 4.6, 33 3.6, 34 4 C 37 5, 37 10, 32 13Z" class="heart"/></svg>
-                  <span><span class="w">一個</span><span class="w">抱抱</span></span>
-                </span>
-              </button>
-              <button class="sock" type="button" data-act="sock" aria-label="打開第二隻襪子[˙ㄗ]">
-                <svg class="stk" viewBox="0 0 64 64" aria-hidden="true"><use href="#sock-shape"/></svg>
-                <span class="gift">
-                  <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 14 H54 V42 H30 L18 54 V42 H10Z" class="fills"/><path d="M32 36 C 20 28, 18 24, 20 20 C 22 16, 30 16, 32 22 C 34 16, 42 16, 44 20 C 46 24, 44 28, 32 36Z" class="heart"/></svg>
-                  <span><span class="w">一句</span><span class="w">謝謝</span></span>
-                </span>
-              </button>
-              <button class="sock" type="button" data-act="sock" aria-label="打開第三隻襪子[˙ㄗ]">
-                <svg class="stk" viewBox="0 0 64 64" aria-hidden="true"><use href="#sock-shape"/></svg>
-                <span class="gift">
-                  <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 16 H54 V52 H10Z" class="fills"/><path d="M32 16 V52"/><polygon points="43,26 45,31 50,31 46,34 47.5,39 43,36 38.5,39 40,34 36,31 41,31" class="fillk"/><path d="M16 28 H26 M16 36 H26 M16 44 H24"/></svg>
-                  <span><span class="w">一張</span><span class="w">卡片</span></span>
-                </span>
-              </button>
-              <button class="sock" type="button" data-act="sock" aria-label="打開第四隻襪子[˙ㄗ]">
-                <svg class="stk" viewBox="0 0 64 64" aria-hidden="true"><use href="#sock-shape"/></svg>
-                <span class="gift">
-                  <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="14" cy="14" r="6" class="fills"/><path d="M14 20 V38 L8 54 M14 38 L20 54 M14 26 L24 34"/><circle cx="50" cy="14" r="6" class="fills"/><path d="M50 20 V38 L44 54 M50 38 L56 54 M50 26 L40 34"/><circle cx="32" cy="44" r="7" class="fillr"/><path d="M25 44 H39 M32 37 V51" style="stroke:#fff;stroke-width:2"/></svg>
-                  <span><span class="w">一起玩</span></span>
-                </span>
-              </button>
+            <div class="art">
+              <svg viewBox="0 0 400 300" role="group" aria-label="早上，三姊妹看到火爐邊的襪子[˙ㄗ]裡裝滿金幣">
+                <rect class="wall5" width="400" height="300"/>
+                <rect y="256" width="400" height="44" fill="#c99a6b"/>
+                <g stroke="#263042" stroke-width="3"><rect x="22" y="38" width="92" height="80" fill="#bfe3f5"/><circle cx="56" cy="70" r="14" fill="#ffd54a" stroke="none"/><path d="M68 38 V118 M22 78 H114" stroke-width="2.5"/></g>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round"><rect x="150" y="120" width="150" height="136" fill="#b9573f"/><rect x="180.0" y="171.68" width="90.0" height="84.32" fill="#3b2a20"/><rect x="140" y="108" width="170" height="16" fill="#8a5228"/></g><path d="M150 147.2 H180.0 M270.0 147.2 H300 M150 194.8 H180.0 M270.0 194.8 H300" stroke="#263042" stroke-width="1.5" opacity=".5"/><path d="M207.0 256 Q217.0 247 225.0 256 Q235.0 248 243.0 256Z" fill="#b8402c"/>
+                <g class="flame" transform="translate(225 256) scale(1)"><path d="M-22 0 C -28 -24 -8 -30 -14 -52 C 2 -36 8 -56 6 -66 C 24 -46 30 -20 24 0Z" fill="#f28c28"/><path d="M-8 0 C -10 -14 2 -18 0 -30 C 10 -20 14 -10 10 0Z" fill="#ffd54a"/></g>
+                <path d="M158 122 H292" stroke="#8a5228" stroke-width="2"/>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round"><rect x="92" y="226" width="44" height="8" fill="#8a5228"/><path d="M98 234 V256 M130 234 V256" stroke-width="4"/></g>
+                <g class="bread5"><use href="#bread" transform="translate(114 220) scale(0.9)"/></g>
+                <use class="happy" href="#child" transform="translate(46 262) scale(1.3)" style="--coat:#7a5a44;--beard:1"/>
+                <g class="hopper"><use class="happy" href="#child" transform="translate(326 262) scale(1)" style="--coat:#b8605a;--braids:1"/></g>
+                <g class="hopper" style="animation-delay:.5s"><use class="happy" href="#child" transform="translate(356 262) scale(0.9)" style="--coat:#5a8a7a;--hair:#3b2a20"/></g>
+                <g class="hopper"><use class="happy" href="#child" transform="translate(383 262) scale(0.8)" style="--coat:#c99a3a;--braids:1"/></g>
+                <g class="psock" data-act="pour" role="button" tabindex="0" aria-label="把第1隻襪子[˙ㄗ]裡的金幣倒[ㄉㄠˋ]出來" transform="translate(180 120)"><g style="color:#d94b3d"><use href="#sock" transform="scale(.9)"/></g><g transform="scale(.9)"><g class="cn "><use href="#coin" transform="translate(-7 -3) scale(1)"/><use href="#coin" transform="translate(6 -5) scale(1)"/><use href="#coin" transform="translate(0 -12) scale(1)"/></g></g><g transform="translate(14 132)"><g class="pile"><use href="#coin" transform="translate(-14 0) scale(1)"/><use href="#coin" transform="translate(-2 0) scale(1)"/><use href="#coin" transform="translate(10 0) scale(1)"/><use href="#coin" transform="translate(-8 -9) scale(1)"/><use href="#coin" transform="translate(4 -9) scale(1)"/><use href="#coin" transform="translate(-2 -18) scale(1)"/></g></g><rect x="-16" y="-14" width="42" height="70" fill="transparent"/></g>
+                <g class="psock" data-act="pour" role="button" tabindex="0" aria-label="把第2隻襪子[˙ㄗ]裡的金幣倒[ㄉㄠˋ]出來" transform="translate(225 120)"><g style="color:#2f7a4f"><use href="#sock" transform="scale(.9)"/></g><g transform="scale(.9)"><g class="cn "><use href="#coin" transform="translate(-7 -3) scale(1)"/><use href="#coin" transform="translate(6 -5) scale(1)"/><use href="#coin" transform="translate(0 -12) scale(1)"/></g></g><g transform="translate(14 132)"><g class="pile"><use href="#coin" transform="translate(-14 0) scale(1)"/><use href="#coin" transform="translate(-2 0) scale(1)"/><use href="#coin" transform="translate(10 0) scale(1)"/><use href="#coin" transform="translate(-8 -9) scale(1)"/><use href="#coin" transform="translate(4 -9) scale(1)"/><use href="#coin" transform="translate(-2 -18) scale(1)"/></g></g><rect x="-16" y="-14" width="42" height="70" fill="transparent"/></g>
+                <g class="psock" data-act="pour" role="button" tabindex="0" aria-label="把第3隻襪子[˙ㄗ]裡的金幣倒[ㄉㄠˋ]出來" transform="translate(270 120)"><g style="color:#d94b3d"><use href="#sock" transform="scale(.9)"/></g><g transform="scale(.9)"><g class="cn "><use href="#coin" transform="translate(-7 -3) scale(1)"/><use href="#coin" transform="translate(6 -5) scale(1)"/><use href="#coin" transform="translate(0 -12) scale(1)"/></g></g><g transform="translate(14 132)"><g class="pile"><use href="#coin" transform="translate(-14 0) scale(1)"/><use href="#coin" transform="translate(-2 0) scale(1)"/><use href="#coin" transform="translate(10 0) scale(1)"/><use href="#coin" transform="translate(-8 -9) scale(1)"/><use href="#coin" transform="translate(4 -9) scale(1)"/><use href="#coin" transform="translate(-2 -18) scale(1)"/></g></g><rect x="-16" y="-14" width="42" height="70" fill="transparent"/></g>
+              </svg>
             </div>
+            <p class="hint"><span class="a">點襪子[˙ㄗ]，把金幣倒[ㄉㄠˋ]出來！</span><span class="b">屋子[˙ㄗ]變得[˙ㄉㄜ]好溫暖！</span></p>
             <span class="folio">10</span>
           </div>
           <div class="pg text">
-            <h2><span class="w">最好</span>的<span class="w">禮物</span>是<span class="w">什麼</span>？</h2>
-            <p><span class="w">打開</span><span class="w">襪子[˙ㄗ]</span><span class="w">看看</span>！</p>
-            <p class="after push"><span class="w">禮物</span><span class="w">不一定</span>要<span class="w">用買的</span>。<br><span class="red w">用心</span><span class="w">送出</span>的，就是<span class="w">最好</span>的<span class="w">禮物</span>！</p>
+            <h2><span class="w">驚喜</span>的<span class="w">早上</span></h2>
+            <p><span class="w">第二天</span><span class="w">早上</span>，<span class="w">三姊妹</span><span class="w">醒來</span>，<span class="w">看到</span><span class="w">襪子[˙ㄗ]裡</span>的<span class="w">金幣</span>。</p>
+            <p class="after"><span class="say">「哇！<span class="w">好多</span><span class="w">金幣</span>！」</span><span class="w">大家</span><span class="w">開心得[˙ㄉㄜ]</span><span class="w">跳起來</span>。</p>
+            <p class="after"><span class="w">家裡</span><span class="w">有了[˙ㄌㄜ]</span><span class="w">暖暖的</span><span class="w">柴火</span>，<span class="w">還[ㄏㄞˊ]有</span><span class="w">熱熱的</span><span class="w">麵包</span>。</p>
             <span class="folio">11</span>
           </div>
         </section>
 
-        <!-- 寫一張聖誕卡 -->
-        <section class="spread s-card" data-name="卡片" aria-label="最後一頁，寫一張聖誕卡">
+        <!-- 最後一頁：聖誕老公公 -->
+        <section class="spread s-xmas" data-name="聖誕節" aria-label="最後一頁，聖誕老公公">
           <div class="pg pic">
-            <p class="ask"><span class="w">送給誰</span>？</p>
-            <div class="who" role="group" aria-label="送給誰">
-              <button class="idea" type="button" aria-pressed="false" data-act="to"><span>家人</span></button>
-              <button class="idea" type="button" aria-pressed="false" data-act="to"><span>朋友</span></button>
-              <button class="idea" type="button" aria-pressed="false" data-act="to"><span>老師</span></button>
-              <button class="idea" type="button" aria-pressed="false" data-act="to"><span>同學</span></button>
+            <div class="art">
+              <svg viewBox="0 0 400 300" role="group" aria-label="聖誕夜的客廳，有聖誕樹和掛在火爐邊的襪子[˙ㄗ]">
+                <rect width="400" height="300" fill="#f3e6cf"/>
+                <rect y="256" width="400" height="44" fill="#b98a5e"/>
+                <rect x="24" y="40" width="120" height="90" fill="#22365c"/>
+                <g clip-path="url(#win6)">
+                  <g fill="#fff3c4"><circle cx="40" cy="56" r="2"/><circle cx="80" cy="110" r="2"/><circle cx="120" cy="60" r="2"/><circle cx="136" cy="100" r="2"/></g>
+                  <g class="sleigh6"><use href="#sleigh" transform="translate(30 64) scale(.6)"/></g>
+                </g>
+                <g stroke="#263042" stroke-width="3" fill="none"><rect x="24" y="40" width="120" height="90"/><path d="M84 40 V130 M24 85 H144" stroke-width="2.5"/></g>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round"><rect x="140" y="124" width="140" height="132" fill="#b9573f"/><rect x="168.0" y="174.16" width="84.0" height="81.84" fill="#3b2a20"/><rect x="130" y="112" width="160" height="16" fill="#8a5228"/></g><path d="M140 150.4 H168.0 M252.0 150.4 H280 M140 196.60000000000002 H168.0 M252.0 196.60000000000002 H280" stroke="#263042" stroke-width="1.5" opacity=".5"/>
+                <g class="flame" transform="translate(210 256) scale(0.9)"><path d="M-22 0 C -28 -24 -8 -30 -14 -52 C 2 -36 8 -56 6 -66 C 24 -46 30 -20 24 0Z" fill="#f28c28"/><path d="M-8 0 C -10 -14 2 -18 0 -30 C 10 -20 14 -10 10 0Z" fill="#ffd54a"/></g>
+                <g stroke="#263042" stroke-width="3" stroke-linejoin="round">
+                  <rect x="336" y="232" width="14" height="24" fill="#8a5228"/>
+                  <path d="M343 96 L384 160 L366 160 L394 206 L370 206 L398 238 L288 238 L316 206 L292 206 L320 160 L302 160Z" fill="#2f7a4f"/>
+                  <path d="M343 78 L348 90 L361 90 L351 98 L355 111 L343 103 L331 111 L335 98 L325 90 L338 90Z" fill="#ffd54a"/>
+                </g>
+                <g class="tw" stroke="#263042" stroke-width="1.5"><circle cx="330" cy="150" r="5" fill="#d94b3d"/><circle cx="356" cy="140" r="5" fill="#f2c14e"/><circle cx="318" cy="196" r="5" fill="#6fb3d9"/><circle cx="350" cy="186" r="5" fill="#d94b3d"/><circle cx="378" cy="198" r="5" fill="#f2c14e"/><circle cx="306" cy="228" r="5" fill="#f2c14e"/><circle cx="340" cy="224" r="5" fill="#6fb3d9"/><circle cx="380" cy="230" r="5" fill="#d94b3d"/></g>
+                <use href="#gift" transform="translate(308 258) scale(1.1)" style="--g:#d94b3d"/><use href="#gift" transform="translate(376 260) scale(1)" style="--g:#f2c14e"/>
+                <g class="st6" data-act="gift" role="button" tabindex="0" aria-label="打開第1隻襪子[˙ㄗ]" transform="translate(172 122)"><g class="box"><use href="#gift" transform="translate(0 -2) scale(1.5)" style="--g:#6fb3d9"/></g><g style="color:#d94b3d"><use href="#sock" transform="scale(.9)"/></g><rect x="-16" y="-40" width="42" height="96" fill="transparent"/></g>
+                <g class="st6" data-act="gift" role="button" tabindex="0" aria-label="打開第2隻襪子[˙ㄗ]" transform="translate(210 122)"><g class="box"><use href="#gift" transform="translate(0 -2) scale(1.5)" style="--g:#d94b3d"/></g><g style="color:#2f7a4f"><use href="#sock" transform="scale(.9)"/></g><rect x="-16" y="-40" width="42" height="96" fill="transparent"/></g>
+                <g class="st6" data-act="gift" role="button" tabindex="0" aria-label="打開第3隻襪子[˙ㄗ]" transform="translate(248 122)"><g class="box"><use href="#gift" transform="translate(0 -2) scale(1.5)" style="--g:#f2c14e"/></g><g style="color:#d94b3d"><use href="#sock" transform="scale(.9)"/></g><rect x="-16" y="-40" width="42" height="96" fill="transparent"/></g>
+                <g class="cheer6"><rect x="104" y="12" width="192" height="42" rx="21" fill="#d94b3d" stroke="#fff" stroke-width="3"/><text x="200" y="42" text-anchor="middle" font-size="25" fill="#fff">聖誕快樂！</text></g>
+              </svg>
             </div>
-            <p class="ask"><span class="w">送什麼</span><span class="w">心意</span>？</p>
-            <div class="ideas" role="group" aria-label="送什麼心意">
-              <button class="idea" type="button" aria-pressed="false" data-act="gift">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="22" cy="15" r="7" class="fills"/><circle cx="43" cy="19" r="6" class="fills"/><path d="M8 58 C 8 38, 13 28, 22 26 C 31 28, 35 38, 35 58" class="fills"/><path d="M30 58 C 30 42, 34 32, 43 30 C 52 32, 56 42, 56 58" class="fills"/><path d="M14 40 C 24 47, 40 47, 50 40"/><path d="M32 13 C 27 10, 27 5, 30 4 C 31 3.6, 32 4.6, 32 5.8 C 32 4.6, 33 3.6, 34 4 C 37 5, 37 10, 32 13Z" class="heart"/></svg>
-                <span>抱抱</span>
-                <span class="say"><span class="w">給你</span><span class="w">一個</span><span class="w">抱抱</span></span>
-              </button>
-              <button class="idea" type="button" aria-pressed="false" data-act="gift">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 14 H54 V42 H30 L18 54 V42 H10Z" class="fills"/><path d="M32 36 C 20 28, 18 24, 20 20 C 22 16, 30 16, 32 22 C 34 16, 42 16, 44 20 C 46 24, 44 28, 32 36Z" class="heart"/></svg>
-                <span>說謝謝</span>
-                <span class="say"><span class="w">對你</span><span class="w">說謝謝</span></span>
-              </button>
-              <button class="idea" type="button" aria-pressed="false" data-act="gift">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="32" cy="48" rx="26" ry="8" class="fills"/><circle cx="23" cy="38" r="10" class="fillb"/><circle cx="41" cy="36" r="10" class="fillb"/><circle cx="20" cy="36" r="1.6" class="filli"/><circle cx="26" cy="41" r="1.6" class="filli"/><circle cx="39" cy="33" r="1.6" class="filli"/><circle cx="44" cy="39" r="1.6" class="filli"/></svg>
-                <span>分享零食</span>
-                <span class="say">和你<span class="w">分享</span><span class="w">零食</span></span>
-              </button>
-              <button class="idea" type="button" aria-pressed="false" data-act="gift">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M48 4 L32 36"/><path d="M24 34 L42 42 L34 60 L8 50 Z" class="fillk"/><path d="M14 52 L22 40 M22 55 L28 44 M30 58 L34 47"/></svg>
-                <span><span class="w">幫[ㄅㄤ]忙</span></span>
-                <span class="say"><span class="w">幫[ㄅㄤ]你</span>的忙</span>
-              </button>
-              <button class="idea" type="button" aria-pressed="false" data-act="gift">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><circle cx="14" cy="14" r="6" class="fills"/><path d="M14 20 V38 L8 54 M14 38 L20 54 M14 26 L24 34"/><circle cx="50" cy="14" r="6" class="fills"/><path d="M50 20 V38 L44 54 M50 38 L56 54 M50 26 L40 34"/><circle cx="32" cy="44" r="7" class="fillr"/><path d="M25 44 H39 M32 37 V51" style="stroke:#fff;stroke-width:2"/></svg>
-                <span>一起玩</span>
-                <span class="say"><span class="w">陪你</span><span class="w">一起玩</span></span>
-              </button>
-              <button class="idea" type="button" aria-pressed="false" data-act="gift">
-                <svg class="icon" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 16 H54 V52 H10Z" class="fills"/><path d="M32 16 V52"/><polygon points="43,26 45,31 50,31 46,34 47.5,39 43,36 38.5,39 40,34 36,31 41,31" class="fillk"/><path d="M16 28 H26 M16 36 H26 M16 44 H24"/></svg>
-                <span>畫卡片</span>
-                <span class="say"><span class="w">畫一張</span><span class="w">卡片</span><span class="w">送給你</span></span>
-              </button>
-            </div>
+            <p class="hint"><span class="a">點襪子[˙ㄗ]，看看有什[ㄕㄣˊ]麼驚喜！</span><span class="b">聖誕快樂！</span></p>
             <span class="folio">12</span>
           </div>
           <div class="pg text">
-            <h2><span class="w">寫一張</span><span class="w">聖誕卡</span></h2>
-            <div class="xcard">
-              <svg class="holly tl" viewBox="0 0 64 64" aria-hidden="true"><g stroke="#1f5a39" stroke-width="2" stroke-linejoin="round" fill="#4f9a5f"><path d="M30 30 C 22 18 14 22 4 14 C 10 24 6 30 12 36 C 18 32 24 36 30 30Z"/><path d="M30 30 C 42 22 38 14 46 4 C 36 10 30 6 24 12 C 28 18 24 24 30 30Z"/></g><g fill="#d94b3d" stroke="#263042" stroke-width="2"><circle cx="32" cy="34" r="5"/><circle cx="40" cy="36" r="4.5"/><circle cx="34" cy="42" r="4.5"/></g></svg>
-              <svg class="holly br" viewBox="0 0 64 64" aria-hidden="true"><g stroke="#1f5a39" stroke-width="2" stroke-linejoin="round" fill="#4f9a5f"><path d="M30 30 C 22 18 14 22 4 14 C 10 24 6 30 12 36 C 18 32 24 36 30 30Z"/><path d="M30 30 C 42 22 38 14 46 4 C 36 10 30 6 24 12 C 28 18 24 24 30 30Z"/></g><g fill="#d94b3d" stroke="#263042" stroke-width="2"><circle cx="32" cy="34" r="5"/><circle cx="40" cy="36" r="4.5"/><circle cx="34" cy="42" r="4.5"/></g></svg>
-              <p><span class="w">送給</span><span class="blank to"></span>：</p>
-              <p><span class="w">我想</span><span class="blank what"></span>。</p>
-              <p class="sign"><span class="w">聖誕快樂</span>！</p>
-            </div>
-            <p class="note after" aria-live="polite">想試試看，就<span class="w">很棒了</span>！<span class="w">真的</span><span class="w">送出去</span>吧！</p>
+            <h2><span class="w">聖誕</span><span class="w">老公公</span></h2>
+            <p><span class="w">後來</span>，<span class="w">大家</span>都[ㄉㄡ]<span class="w">學尼古拉</span>，<span class="w">偷偷</span><span class="w">送禮物</span><span class="w">給[ㄍㄟˇ]別人</span>。</p>
+            <p><span class="w">每到</span><span class="w">聖誕夜</span>，<span class="w">小朋友</span>都[ㄉㄡ]會<span class="w">掛上</span><span class="w">襪子[˙ㄗ]</span>，<span class="w">等待</span><span class="w">驚喜</span>。</p>
+            <p><span class="w">好心的</span><span class="w">尼古拉</span>，<span class="w">就是</span><span class="w">我們</span>說的<span class="red"><span class="w">聖誕</span><span class="w">老公公</span></span>！</p>
             <span class="folio">13</span>
           </div>
         </section>
@@ -1070,8 +841,9 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
       g.classList.add("ghost");
       g.style.display = "grid";
     }
+    if (sp.hasAttribute("data-night")) g.setAttribute("data-night", sp.getAttribute("data-night"));
     g.removeAttribute("aria-label");
-    g.querySelectorAll(".zoom").forEach(function (v) { v.remove(); });
+    g.querySelectorAll("[tabindex]").forEach(function (x) { x.removeAttribute("tabindex"); });
     return g;
   }
   function endTurn() {
@@ -1081,7 +853,7 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
     under.classList.remove("right");
     if (pendingShow >= 0) { show(pendingShow); pendingShow = -1; }
   }
-  leaf.addEventListener("animationend", endTurn);
+  leaf.addEventListener("animationend", function (e) { if (e.target === leaf) endTurn(); });
 
   function go(i) {
     i = Math.max(0, Math.min(N - 1, i));
@@ -1098,7 +870,6 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
     restartBtn.hidden = i !== N - 1;
     nextText.textContent = i === 0 ? "翻開" : "下一頁";
     var from = spreads[current], to = spreads[i];
-    if (to.classList.contains("seq")) replay(to);
     if (reduce.matches) { show(i); return; }
     if (single.matches) {
       /* 直向單頁：往後翻是舊頁翻走，往前翻是新頁蓋回來 */
@@ -1123,120 +894,62 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
     leaf.classList.add(fwd ? "fwd" : "back");
   }
 
-  /* ---- 倒數[ㄕㄨˇ]月曆：25 個小門，打散排列讓小朋友找，25 號在正中間 ---- */
-  var DOOR_ICONS = [
-    '<polygon points="32,6 38.5,24.1 57.7,24.7 42.5,36.4 47.9,54.8 32,44 16.1,54.8 21.5,36.4 6.3,24.7 25.5,24.1" class="fillk"/>',
-    '<path d="M32 54 C 10 40, 6 28, 10 20 C 14 12, 28 12, 32 24 C 36 12, 50 12, 54 20 C 58 28, 54 40, 32 54Z" class="fillr"/>',
-    '<path d="M32 6 V58 M9.5 19 L54.5 45 M9.5 45 L54.5 19 M24 10 L32 18 L40 10 M24 54 L32 46 L40 54" style="stroke:#3b82c4"/>',
-    '<circle cx="32" cy="36" r="20" class="fillu"/><path d="M28 16 V10 H36 V16" class="fillk"/><path d="M14 32 Q32 40 50 32" style="stroke:#fff"/>',
-    '<rect x="12" y="28" width="40" height="28" class="fillr"/><rect x="8" y="20" width="48" height="10" class="fillr"/><path d="M32 20 V56" style="stroke:#f2b000;stroke-width:5"/>',
-    '<path d="M32 10 C 20 10 18 22 18 32 C 18 40 14 44 10 48 H54 C 50 44 46 40 46 32 C 46 22 44 10 32 10Z" class="fillk"/><circle cx="32" cy="53" r="5" class="fillk"/>'
-  ];
-  var DOOR_TREE = '<path d="M32 8 L50 32 H42 L54 50 H10 L22 32 H14 Z" class="fillg"/><path d="M28 50 H36 V58 H28Z" class="fillb"/><circle cx="26" cy="38" r="3" class="fillr"/><circle cx="40" cy="42" r="3" class="fillk"/><polygon points="32,2 34,7 39,7 35,10 36,15 32,12 28,15 29,10 25,7 30,7" class="fillk"/>';
-  var advent = document.querySelector(".advent");
-  [7, 18, 3, 22, 11, 1, 15, 24, 9, 20, 5, 13, 25, 2, 17, 10, 23, 6, 14, 19, 4, 12, 21, 8, 16].forEach(function (n, k) {
-    var b = document.createElement("button");
-    b.type = "button";
-    b.className = n === 25 ? "door big" : "door";
-    b.setAttribute("data-act", "door");
-    b.setAttribute("aria-label", n + "號小門");
-    b.innerHTML = '<svg class="in icon" viewBox="0 0 64 64" aria-hidden="true">' + (n === 25 ? DOOR_TREE : DOOR_ICONS[k % DOOR_ICONS.length]) + '</svg><span class="flap">' + n + "</span>";
-    advent.appendChild(b);
-  });
-
-  /* ---- 一張一張翻的圖卡（故事、聖誕夜） ---- */
-  var seqs = Array.prototype.slice.call(document.querySelectorAll(".spread.seq"));
-  function setSeq(st, k) {
-    var frames = st.querySelectorAll(".frame"), last = frames.length - 1;
-    var btn = st.querySelector('[data-act="seq"]');
-    st.setAttribute("data-at", k);
-    frames.forEach(function (f, j) { f.classList.toggle("on", j === k); });
-    st.querySelectorAll(".dot").forEach(function (d, j) { d.classList.toggle("on", j <= k); });
-    st.querySelector(".story-text").innerHTML = frames[k].querySelector(".cap").innerHTML;
-    if (k === last) st.classList.add("done");
-    btn.innerHTML = '<span class="w">' + btn.getAttribute(k === last ? "data-again" : "data-next") + "</span>";
-  }
-  seqs.forEach(function (st) { setSeq(st, 0); });
-  /* 翻到這頁時讓雪橇重新飛一次 */
-  function replay(st) {
-    var f = st.querySelector(".frame.on");
-    if (!f) return;
-    f.classList.remove("on"); void f.offsetWidth; f.classList.add("on");
-  }
-
-  /* ---- 右頁放大 ---- */
-  function showZoom(st, el) {
-    var zoom = st.querySelector(".zoom");
-    zoom.querySelector(".zart").innerHTML = el.querySelector("svg").outerHTML;
-    zoom.querySelector(".zcap").innerHTML = el.querySelector(".cap").innerHTML;
-    zoom.hidden = false;
-    zoom.style.animation = "none"; void zoom.offsetWidth; zoom.style.animation = "";
-    st.querySelector(".hint").hidden = true;
-  }
-
   spreads.forEach(function (s, i) { if (i) s.setAttribute("aria-hidden", "true"); });
-  current = 0;
   tabs[0].classList.add("here");
   tabs[0].setAttribute("aria-current", "page");
 
-  /* ---- 頁內小互動 ---- */
+  /* ---- 頁內互動 ---- */
+  function all(st, sel, cls) {
+    return Array.prototype.every.call(st.querySelectorAll(sel), function (x) { return x.classList.contains(cls); });
+  }
+  var swipedAt = 0;
   document.addEventListener("click", function (e) {
     var el = e.target.closest("[data-act]");
     if (!el) return;
     var act = el.getAttribute("data-act");
     var st = el.closest(".spread");
-    if (act === "next") go(current + 1);
-    else if (act === "prev") go(current - 1);
-    else if (act === "restart") reset();
-    else if (act === "snow") {
+    if (act === "next") return go(current + 1);
+    if (act === "prev") return go(current - 1);
+    if (act === "restart") return reset();
+    if (act === "snow") {
       var on = el.getAttribute("aria-pressed") !== "true";
       el.setAttribute("aria-pressed", on ? "true" : "false");
       document.body.classList.toggle("no-snow", !on);
+      return;
     }
-    else if (act === "lights") {
-      var lit = !st.classList.contains("lit");
-      st.classList.toggle("lit", lit);
-      el.setAttribute("aria-pressed", lit ? "true" : "false");
-    }
-    else if (act === "door") {
-      el.classList.add("open");
-      if (el.classList.contains("big")) st.classList.add("done");
-    }
-    else if (act === "deco") {
-      st.querySelector('.orn[data-o="' + el.getAttribute("data-o") + '"]').classList.add("on");
-      el.classList.add("used");
-      showZoom(st, el);
-      if (st.querySelectorAll(".tray .used").length === st.querySelectorAll(".tray .idea").length) st.classList.add("done");
-    }
-    else if (act === "seq") setSeq(st, (+st.getAttribute("data-at") + 1) % st.querySelectorAll(".frame").length);
+    if (!st || Date.now() - swipedAt < 400) return;
+    if (act === "lamp") st.classList.toggle("lit");
+    else if (act === "help" || act === "drop") st.classList.add("done");
     else if (act === "sock") {
-      el.classList.add("open");
-      if (st.querySelectorAll(".sock.open").length === st.querySelectorAll(".sock").length) st.classList.add("done");
+      el.classList.add("hung");
+      if (all(st, ".sock", "hung")) st.classList.add("done");
     }
-    else if (act === "to" || act === "gift") {
-      st.querySelectorAll('[data-act="' + act + '"]').forEach(function (b) { b.setAttribute("aria-pressed", b === el ? "true" : "false"); });
-      var blank = st.querySelector(act === "to" ? ".blank.to" : ".blank.what");
-      blank.innerHTML = el.querySelector(act === "to" ? "span" : ".say").innerHTML;
-      blank.classList.remove("filled"); void blank.offsetWidth; blank.classList.add("filled");
-      if (st.querySelector(".blank.to.filled") && st.querySelector(".blank.what.filled")) st.classList.add("done");
+    else if (act === "moon") {
+      if (st.classList.contains("done")) return;
+      if (st.getAttribute("data-night") === "2") { st.removeAttribute("data-night"); st.classList.add("done"); }
+      else st.setAttribute("data-night", "2");
     }
+    else if (act === "pour") {
+      el.classList.add("poured");
+      if (all(st, ".psock", "poured")) st.classList.add("done");
+    }
+    else if (act === "gift") { el.classList.add("open"); st.classList.add("done"); }
   });
 
   function reset() {
-    document.querySelectorAll(".spread.done, .spread.lit").forEach(function (s) { s.classList.remove("done", "lit"); });
-    document.querySelector('[data-act="lights"]').setAttribute("aria-pressed", "false");
-    document.querySelectorAll(".door.open, .orn.on, .sock.open").forEach(function (x) { x.classList.remove("open", "on"); });
-    document.querySelectorAll(".idea.used").forEach(function (x) { x.classList.remove("used"); });
-    document.querySelectorAll(".zoom").forEach(function (z) { z.hidden = true; });
-    document.querySelectorAll(".hint").forEach(function (h) { h.hidden = false; });
-    document.querySelectorAll(".idea[aria-pressed]").forEach(function (b) { b.setAttribute("aria-pressed", "false"); });
-    document.querySelectorAll(".blank").forEach(function (b) { b.textContent = ""; b.classList.remove("filled"); });
-    seqs.forEach(function (st) { setSeq(st, 0); st.classList.remove("done"); });
+    spreads.forEach(function (s) { s.classList.remove("done", "lit"); s.removeAttribute("data-night"); });
+    document.querySelectorAll(".hung, .poured, .open").forEach(function (x) { x.classList.remove("hung", "poured", "open"); });
     go(0);
   }
 
   /* ---- 鍵盤與滑動 ---- */
   document.addEventListener("keydown", function (e) {
+    var t = e.target;
+    if ((e.key === "Enter" || e.key === " ") && t.getAttribute && t.getAttribute("role") === "button" && t.tagName.toLowerCase() !== "button") {
+      e.preventDefault();
+      t.dispatchEvent(new MouseEvent("click", { bubbles: true }));
+      return;
+    }
     if (e.key === "ArrowRight" || e.key === "PageDown") go(current + 1);
     else if (e.key === "ArrowLeft" || e.key === "PageUp") go(current - 1);
   });
@@ -1247,7 +960,7 @@ body.no-snow .snow { opacity: 0; animation-play-state: paused; }
     if (sx === null) return;
     var dx = e.clientX - sx, dy = e.clientY - sy;
     sx = null;
-    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) go(current + (dx < 0 ? 1 : -1));
+    if (Math.abs(dx) > 70 && Math.abs(dx) > Math.abs(dy) * 1.5) { swipedAt = Date.now(); go(current + (dx < 0 ? 1 : -1)); }
   });
 })();
 </script>
