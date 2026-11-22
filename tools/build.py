@@ -21,6 +21,11 @@ PAGES = [
     (ROOT / "src" / "書櫃.src.html", ROOT / "index.html"),
     (ROOT / "src" / "重陽節.src.html", ROOT / "重陽節" / "index.html"),
     (ROOT / "src" / "聖誕節.src.html", ROOT / "聖誕節" / "index.html"),
+    (ROOT / "src" / "春節.src.html", ROOT / "春節" / "index.html"),
+    (ROOT / "src" / "元宵節.src.html", ROOT / "元宵節" / "index.html"),
+    (ROOT / "src" / "端午節.src.html", ROOT / "端午節" / "index.html"),
+    (ROOT / "src" / "七夕.src.html", ROOT / "七夕" / "index.html"),
+    (ROOT / "src" / "中秋節.src.html", ROOT / "中秋節" / "index.html"),
 ]
 FONT = ROOT / "fonts" / "BpmfZihiKaiStd-Regular.ttf"
 TABLE = ROOT / "fonts" / "phonic_table.txt"
