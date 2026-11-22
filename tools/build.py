@@ -20,6 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PAGES = [
     (ROOT / "src" / "書櫃.src.html", ROOT / "index.html"),
     (ROOT / "src" / "重陽節.src.html", ROOT / "重陽節" / "index.html"),
+    (ROOT / "src" / "聖誕節.src.html", ROOT / "聖誕節" / "index.html"),
 ]
 FONT = ROOT / "fonts" / "BpmfZihiKaiStd-Regular.ttf"
 TABLE = ROOT / "fonts" / "phonic_table.txt"
