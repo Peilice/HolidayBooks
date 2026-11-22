@@ -1,0 +1,510 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-23T00:18:23+08:00",
+  "title": "Design System: 故事繪本",
+  "extensions": {
+    "colorMeta": {
+      "cloth": {
+        "role": "primary",
+        "displayName": "布面書衣色",
+        "canonical": "#2e5e8c",
+        "tonalRamp": [
+          "#13273a",
+          "#214364",
+          "#2f5f8e",
+          "#3d7cb8",
+          "#659acd",
+          "#94b8dc",
+          "#c2d7eb",
+          "#ecf2f9"
+        ]
+      },
+      "cloth-deep": {
+        "role": "primary",
+        "displayName": "深布色",
+        "canonical": "#1f4468",
+        "tonalRamp": [
+          "#12273b",
+          "#1e4366",
+          "#2b5f91",
+          "#387bbd",
+          "#629ad0",
+          "#91b8de",
+          "#c0d7ec",
+          "#ebf2f9"
+        ]
+      },
+      "cloth-hover": {
+        "role": "primary",
+        "displayName": "布面滑過色",
+        "canonical": "#2f4577",
+        "tonalRamp": [
+          "#162037",
+          "#26375f",
+          "#354e87",
+          "#4566af",
+          "#6d88c5",
+          "#99acd7",
+          "#c5cfe8",
+          "#edf0f8"
+        ]
+      },
+      "marigold": {
+        "role": "secondary",
+        "displayName": "蝴蝶頁底色",
+        "canonical": "#f2c14e",
+        "tonalRamp": [
+          "#473405",
+          "#7c5909",
+          "#b07f0d",
+          "#e4a511",
+          "#f1bc41",
+          "#f5d07a",
+          "#f9e4b3",
+          "#fdf7e7"
+        ]
+      },
+      "marigold-deep": {
+        "role": "secondary",
+        "displayName": "蝴蝶頁圖紋色",
+        "canonical": "#e3a92f",
+        "tonalRamp": [
+          "#433109",
+          "#755410",
+          "#a67816",
+          "#d89c1d",
+          "#e7b54b",
+          "#eecb81",
+          "#f5e1b7",
+          "#fcf6e9"
+        ]
+      },
+      "tomato": {
+        "role": "tertiary",
+        "displayName": "目前頁標記色",
+        "canonical": "#e9573f",
+        "tonalRamp": [
+          "#451008",
+          "#771d0e",
+          "#a92913",
+          "#dc3519",
+          "#ea5f48",
+          "#f08f7f",
+          "#f7bfb6",
+          "#fcebe8"
+        ]
+      },
+      "tomato-deep": {
+        "role": "tertiary",
+        "displayName": "提示文字色",
+        "canonical": "#8e2a22",
+        "tonalRamp": [
+          "#3e120f",
+          "#6b201a",
+          "#982d24",
+          "#c63a2f",
+          "#d8645a",
+          "#e3928c",
+          "#efc1bd",
+          "#faecea"
+        ]
+      },
+      "kiku": {
+        "role": "neutral",
+        "displayName": "菊黃點綴",
+        "canonical": "#f2b000",
+        "tonalRamp": [
+          "#4c3800",
+          "#856000",
+          "#bd8900",
+          "#f5b200",
+          "#ffc733",
+          "#ffd870",
+          "#ffe9ad",
+          "#fff8e5"
+        ]
+      },
+      "kiku-pale": {
+        "role": "neutral",
+        "displayName": "淡菊黃",
+        "canonical": "#ffe08a",
+        "tonalRamp": [
+          "#4c3800",
+          "#856100",
+          "#bd8b00",
+          "#f5b400",
+          "#ffc933",
+          "#ffd970",
+          "#ffe9ad",
+          "#fff8e5"
+        ]
+      },
+      "leaf": {
+        "role": "neutral",
+        "displayName": "葉綠點綴",
+        "canonical": "#7cb26a",
+        "tonalRamp": [
+          "#20321a",
+          "#38572d",
+          "#4f7c40",
+          "#67a153",
+          "#89b979",
+          "#accea1",
+          "#d0e3c9",
+          "#f0f6ee"
+        ]
+      },
+      "leaf-deep": {
+        "role": "neutral",
+        "displayName": "深葉綠",
+        "canonical": "#3d7a35",
+        "tonalRamp": [
+          "#1b3517",
+          "#2e5c28",
+          "#428439",
+          "#55ab4a",
+          "#7ac171",
+          "#a2d49b",
+          "#cae6c6",
+          "#eef7ed"
+        ]
+      },
+      "rose": {
+        "role": "neutral",
+        "displayName": "玫瑰粉點綴",
+        "canonical": "#d9667a",
+        "tonalRamp": [
+          "#3d0f17",
+          "#6a1a28",
+          "#972639",
+          "#c4314a",
+          "#d65c71",
+          "#e38d9c",
+          "#efbec6",
+          "#faebed"
+        ]
+      },
+      "page": {
+        "role": "neutral",
+        "displayName": "米白紙頁",
+        "canonical": "#fffdf8",
+        "tonalRamp": [
+          "#4c3700",
+          "#855f00",
+          "#bd8700",
+          "#f5af00",
+          "#ffc533",
+          "#ffd670",
+          "#ffe8ad",
+          "#fff8e5"
+        ]
+      },
+      "page-edge": {
+        "role": "neutral",
+        "displayName": "紙緣",
+        "canonical": "#ece5d6",
+        "tonalRamp": [
+          "#342b18",
+          "#5b4b2a",
+          "#816b3c",
+          "#a78b4e",
+          "#bea774",
+          "#d2c19d",
+          "#e5dcc7",
+          "#f7f4ee"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "墨藍字",
+        "canonical": "#263042",
+        "tonalRamp": [
+          "#1c2331",
+          "#303d54",
+          "#455778",
+          "#59719b",
+          "#7e91b4",
+          "#a4b2cb",
+          "#cbd3e1",
+          "#eff1f6"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "淡墨字",
+        "canonical": "#55607a",
+        "tonalRamp": [
+          "#1f232d",
+          "#363d4e",
+          "#4d586f",
+          "#657290",
+          "#8792ab",
+          "#abb2c4",
+          "#cfd3dd",
+          "#f0f1f5"
+        ]
+      },
+      "wood": {
+        "role": "neutral",
+        "displayName": "書櫃木色",
+        "canonical": "#b9773f",
+        "tonalRamp": [
+          "#392513",
+          "#634022",
+          "#8d5b30",
+          "#b7753e",
+          "#cb9567",
+          "#dbb594",
+          "#ead5c2",
+          "#f9f2ec"
+        ]
+      },
+      "wood-light": {
+        "role": "neutral",
+        "displayName": "淺木色",
+        "canonical": "#d39457",
+        "tonalRamp": [
+          "#3d2610",
+          "#69421c",
+          "#965d27",
+          "#c27933",
+          "#d5985d",
+          "#e1b78e",
+          "#eed6be",
+          "#faf2eb"
+        ]
+      },
+      "wood-deep": {
+        "role": "neutral",
+        "displayName": "深木色",
+        "canonical": "#8a5228",
+        "tonalRamp": [
+          "#3b2311",
+          "#673d1e",
+          "#92572a",
+          "#be7137",
+          "#d19161",
+          "#dfb290",
+          "#edd3c0",
+          "#f9f1eb"
+        ]
+      },
+      "wood-back": {
+        "role": "neutral",
+        "displayName": "櫃內暗木",
+        "canonical": "#6e4323",
+        "tonalRamp": [
+          "#3a2312",
+          "#653d20",
+          "#8f572e",
+          "#ba713b",
+          "#ce9164",
+          "#ddb293",
+          "#ebd3c1",
+          "#f9f1ec"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "封面書名",
+        "purpose": "只用在封面跨頁的書名。"
+      },
+      "headline": {
+        "displayName": "頁面標題",
+        "purpose": "跨頁標題與首頁標題。"
+      },
+      "body": {
+        "displayName": "故事內文",
+        "purpose": "一頁 2～3 句的故事文字。"
+      },
+      "label": {
+        "displayName": "按鈕與提示",
+        "purpose": "布面按鈕、互動提示。"
+      },
+      "folio": {
+        "displayName": "頁碼",
+        "purpose": "頁底置中的頁碼。"
+      }
+    },
+    "shadows": [
+      {
+        "name": "book-ground",
+        "value": "0 30px 44px -24px rgba(60,35,5,.65)",
+        "purpose": "整本書放在桌上的落地影。"
+      },
+      {
+        "name": "cover-thickness",
+        "value": "0 4px 0 var(--cloth-deep), inset 0 0 0 1px rgba(255,255,255,.12), inset 0 0 18px rgba(10,30,55,.35)",
+        "purpose": "布面書衣的厚度與暗角。"
+      },
+      {
+        "name": "page-stack",
+        "value": "0 2px 0 #ece5d6, 0 4px 0 #fff, 0 5px 0 #ece5d6, 0 7px 0 #fff, 0 8px 0 #ece5d6, 0 10px 0 #fff, 0 11px 0 #d8cfbc",
+        "purpose": "書頁底部的一疊紙。"
+      },
+      {
+        "name": "button-lift",
+        "value": "0 12px 18px -12px rgba(80,50,10,.45)",
+        "purpose": "按鈕像微微浮起的卡紙。"
+      },
+      {
+        "name": "art-frame",
+        "value": "0 0 0 6px #fff, 0 0 0 7px #ece5d6, 0 16px 24px -12px rgba(80,50,10,.45)",
+        "purpose": "貼在書頁上的插圖相框。"
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "所有狀態轉換的預設緩出曲線。"
+      },
+      {
+        "name": "page-turn",
+        "value": "1s cubic-bezier(.45, .05, .3, 1)",
+        "purpose": "3D 翻頁。"
+      },
+      {
+        "name": "bump",
+        "value": ".7s–.8s var(--ease)",
+        "purpose": "點到插圖角色時的 wobble／hop／shake。"
+      },
+      {
+        "name": "reveal",
+        "value": ".7s var(--ease) .6s",
+        "purpose": "完成整頁後文字淡入。"
+      },
+      {
+        "name": "ambient",
+        "value": "1.2s ease-in-out infinite alternate",
+        "purpose": "唯一允許的持續動畫：慢慢閃、慢慢飄。"
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "portrait",
+        "value": "(max-aspect-ratio: 1/1)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "下一頁",
+      "kind": "button",
+      "refersTo": "nav-next",
+      "description": "主要導覽，布色底，放在書下方右側。",
+      "html": "<button class=\"ds-go ds-next\">下一頁 <svg viewBox=\"0 0 24 24\"><path d=\"M9 5l7 7-7 7\"/></svg></button>",
+      "css": ".ds-go{font-family:ZhuyinKai,BiauKai,DFKai-SB,'Kaiti TC',serif;border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.35em;min-width:200px;min-height:72px;font-size:28px;padding:0 1em;border-radius:14px;transition:transform .25s cubic-bezier(.16,1,.3,1),background-color .25s}.ds-go svg{width:.9em;height:.9em;fill:none;stroke:currentColor;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}.ds-go:active{transform:translateY(3px)}.ds-go:focus-visible{outline:4px solid #1f4468;outline-offset:4px}.ds-next{background:#2e5e8c;color:#fffdf8;box-shadow:0 12px 18px -12px rgba(80,50,10,.45)}.ds-next:hover{background:#2f4577}"
+    },
+    {
+      "name": "上一頁",
+      "kind": "button",
+      "refersTo": "nav-prev",
+      "description": "次要導覽，紙色底加布色內框。",
+      "html": "<button class=\"ds-go ds-prev\"><svg viewBox=\"0 0 24 24\"><path d=\"M15 5l-7 7 7 7\"/></svg> 上一頁</button>",
+      "css": ".ds-go{font-family:ZhuyinKai,BiauKai,DFKai-SB,'Kaiti TC',serif;border:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:.35em;min-width:200px;min-height:72px;font-size:28px;padding:0 1em;border-radius:14px;transition:transform .25s cubic-bezier(.16,1,.3,1),background-color .25s}.ds-go svg{width:.9em;height:.9em;fill:none;stroke:currentColor;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}.ds-go:active{transform:translateY(3px)}.ds-go:focus-visible{outline:4px solid #1f4468;outline-offset:4px}.ds-prev{background:#fffdf8;color:#2e5e8c;box-shadow:0 12px 18px -12px rgba(80,50,10,.45),inset 0 0 0 3px #2e5e8c}"
+    },
+    {
+      "name": "布面按鈕",
+      "kind": "button",
+      "refersTo": "button-cloth",
+      "description": "頁內互動用的按鈕。",
+      "html": "<button class=\"ds-btn\">幫忙點燈籠</button>",
+      "css": ".ds-btn{font-family:ZhuyinKai,BiauKai,DFKai-SB,'Kaiti TC',serif;border:0;cursor:pointer;background:#2e5e8c;color:#fffdf8;font-size:24px;line-height:1.2;padding:.45em 1em;min-height:64px;border-radius:12px;box-shadow:0 8px 14px -8px rgba(80,50,10,.45);transition:transform .25s cubic-bezier(.16,1,.3,1),background-color .25s}.ds-btn:hover{background:#2f4577}.ds-btn:active{transform:translateY(3px);box-shadow:0 2px 6px -3px rgba(80,50,10,.45)}.ds-btn:focus-visible{outline:4px solid #1f4468;outline-offset:4px}"
+    },
+    {
+      "name": "索引籤",
+      "kind": "nav",
+      "refersTo": "index-tab",
+      "description": "書頁右緣伸出的紙籤，三種狀態：還沒讀到、讀過了、目前這頁。",
+      "html": "<div class=\"ds-tabs\"><button class=\"ds-tab ds-passed\">封面</button><button class=\"ds-tab ds-here\">射太陽</button><button class=\"ds-tab\">仙藥</button></div>",
+      "css": ".ds-tabs{display:flex;flex-direction:column;gap:6px;width:150px}.ds-tab{font-family:ZhuyinKai,BiauKai,DFKai-SB,'Kaiti TC',serif;border:0;cursor:pointer;height:56px;padding:0 4px 0 24px;font-size:22px;border-radius:0 12px 12px 0;background:#fffdf8;color:#263042;box-shadow:0 6px 10px -6px rgba(80,50,10,.45),inset -3px 0 0 #ece5d6;transition:transform .5s cubic-bezier(.16,1,.3,1)}.ds-tab:hover:not(.ds-here){transform:translateX(6px)}.ds-passed{background:#2e5e8c;color:#fffdf8;box-shadow:0 6px 10px -6px rgba(80,50,10,.45),inset -3px 0 0 #1f4468}.ds-here{background:#e9573f;color:#fff;transform:translateX(14px);box-shadow:0 8px 12px -6px rgba(80,50,10,.45),inset -4px 0 0 #8e2a22}.ds-tab:focus-visible{outline:4px solid #1f4468;outline-offset:4px}"
+    },
+    {
+      "name": "書櫃分類分頁",
+      "kind": "chip",
+      "refersTo": "shelf-tab",
+      "description": "首頁切換節日故事／台灣故事。",
+      "html": "<div class=\"ds-shelf\"><button class=\"ds-st\" aria-selected=\"true\">節日故事</button><button class=\"ds-st\" aria-selected=\"false\">台灣故事</button></div>",
+      "css": ".ds-shelf{display:flex;gap:16px;padding:16px;background:#f2c14e}.ds-st{font-family:ZhuyinKai,BiauKai,DFKai-SB,'Kaiti TC',serif;border:0;cursor:pointer;min-height:64px;padding:0 1.1em;font-size:28px;border-radius:999px;color:#6e4323;background:#fffdf8;box-shadow:0 10px 16px -12px rgba(80,50,10,.45),inset 0 0 0 3px #d39457;transition:transform .3s cubic-bezier(.16,1,.3,1)}.ds-st:hover{transform:translateY(-2px)}.ds-st[aria-selected=true]{color:#fffdf8;background:#8a5228;box-shadow:0 10px 16px -12px rgba(80,50,10,.45),inset 0 -4px 0 rgba(0,0,0,.25)}.ds-st:focus-visible{outline:4px solid #1f4468;outline-offset:6px}"
+    },
+    {
+      "name": "封面朝外的繪本",
+      "kind": "card",
+      "refersTo": "",
+      "description": "首頁書櫃上的布面精裝書，滑過時微微抬起。",
+      "html": "<a class=\"ds-book\" href=\"#\"><div class=\"ds-board\"><div class=\"ds-label\"><div class=\"ds-ttl\">中秋節<span>嫦娥奔月</span></div></div></div></a>",
+      "css": ".ds-book{display:block;width:180px;aspect-ratio:3/4;font-family:ZhuyinKai,BiauKai,DFKai-SB,'Kaiti TC',serif;color:#263042;text-decoration:none;transform-origin:bottom center;transition:transform .45s cubic-bezier(.16,1,.3,1);filter:drop-shadow(0 10px 10px rgba(20,10,0,.45))}.ds-book:hover{transform:translateY(-8px) rotate(-1.5deg)}.ds-book:focus-visible{outline:4px solid #1f4468;outline-offset:6px}.ds-board{height:100%;border-radius:3px 8px 8px 3px;padding:13px 13px 13px 20px;background:repeating-linear-gradient(0deg,rgba(255,255,255,.05) 0 1px,transparent 1px 3px),repeating-linear-gradient(90deg,rgba(0,0,0,.07) 0 1px,transparent 1px 3px),#24365e;box-shadow:inset 0 0 14px rgba(10,30,55,.45)}.ds-label{height:100%;border-radius:4px;background:#fffdf8;box-shadow:0 0 0 2px #e3a92f;padding:12px 8px}.ds-ttl{font-size:30px;line-height:1.1;text-align:center}.ds-ttl span{display:block;font-size:.62em;color:#24365e;margin-top:.15em}"
+    },
+    {
+      "name": "故事書頁",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "米白紙頁上的標題、內文與對話，一頁 2～3 句。",
+      "html": "<div class=\"ds-pg\"><h2>后羿射太陽</h2><p>天上有十個太陽，<span class=\"ds-say\">好熱啊！</span></p><div class=\"ds-folio\">3</div></div>",
+      "css": ".ds-pg{position:relative;font-family:ZhuyinKai,BiauKai,DFKai-SB,'Kaiti TC',serif;background:#fffdf8;color:#263042;padding:32px 36px 48px;border-radius:3px;box-shadow:0 2px 0 #ece5d6,0 4px 0 #fff,0 5px 0 #ece5d6,0 7px 0 #fff,0 8px 0 #d8cfbc}.ds-pg h2{margin:0 0 12px;font-weight:400;font-size:40px;line-height:1.25;letter-spacing:.02em}.ds-pg p{margin:0;font-size:28px;line-height:1.6}.ds-say{color:#2e5e8c}.ds-folio{position:absolute;bottom:12px;left:0;right:0;text-align:center;font-size:16px;color:#55607a}"
+    }
+  ],
+  "narrative": {
+    "northStar": "床邊的精裝繪本",
+    "overview": "整套書要像一本放在床邊、會輕輕動的精裝繪本。螢幕上看到的是一個實體物件：布面書衣包著一疊米白紙頁，中間有書溝的陰影，右邊有索引籤，翻頁時紙張會真的轉過去。數位的部分只做兩件事：讓翻書更順手，讓畫面裡的東西被點到時輕輕回應。介面盡量退到後面，故事和插畫才是主角。\n\n質感來自克制。每本書只有一個布面主色加上一個蝴蝶頁底色，其餘都是紙色和墨藍字。字體全書只用注音楷體，靠字級和顏色分層次。動作慢而柔，收尾用長緩出曲線。小朋友看到的是溫暖、熟悉、像課本又比課本好看的書，沒有遊戲介面那種催促感。\n\n同一份頁面要在兩種距離下成立：教室投影時，最後一排也讀得到；平板上，小手也點得準。所以字級和觸控目標都用 `vmin` 和 `clamp()` 跟著螢幕縮放，直向螢幕改成單頁，圖在上、字在下。",
+    "keyCharacteristics": [
+      "實體書的隱喻：布面書衣、紙頁疊層、書溝、索引籤、3D 翻頁。",
+      "每本書一套「布色＋蝴蝶頁色＋強調色」，其他設計語言全系列共用。",
+      "全書注音楷體，不混用第二套字體。",
+      "互動只用來發現、推動劇情，從不評分、從不懲罰。",
+      "動作柔和緩慢，完整支援 `prefers-reduced-motion`。"
+    ],
+    "rules": [
+      {
+        "name": "The One Cloth Rule",
+        "body": "一本書只有一個布色當主角，所有「可以按」和「書的身分」都用這個顏色。換一本書，換掉的就是這組顏色，版面語言不變。",
+        "section": "colors"
+      },
+      {
+        "name": "The Paper-Not-White Rule",
+        "body": "紙一律用米白（page），字一律用墨藍（ink）。純白只出現在插圖相框內圈和紙頁疊層的亮線。",
+        "section": "colors"
+      },
+      {
+        "name": "The Quiet Saturation Rule",
+        "body": "節慶色要降一點彩度，不用螢光色、彩虹配色，也不用大面積的高飽和紅。",
+        "section": "colors"
+      },
+      {
+        "name": "The One Typeface Rule",
+        "body": "不加圓體、黑體或卡通字型。層次只靠字級和顏色。",
+        "section": "typography"
+      },
+      {
+        "name": "The Unbroken Phrase Rule",
+        "body": "詞語不能被拆在兩行，必要時用 `.w`（nowrap）包住。破音字一律在來源用「字[注音]」標記。",
+        "section": "typography"
+      },
+      {
+        "name": "The Physical Object Rule",
+        "body": "每個陰影都要說得出它對應實體書的哪個部分。說不出來，就不要加。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** 每本新書只換「布色＋蝴蝶頁色＋標記色＋蝴蝶頁圖紋」，翻頁、索引籤、導覽鈕、字體都沿用。",
+      "**Do** 字級和觸控目標都用 `clamp()` 加 `vmin`，觸控目標最小 56px，主要導覽 66px 以上。",
+      "**Do** 動作用 `--ease`（cubic-bezier(0.16, 1, 0.3, 1)），時間 0.25～1 秒；所有動畫都要被 `prefers-reduced-motion` 關掉。",
+      "**Do** 一頁最多 2～3 句。插圖面積比文字大。",
+      "**Do** 互動要給劇情回饋：點了角色會動、東西會出現。完成整頁才出現祝福語或撒花。",
+      "**Do** 預留朗讀語音的位置：每頁文字是完整句子，翻頁和互動不能只靠讀懂文字才能完成。",
+      "**Do** 插畫角色用圓潤幾何造形，臉部簡單（點點眼、小腮紅），以色塊分形狀。"
+    ],
+    "donts": [
+      "**Don't** 出現計分、倒數、星星評等、紅色叉叉，或任何「答錯了」的回饋。",
+      "**Don't** 加日曆、由來說明、問答這類教學頁。",
+      "**Don't** 用純黑字、純白紙、螢光色或彩虹配色。",
+      "**Don't** 混用第二套字體，也不要用粗體做強調。",
+      "**Don't** 用彈跳過頭、閃爍、快速循環的動畫。持續的動畫只能是很慢的飄、閃（1.2 秒以上，來回交替）。",
+      "**Don't** 加裝飾用的亮片、星星邊框、花紋框線，畫面要留白。",
+      "**Don't** 畫大眼萌系角色。"
+    ]
+  }
+}
