@@ -26,6 +26,12 @@ PAGES = [
     (ROOT / "src" / "端午節.src.html", ROOT / "端午節" / "index.html"),
     (ROOT / "src" / "七夕.src.html", ROOT / "七夕" / "index.html"),
     (ROOT / "src" / "中秋節.src.html", ROOT / "中秋節" / "index.html"),
+    (ROOT / "src" / "半屏山.src.html", ROOT / "半屏山" / "index.html"),
+    (ROOT / "src" / "鶯歌石.src.html", ROOT / "鶯歌石" / "index.html"),
+    (ROOT / "src" / "日月潭.src.html", ROOT / "日月潭" / "index.html"),
+    (ROOT / "src" / "媽祖.src.html", ROOT / "媽祖" / "index.html"),
+    (ROOT / "src" / "土地公.src.html", ROOT / "土地公" / "index.html"),
+    (ROOT / "src" / "灶神.src.html", ROOT / "灶神" / "index.html"),
 ]
 FONT = ROOT / "fonts" / "BpmfZihiKaiStd-Regular.ttf"
 TABLE = ROOT / "fonts" / "phonic_table.txt"

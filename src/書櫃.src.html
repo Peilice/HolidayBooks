@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>節日繪本</title>
+<title>故事繪本</title>
 <style>
 @font-face {
   font-family: "ZhuyinKai";
@@ -74,7 +74,7 @@ body {
 /* ---------- 書櫃 ---------- */
 .case {
   flex: 0 0 auto; /* 層數與每層高度由下方 layout() 依螢幕和書的數量算出 */
-  width: min(100%, 1180px);
+  width: min(100%, 1500px);
   display: grid;
   gap: clamp(14px, 2.2vmin, 24px);
   padding: clamp(14px, 2.2vmin, 24px);
@@ -99,6 +99,21 @@ body {
     var(--wood-back);
   box-shadow: inset 6px 0 10px -6px rgba(20, 10, 0, .6), inset -6px 0 10px -6px rgba(20, 10, 0, .6);
 }
+/* 分類分頁：書櫃上方兩個大按鈕，一次只擺一類的書 */
+.shelf-tabs { flex: 0 0 auto; display: flex; flex-wrap: wrap; justify-content: center; gap: var(--step); }
+.shelf-tab {
+  appearance: none; border: 0; cursor: pointer;
+  min-height: clamp(56px, 8.4vmin, 80px); padding: 0 1.1em;
+  font: inherit; font-size: clamp(24px, 4vmin, 40px); line-height: 1.2;
+  color: var(--wood-back); background: var(--page);
+  border-radius: 999px;
+  box-shadow: 0 10px 16px -12px var(--shadow), inset 0 0 0 3px var(--wood-light);
+  transition: transform .3s var(--ease), background-color .3s, color .3s;
+}
+.shelf-tab:hover { transform: translateY(-2px); }
+.shelf-tab:active { transform: translateY(2px); }
+.shelf-tab[aria-selected="true"] { color: var(--page); background: var(--wood-deep); box-shadow: 0 10px 16px -12px var(--shadow), inset 0 -4px 0 rgba(0, 0, 0, .25); }
+.book[hidden] { display: none; }
 /* 層板 */
 .shelf::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 7cqh; min-height: 12px;
@@ -190,7 +205,7 @@ body {
 <body>
 
 <div class="room">
-  <h1><span class="w">節日</span><span class="w">繪本</span></h1>
+  <h1><span class="w">故事</span><span class="w">繪本</span></h1>
 
   <!--
     書單：照順序排上書架，層數、每層幾本、裝飾書背都會自動安排。
@@ -200,9 +215,11 @@ body {
       --cover       封面布的顏色；--accent 內頁框線的顏色（可省略）
       .ttl / .sub   封面主標題、副標題（多音字照樣用「字[注音]」標記）
       img src       封面插圖（放在該節日的資料夾裡）
+      data-group    分類（節日故事／台灣故事），書櫃上方會出現同名的分頁按鈕，一次只擺一類
   -->
+  <nav class="shelf-tabs" role="tablist" aria-label="故事分類"></nav>
   <main class="case">
-    <a class="book" href="春節/index.html" aria-label="打開春節繪本：年獸來了[˙ㄌㄜ]" style="--cover:#a52a24; --accent:#e9a23b">
+    <a class="book" data-group="節日故事" href="春節/index.html" aria-label="打開春節繪本：年獸來了[˙ㄌㄜ]" style="--cover:#a52a24; --accent:#e9a23b">
       <span class="board">
         <span class="label">
           <span class="ttl"><span class="w">春節</span><span class="sub"><span class="w">年獸</span><span class="w">來了[˙ㄌㄜ]</span></span></span>
@@ -210,7 +227,7 @@ body {
         </span>
       </span>
     </a>
-    <a class="book" href="元宵節/index.html" aria-label="打開元宵節繪本：天上的燈籠" style="--cover:#2b3a67; --accent:#e8743b">
+    <a class="book" data-group="節日故事" href="元宵節/index.html" aria-label="打開元宵節繪本：天上的燈籠" style="--cover:#2b3a67; --accent:#e8743b">
       <span class="board">
         <span class="label">
           <span class="ttl"><span class="w">元宵節</span><span class="sub"><span class="w">天上的</span><span class="w">燈籠</span></span></span>
@@ -218,7 +235,7 @@ body {
         </span>
       </span>
     </a>
-    <a class="book" href="端午節/index.html" aria-label="打開端午節繪本：屈原與粽子[˙ㄗ]" style="--cover:#3d7a35; --accent:#3f8f9e">
+    <a class="book" data-group="節日故事" href="端午節/index.html" aria-label="打開端午節繪本：屈原與粽子[˙ㄗ]" style="--cover:#3d7a35; --accent:#3f8f9e">
       <span class="board">
         <span class="label">
           <span class="ttl"><span class="w">端午節</span><span class="sub"><span class="w">屈原</span>與<span class="w">粽子[˙ㄗ]</span></span></span>
@@ -226,7 +243,7 @@ body {
         </span>
       </span>
     </a>
-    <a class="book" href="七夕/index.html" aria-label="打開七夕繪本：牛郎織女" style="--cover:#5b4a8a; --accent:#d9667a">
+    <a class="book" data-group="節日故事" href="七夕/index.html" aria-label="打開七夕繪本：牛郎織女" style="--cover:#5b4a8a; --accent:#d9667a">
       <span class="board">
         <span class="label">
           <span class="ttl"><span class="w">七夕</span><span class="sub"><span class="w">牛郎</span><span class="w">織女</span></span></span>
@@ -234,7 +251,7 @@ body {
         </span>
       </span>
     </a>
-    <a class="book" href="中秋節/index.html" aria-label="打開中秋節繪本：嫦娥奔月" style="--cover:#24365e; --accent:#e3a92f">
+    <a class="book" data-group="節日故事" href="中秋節/index.html" aria-label="打開中秋節繪本：嫦娥奔月" style="--cover:#24365e; --accent:#e3a92f">
       <span class="board">
         <span class="label">
           <span class="ttl"><span class="w">中秋節</span><span class="sub"><span class="w">嫦娥</span><span class="w">奔月</span></span></span>
@@ -242,7 +259,7 @@ body {
         </span>
       </span>
     </a>
-    <a class="book" href="重陽節/index.html" aria-label="打開重[ㄔㄨㄥˊ]陽節繪本：桓景登[ㄉㄥ]高" style="--cover:#2e5e8c; --accent:#f2c14e">
+    <a class="book" data-group="節日故事" href="重陽節/index.html" aria-label="打開重[ㄔㄨㄥˊ]陽節繪本：桓景登[ㄉㄥ]高" style="--cover:#2e5e8c; --accent:#f2c14e">
       <span class="board">
         <span class="label">
           <span class="ttl"><span class="w">重[ㄔㄨㄥˊ]陽節</span><span class="sub"><span class="w">桓景登[ㄉㄥ]高</span></span></span>
@@ -250,11 +267,59 @@ body {
         </span>
       </span>
     </a>
-    <a class="book" href="聖誕節/index.html" aria-label="打開聖誕節繪本：聖誕老公公的秘密" style="--cover:#2f6b4f; --accent:#d94b3d">
+    <a class="book" data-group="節日故事" href="聖誕節/index.html" aria-label="打開聖誕節繪本：聖誕老公公的秘密" style="--cover:#2f6b4f; --accent:#d94b3d">
       <span class="board">
         <span class="label">
           <span class="ttl"><span class="w">聖誕節</span><span class="sub"><span class="w">聖誕老公公</span>的<span class="w">秘密</span></span></span>
           <img src="聖誕節/聖誕樹.svg" alt="" draggable="false">
+        </span>
+      </span>
+    </a>
+    <a class="book" data-group="台灣故事" href="半屏山/index.html" aria-label="打開半屏山繪本：半屏山的湯圓" style="--cover:#4f7a3a; --accent:#f0c987">
+      <span class="board">
+        <span class="label">
+          <span class="ttl"><span class="w">半屏山</span><span class="sub"><span class="w">半屏山</span>的<span class="w">湯圓</span></span></span>
+          <img src="半屏山/湯圓.svg" alt="" draggable="false">
+        </span>
+      </span>
+    </a>
+    <a class="book" data-group="台灣故事" href="鶯歌石/index.html" aria-label="打開鶯歌石繪本：鶯歌石的傳說" style="--cover:#3f6b8a; --accent:#9cc5a1">
+      <span class="board">
+        <span class="label">
+          <span class="ttl"><span class="w">鶯歌石</span><span class="sub"><span class="w">新北</span>的<span class="w">傳說</span></span></span>
+          <img src="鶯歌石/鶯歌石.svg" alt="" draggable="false">
+        </span>
+      </span>
+    </a>
+    <a class="book" data-group="台灣故事" href="日月潭/index.html" aria-label="打開日月潭繪本：追白鹿" style="--cover:#2f6f6a; --accent:#7fb8c9">
+      <span class="board">
+        <span class="label">
+          <span class="ttl"><span class="w">日月潭</span><span class="sub"><span class="w">追</span><span class="w">白鹿</span></span></span>
+          <img src="日月潭/白鹿.svg" alt="" draggable="false">
+        </span>
+      </span>
+    </a>
+    <a class="book" data-group="台灣故事" href="媽祖/index.html" aria-label="打開媽祖繪本：林默娘" style="--cover:#b8402c; --accent:#e9c46a">
+      <span class="board">
+        <span class="label">
+          <span class="ttl"><span class="w">媽祖</span><span class="sub"><span class="w">林默娘</span></span></span>
+          <img src="媽祖/媽祖.svg" alt="" draggable="false">
+        </span>
+      </span>
+    </a>
+    <a class="book" data-group="台灣故事" href="土地公/index.html" aria-label="打開土地公繪本：好心的張福德" style="--cover:#7a5a3a; --accent:#a9c97a">
+      <span class="board">
+        <span class="label">
+          <span class="ttl"><span class="w">土地公</span><span class="sub"><span class="w">好心的</span><span class="w">張福德</span></span></span>
+          <img src="土地公/小廟.svg" alt="" draggable="false">
+        </span>
+      </span>
+    </a>
+    <a class="book" data-group="台灣故事" href="灶神/index.html" aria-label="打開灶神繪本：灶神上天" style="--cover:#8a3a2a; --accent:#f2c14e">
+      <span class="board">
+        <span class="label">
+          <span class="ttl"><span class="w">灶神</span><span class="sub"><span class="w">灶神</span><span class="w">上天</span></span></span>
+          <img src="灶神/灶.svg" alt="" draggable="false">
         </span>
       </span>
     </a>
@@ -281,9 +346,18 @@ body {
   "use strict";
   var room = document.querySelector(".room");
   var title = room.querySelector("h1");
+  var tabBar = room.querySelector(".shelf-tabs");
   var shelfCase = document.querySelector(".case");
   var books = Array.prototype.slice.call(shelfCase.querySelectorAll(".book"));
   var potTpl = document.getElementById("pot");
+  /* 依 data-group 分類，保持書單裡的順序 */
+  var groups = [];
+  books.forEach(function (b) {
+    var name = b.getAttribute("data-group") || "";
+    var g = groups.filter(function (x) { return x.name === name; })[0];
+    if (!g) { g = { name: name, books: [] }; groups.push(g); }
+    g.books.push(b);
+  });
 
   /* ---- 自動排書架 ----
      以下比例都是「層高的幾分之幾」，對應 CSS 的 cqh：
@@ -318,22 +392,30 @@ body {
     var W = shelfCase.clientWidth - num(cs.paddingLeft) - num(cs.paddingRight);
     var H = room.clientHeight - num(rs.paddingTop) - num(rs.paddingBottom) - title.offsetHeight - num(rs.rowGap)
       - num(cs.paddingTop) - num(cs.paddingBottom);
-    var n = books.length, rows = [], heights = [], r, h, i;
+    H -= tabBar.offsetHeight + num(rs.rowGap);
+    var list = groups[active].books, n = list.length, rows = [], heights = [], r, h, i;
 
-    var hTop = (H - gap) * HERO;
-    if (n <= fit(hTop, W) && hTop >= MIN_H) {
-      /* 書不多：上層大大的放書，下層擺裝飾 */
-      rows = [books, []];
-      heights = [hTop, H - gap - hTop];
+    var minH = Math.max(MIN_H, H * 0.3);   /* 書不能太小：一層至少約三成畫面高，放不下寧可稍微往下捲 */
+    /* 一層要放 k 本時，層高最多能多高（太高書會塞不下寬度） */
+    function hFor(k) { return W / (PAD + 2 * SPINE + k * BOOK) * 0.99; }
+    /* 每種層數都試一次，挑書最大的排法；只要一層時，上層大大的放書、下層擺裝飾 */
+    var hTop = Math.min((H - gap) * HERO, hFor(n));
+    r = 1; h = hTop;
+    for (i = 2; i <= n; i++) {
+      var hi = Math.min((H - gap * (i - 1)) / i, hFor(Math.ceil(n / i)));
+      if (hi > h) { h = hi; r = i; }
+    }
+    if (h < minH) { h = minH; r = Math.max(2, Math.ceil(n / fit(h, W))); }
+    if (r === 1) {
+      rows = [list, []];
+      heights = [h, Math.max(MIN_H * .6, H - gap - h)];
     } else {
-      /* 書多：一層一層加，直到放得下；太矮就固定最矮高度、往下捲 */
-      for (r = 2; ; r++) {
-        h = (H - gap * (r - 1)) / r;
-        if (h < MIN_H) { h = MIN_H; r = Math.max(2, Math.ceil(n / fit(h, W))); break; }
-        if (r * fit(h, W) >= n) break;
+      /* 平均分到各層，例如 7 本分兩層是 4、3 */
+      for (var at = 0, i = 0; i < r; i++) {
+        var take = Math.ceil((n - at) / (r - i));
+        rows.push(list.slice(at, at + take)); heights.push(h);
+        at += take;
       }
-      var per = Math.ceil(n / r);
-      for (i = 0; i < r; i++) { rows.push(books.slice(i * per, (i + 1) * per)); heights.push(h); }
     }
 
     shelfCase.textContent = "";
@@ -356,13 +438,36 @@ body {
     });
   }
 
+  /* ---- 分類分頁：記住上次看的分類，從繪本回來時還在同一類 ---- */
+  var KEY = "holidaybooks-tab", active = 0;
+  try { var saved = sessionStorage.getItem(KEY); groups.forEach(function (g, k) { if (g.name === saved) active = k; }); } catch (e) {}
+  var tabs = groups.map(function (g, k) {
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "shelf-tab";
+    b.setAttribute("role", "tab");
+    b.textContent = g.name;
+    b.addEventListener("click", function () { choose(k); });
+    tabBar.appendChild(b);
+    return b;
+  });
+  if (groups.length < 2) tabBar.hidden = true;
+  function choose(k) {
+    active = k;
+    tabs.forEach(function (t, j) { t.setAttribute("aria-selected", j === k ? "true" : "false"); });
+    books.forEach(function (b) { b.hidden = groups[k].books.indexOf(b) < 0; });
+    try { sessionStorage.setItem(KEY, groups[k].name); } catch (e) {}
+    room.scrollTop = 0;
+    layout();
+  }
+
   var queued = false;
   function relayout() {
     if (queued) return;
     queued = true;
     requestAnimationFrame(function () { queued = false; layout(); });
   }
-  layout();
+  choose(active);
   window.addEventListener("resize", relayout);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(relayout); /* 字型載入後標題高度會變 */
 
