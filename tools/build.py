@@ -84,6 +84,9 @@ def build(SRC, OUT, readings):
         idx = opts.index(zy)
         return ch if idx == 0 else ch + chr(0xE01E0 + idx)
 
+    # 屬性值（aria-label 等）給螢幕閱讀器念，不插入 IVS 選擇子，只拿掉讀音標記
+    src = re.sub(r'\b(aria-label|alt|title)="([^"]*)"',
+                 lambda m: f'{m.group(1)}="{re.sub(r"\[[ㄅ-ㄩˊˇˋ˙]+\]", "", m.group(2))}"', src)
     html = re.sub(r"(.)\[([ㄅ-ㄩˊˇˋ˙]+)\]", mark, src)
     if errors:
         sys.exit("\n".join(errors))

@@ -224,8 +224,6 @@ button { font: inherit; color: inherit; }
 .s-cover .pic { padding: 0; }
 .s-cover .pic img { width: 92%; height: 92%; object-fit: contain; -webkit-user-drag: none; }
 .s-cover .text { justify-content: center; }
-.s-cover h1 { font-size: clamp(48px, min(12vmin, 21cqi), 140px); line-height: 1.1; }
-.s-cover h1 .sub { display: block; font-size: .6em; color: var(--cloth); }
 
 /* ---------- 插圖 ---------- */
 .defs { position: absolute; width: 0; height: 0; overflow: hidden; }
@@ -286,7 +284,7 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
 [data-act].on[data-once] { pointer-events: none; }
 
 /* 完成後出現的祝福語 */
-.cheer { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.6); transition: opacity .4s .3s, transform .7s cubic-bezier(.34, 1.56, .64, 1) .3s; }
+.cheer { opacity: 0; transform-box: fill-box; transform-origin: center; transform: translateY(6px); transition: opacity 1.4s var(--ease) 1.2s, transform 1.4s var(--ease) 1.2s; }
 .done .cheer { opacity: 1; transform: none; }
 
 /* 撒花 */
@@ -301,23 +299,32 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
 @keyframes fall { to { transform: translate(var(--sway, 20px), var(--fall, 600px)) rotate(400deg); } }
 
 .hotsun { transform-box: fill-box; transform-origin: center; }
-.s-suns.done .hotsun { animation: pulse .8s ease-in-out infinite alternate; }
-@keyframes pulse { to { transform: scale(1.15); } }
+.s-suns.done .hotsun { animation: pulse 2.4s ease-in-out infinite alternate; }
+@keyframes pulse { to { transform: scale(1.05); } }
 .heat { opacity: 0; transition: opacity .6s; }
-.s-suns.done .heat { opacity: 1; animation: drift 1.2s ease-in-out infinite alternate; }
+.s-suns.done .heat { opacity: 1; animation: drift 2.4s ease-in-out infinite alternate; }
 .sun9 .fall { transform-box: fill-box; transform-origin: center; transition: transform .9s cubic-bezier(.5, 0, .7, .4), opacity .9s; }
 .sun9.on .fall { transform: translateY(160px) scale(.4); opacity: 0; }
 .s-shoot .sky5 { fill: #f6b26b; transition: fill 1.2s .4s; }
 .s-shoot.done .sky5 { fill: #bfe3f5; }
-.arrow { opacity: 0; }
-.sun9.on ~ .arrow { opacity: 0; }
 .lid { transform-box: fill-box; transform-origin: 0 100%; transition: transform .7s var(--ease); }
 .s-pill.done .lid { transform: rotate(-70deg); }
-.pill { opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity .5s .4s, transform .8s cubic-bezier(.34, 1.56, .64, 1) .4s; transform: scale(.4); }
+.pill { opacity: 0; transform-box: fill-box; transform-origin: center; transition: opacity .5s .4s, transform .8s var(--ease) .4s; transform: scale(.4); }
 .s-pill.done .pill { opacity: 1; transform: none; }
 .s-fly .bad { --smile: 0; --frown: 1; }
 .moonglow { opacity: .25; transition: opacity .8s; }
 .done .moonglow { opacity: .55; }
+/* 太陽表情：--ss 0 是哭臉、1 是笑臉；射完九個後，留下的太陽笑了 */
+@property --ss { syntax: "<number>"; inherits: true; initial-value: 0; }
+.keeper { --ss: 0; transition: --ss .8s var(--ease) 1s; }
+.s-shoot.done .keeper { --ss: 1; }
+/* 尾頁：月光慢慢亮起來，玉兔在月亮上輕輕飄 */
+.s-moon .moonglow { transition: opacity 2.4s var(--ease); }
+.s-moon.done .moonglow { opacity: .7; }
+.halo { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.8); transition: opacity 2.4s var(--ease) .2s, transform 2.4s var(--ease) .2s; }
+.s-moon.done .halo { opacity: .22; transform: none; }
+.drift { transform-box: fill-box; animation: float 2.4s ease-in-out infinite alternate; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 
 /* ---------- 直向平板：單頁，圖在上、字在下 ---------- */
 @media (max-aspect-ratio: 1/1) {
@@ -416,7 +423,7 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
       <g stroke="#e9573f" stroke-width="3.5" stroke-linecap="round"><path d="M18.0 0.0 L26.0 0.0"/><path d="M12.7 12.7 L18.4 18.4"/><path d="M0.0 18.0 L0.0 26.0"/><path d="M-12.7 12.7 L-18.4 18.4"/><path d="M-18.0 0.0 L-26.0 0.0"/><path d="M-12.7 -12.7 L-18.4 -18.4"/><path d="M-0.0 -18.0 L-0.0 -26.0"/><path d="M12.7 -12.7 L18.4 -18.4"/></g>
       <circle r="14" fill="#ffb627" stroke="#e9573f" stroke-width="2.5"/>
       <circle cx="-5" cy="-3" r="1.8" fill="#263042"/><circle cx="5" cy="-3" r="1.8" fill="#263042"/>
-      <path d="M-4 5 Q0 2 4 5" stroke="#263042" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+      <path d="M-4 5 Q0 2 4 5" stroke="#263042" stroke-width="1.8" fill="none" stroke-linecap="round" style="opacity: calc(1 - var(--ss, 0))"/><path d="M-4 3 Q0 7 4 3" stroke="#263042" stroke-width="1.8" fill="none" stroke-linecap="round" style="opacity: var(--ss, 0)"/>
     </symbol>
     <symbol id="houyi" overflow="visible">
       <use href="#folk" style="--robe:#b8402c;--sash:#3d4a5a;--smile:var(--hs,1);--frown:var(--hf,0)"/>
@@ -456,8 +463,9 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
 <div class="app">
   <div class="book">
     <nav class="tabs" aria-label="索引籤，點一下可以直接翻到那一頁"></nav>
+    <p class="sr" aria-live="polite" data-say></p>
 
-    <main class="cover" aria-live="polite">
+    <main class="cover">
       <div class="pages">
 
         <section class="spread s-cover on" data-name="封面" aria-label="封面">
@@ -501,7 +509,7 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
           <div class="pg text">
             <h2><span class="w">十個</span><span class="w">太陽</span></h2>
             <p><span class="w">很久很久</span><span class="w">以前，天上</span>有<span class="w">十個</span><span class="w">太陽。</span></p>
-            <p class="after"><span class="w">大地</span><span class="w">好熱</span><span class="w">好熱，河水</span>都[ㄉㄡ]<span class="w">乾了[˙ㄌㄜ]，花草</span>也<span class="w">枯了[˙ㄌㄜ]。</span></p>
+            <p><span class="w">大地</span><span class="w">好熱</span><span class="w">好熱，河水</span>都[ㄉㄡ]<span class="w">乾了[˙ㄌㄜ]，花草</span>也<span class="w">枯了[˙ㄌㄜ]。</span></p>
             <span class="folio">3</span>
           </div>
         </section>
@@ -510,7 +518,7 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
             <div class="art">
               <svg viewBox="0 0 400 300" role="group" aria-label="后羿拉開大弓，射下九個太陽">
                 <rect class="sky5" width="400" height="300"/>
-                <use href="#sun" transform="translate(340 40) scale(1.2)"/>
+                <use class="keeper" href="#sun" transform="translate(340 40) scale(1.2)"/>
                 <g class="sun9 req" data-act="tap" role="button" tabindex="0" aria-label="射下第1個太陽" data-once><g class="fall"><use href="#sun" transform="translate(40 40) scale(1)"/><circle cx="40" cy="40" r="24" fill="transparent"/></g></g><g class="sun9 req" data-act="tap" role="button" tabindex="0" aria-label="射下第2個太陽" data-once><g class="fall"><use href="#sun" transform="translate(90 76) scale(1)"/><circle cx="90" cy="76" r="24" fill="transparent"/></g></g><g class="sun9 req" data-act="tap" role="button" tabindex="0" aria-label="射下第3個太陽" data-once><g class="fall"><use href="#sun" transform="translate(140 34) scale(1)"/><circle cx="140" cy="34" r="24" fill="transparent"/></g></g><g class="sun9 req" data-act="tap" role="button" tabindex="0" aria-label="射下第4個太陽" data-once><g class="fall"><use href="#sun" transform="translate(190 66) scale(1)"/><circle cx="190" cy="66" r="24" fill="transparent"/></g></g><g class="sun9 req" data-act="tap" role="button" tabindex="0" aria-label="射下第5個太陽" data-once><g class="fall"><use href="#sun" transform="translate(240 30) scale(1)"/><circle cx="240" cy="30" r="24" fill="transparent"/></g></g><g class="sun9 req" data-act="tap" role="button" tabindex="0" aria-label="射下第6個太陽" data-once><g class="fall"><use href="#sun" transform="translate(290 70) scale(1)"/><circle cx="290" cy="70" r="24" fill="transparent"/></g></g><g class="sun9 req" data-act="tap" role="button" tabindex="0" aria-label="射下第7個太陽" data-once><g class="fall"><use href="#sun" transform="translate(110 120) scale(1)"/><circle cx="110" cy="120" r="24" fill="transparent"/></g></g><g class="sun9 req" data-act="tap" role="button" tabindex="0" aria-label="射下第8個太陽" data-once><g class="fall"><use href="#sun" transform="translate(300 120) scale(1)"/><circle cx="300" cy="120" r="24" fill="transparent"/></g></g><g class="sun9 req" data-act="tap" role="button" tabindex="0" aria-label="射下第9個太陽" data-once><g class="fall"><use href="#sun" transform="translate(380 92) scale(1)"/><circle cx="380" cy="92" r="24" fill="transparent"/></g></g>
                 <path d="M0 210 Q120 170 240 200 T400 196 V300 H0Z" fill="#b5d98a"/>
                 <use href="#houyi" transform="translate(110 276) scale(1.05)"/>
@@ -522,8 +530,8 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
           <div class="pg text">
             <h2><span class="w">后羿</span><span class="w">射太陽</span></h2>
             <p><span class="w">有一個</span><span class="w">力氣</span><span class="w">很大</span>的<span class="w">英雄，名字</span>叫<span class="w">后羿。</span></p>
-            <p>他<span class="w">拉開</span><span class="w">大弓，</span><span class="say"><span class="w">「咻！咻！咻！」</span></span><span class="w">射下</span>了[˙ㄌㄜ]<span class="w">九個</span><span class="w">太陽。</span></p>
-            <p class="after"><span class="w">天氣</span><span class="w">變得[˙ㄉㄜ]</span><span class="w">好涼快，大家</span><span class="w">好開心！</span></p>
+            <p>他<span class="w">拉開</span><span class="w">大弓，</span>要把<span class="w">太陽</span><span class="w">射下來。</span></p>
+            <p class="after"><span class="say"><span class="w">「咻！咻！咻！」</span></span><span class="w">九個</span><span class="w">太陽</span><span class="w">掉下來，天氣</span><span class="w">變得[˙ㄉㄜ]</span><span class="w">好涼快！</span></p>
             <span class="folio">5</span>
           </div>
         </section>
@@ -545,8 +553,8 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
           <div class="pg text">
             <h2><span class="w">一顆</span><span class="w">仙丹</span></h2>
             <p><span class="w">王母娘娘</span><span class="w">送給[ㄍㄟˇ]</span><span class="w">后羿</span><span class="w">一顆</span><span class="w">仙丹。</span></p>
-            <p class="after"><span class="w">吃了[˙ㄌㄜ]</span><span class="w">它，就能</span><span class="w">飛上天，變成</span><span class="w">神仙。</span></p>
-            <p class="after"><span class="w">后羿</span><span class="w">捨不得[˙ㄉㄜ]</span><span class="w">嫦娥，就</span>請<span class="w">嫦娥</span>把<span class="w">仙丹</span><span class="w">收好。</span></p>
+            <p><span class="w">吃了[˙ㄌㄜ]</span><span class="w">它，就能</span><span class="w">飛上天，變成</span><span class="w">神仙。</span></p>
+            <p><span class="w">后羿</span><span class="w">捨不得[˙ㄉㄜ]</span><span class="w">嫦娥，就</span>請<span class="w">嫦娥</span>把<span class="w">仙丹</span><span class="w">收好。</span></p>
             <span class="folio">7</span>
           </div>
         </section>
@@ -570,7 +578,7 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
           <div class="pg text">
             <h2><span class="w">飛上</span><span class="w">月亮</span></h2>
             <p><span class="w">有一天，壞人</span><span class="w">逢[ㄆㄥˊ]蒙</span><span class="w">來搶</span><span class="w">仙丹。</span></p>
-            <p class="after"><span class="w">嫦娥</span><span class="w">一急，就把</span><span class="w">仙丹</span><span class="w">吞了[˙ㄌㄜ]</span><span class="w">下去。</span></p>
+            <p><span class="w">嫦娥</span><span class="w">一急，就把</span><span class="w">仙丹</span><span class="w">吞了[˙ㄌㄜ]</span><span class="w">下去。</span></p>
             <p class="after">她的<span class="w">身體</span><span class="w">變得[˙ㄉㄜ]</span><span class="w">好輕，一直</span><span class="w">飛到</span>了[˙ㄌㄜ]<span class="w">月亮</span><span class="w">上。</span></p>
             <span class="folio">9</span>
           </div>
@@ -581,16 +589,15 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
               <svg viewBox="0 0 400 300" role="group" aria-label="八月十五，后羿擺上水果和點心，看著[˙ㄓㄜ]月亮">
                 <rect width="400" height="300" fill="#1f2d55"/>
                 <g fill="#fff"><circle cx="121" cy="151" r="2"/><circle cx="66" cy="94" r="2"/><circle cx="242" cy="160" r="2"/><circle cx="33" cy="155" r="1.2"/><circle cx="240" cy="66" r="2"/><circle cx="119" cy="49" r="2"/><circle cx="240" cy="138" r="2"/><circle cx="243" cy="101" r="2"/><circle cx="77" cy="59" r="2"/><circle cx="77" cy="133" r="1.6"/><circle cx="379" cy="3" r="2"/><circle cx="397" cy="16" r="1.2"/><circle cx="388" cy="151" r="1.2"/><circle cx="154" cy="199" r="1.2"/><circle cx="137" cy="121" r="2"/><circle cx="368" cy="99" r="2"/><circle cx="218" cy="101" r="2"/><circle cx="295" cy="113" r="1.2"/><circle cx="187" cy="24" r="1.2"/><circle cx="69" cy="126" r="1.2"/><circle cx="132" cy="172" r="1.6"/><circle cx="398" cy="160" r="1.6"/><circle cx="215" cy="129" r="1.6"/><circle cx="293" cy="89" r="2"/><circle cx="299" cy="104" r="2"/><circle cx="118" cy="86" r="2"/></g>
-                <g data-act="rain" role="button" tabindex="0" aria-label="點月亮"><circle class="moonglow" cx="270" cy="90" r="70" fill="#fff3c4"/><circle cx="270" cy="90" r="56" fill="#fff3c4"/><use href="#change" transform="translate(256 118) scale(0.4)"/><g class="hopper" style="animation: hop 1.2s ease-in-out infinite"><use href="#rabbit" transform="translate(290 122) scale(0.7)"/></g><circle cx="270" cy="90" r="60" fill="transparent"/></g>
+                <g data-act="done" role="button" tabindex="0" aria-label="點月亮"><circle class="halo" cx="270" cy="90" r="110" fill="#fff3c4"/><circle class="moonglow" cx="270" cy="90" r="70" fill="#fff3c4"/><circle cx="270" cy="90" r="56" fill="#fff3c4"/><use href="#change" transform="translate(256 118) scale(0.4)"/><g class="drift"><use href="#rabbit" transform="translate(290 122) scale(0.7)"/></g><circle cx="270" cy="90" r="60" fill="transparent"/></g>
                 <path d="M0 236 Q200 222 400 236 V300 H0Z" fill="#4a4060"/>
                 <g stroke="#263042" stroke-width="3" stroke-linejoin="round"><rect x="40" y="226" width="140" height="10" fill="#8a5228"/><path d="M52 236 V280 M168 236 V280" stroke-width="5"/></g>
                 <use href="#cake" transform="translate(70 222) scale(1)"/><use href="#cake" transform="translate(104 222) scale(1)"/>
                 <g stroke="#263042" stroke-width="2"><circle cx="146" cy="214" r="9" fill="#f2a541"/><circle cx="160" cy="216" r="8" fill="#e9573f"/></g>
                 <use href="#houyi" transform="translate(220 286) scale(0.8)"/>
-                <g class="cheer"><rect x="90.0" y="146" width="220" height="42" rx="21" fill="#c8423a" stroke="#fff" stroke-width="3"/><text x="200" y="176" text-anchor="middle" font-size="25" fill="#fff">中秋節快樂！</text></g>
+                <g class="cheer"><text x="130" y="196" text-anchor="middle" font-size="24" fill="#fffdf8">中秋節快樂！</text></g>
               </svg>
             </div>
-            <div class="petals" aria-hidden="true" data-colors="#ffd54a,#fff3c4,#f2b000,#f29bb5"></div>
             <p class="hint"><span class="a">點 月亮！</span><span class="b">中秋節快樂！</span></p>
             <span class="folio">10</span>
           </div>
@@ -631,6 +638,7 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
   var restartBtn = document.querySelector('[data-act="restart"]');
   var leaf = document.querySelector(".leaf");
   var tabsNav = document.querySelector(".tabs");
+  var say = document.querySelector("[data-say]");
 
   /* ---- 索引籤 ---- */
   var tabs = spreads.map(function (sp, i) {
@@ -695,9 +703,14 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
       t.classList.toggle("passed", k < i);
       if (k === i) t.setAttribute("aria-current", "page"); else t.removeAttribute("aria-current");
     });
+    var focused = document.activeElement;
     prevBtn.hidden = i === 0;
     nextBtn.hidden = i === N - 1;
     restartBtn.hidden = i !== N - 1;
+    /* 按鈕藏起來時，焦點不能掉回 body */
+    if (focused === nextBtn && nextBtn.hidden) restartBtn.focus();
+    else if ((focused === restartBtn && restartBtn.hidden) || (focused === prevBtn && prevBtn.hidden)) nextBtn.focus();
+    say.textContent = spreads[i].getAttribute("aria-label");
     nextText.textContent = i === 0 ? "翻開" : "下一頁";
     var from = spreads[current], to = spreads[i];
     if (reduce.matches) { show(i); return; }
@@ -767,6 +780,12 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
     if (el.hasAttribute("data-need") && !st.classList.contains(el.getAttribute("data-need"))) return;
     if (act === "tap") {
       el.classList.add("on");
+      if (el.hasAttribute("data-once")) {
+        /* 點過就消失的東西：拿掉焦點，把焦點交給下一個還沒點的 */
+        var had = document.activeElement === el;
+        el.removeAttribute("tabindex");
+        if (had) { var nx = st.querySelector(".req:not(.on)"); (nx || nextBtn).focus(); }
+      }
       var req = st.querySelectorAll(".req");
       var all = Array.prototype.every.call(req, function (x) { return x.classList.contains("on"); });
       if (el.hasAttribute("data-fin") || (req.length && all)) st.classList.add("done");
@@ -788,6 +807,7 @@ svg [role="button"]:focus-visible, .art > svg:focus-visible { outline: 4px solid
   function reset() {
     spreads.forEach(function (s) { s.classList.remove("done", "lit"); s.removeAttribute("data-step"); });
     document.querySelectorAll("[data-act].on, .bump").forEach(function (x) { x.classList.remove("on", "bump"); });
+    document.querySelectorAll("[data-act][data-once]").forEach(function (x) { x.setAttribute("tabindex", "0"); });
     document.querySelectorAll(".petals").forEach(function (p) { p.textContent = ""; });
     go(0);
   }
